@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		   verticalScrollPolicy="off" horizontalScrollPolicy="off"	
+		   backgroundSize="100%">
+
+	<mx:Text text="{resourceManager.getString('general', 'welcome')}!" />
+</mx:VBox>

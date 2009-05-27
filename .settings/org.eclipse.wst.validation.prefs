@@ -1,0 +1,9 @@
+#Fri Mar 20 22:27:53 BRT 2009
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_BUILD_PREFERENCE=enabledBuildValidatorList
+USER_MANUAL_PREFERENCE=enabledManualValidatorList
+USER_PREFERENCE=overrideGlobalPreferencestruedisableAllValidationfalseversion1.2.6.v200902121900
+eclipse.preferences.version=1
+override=true
+suspend=false
+vf.version=3

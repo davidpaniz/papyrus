@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	borderStyle="solid" borderThickness="0"
+	backgroundColor="#FF6666" horizontalAlign="center"
+	verticalAlign="middle" shadowDirection="right"
+	color="#FFFFFF" fontWeight="bold"
+	horizontalGap="0" height="50" cornerRadius="5" width="150"
+	backgroundAlpha=".5">
+
+	<mx:Script>
+		<![CDATA[
+			import flash.utils.setTimeout;
+			import mx.core.Application;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+
+			private static var loaderCounter:uint = 0;
+			private static var popup:GenericLoader = null;
+
+			[Bindable]
+			private var dots:String = "...";
+
+			public static function show():void
+			{
+				loaderCounter++;
+				if( popup == null )
+				{
+					var app:DisplayObject = DisplayObject( Application.application );
+					popup = PopUpManager.createPopUp( app, GenericLoader, true ) as GenericLoader;
+					PopUpManager.centerPopUp( popup );
+					popup.x = (app.width - popup.width)/2;
+					popup.y = -10;
+
+					dotter();
+				}
+			}
+
+			public static function hide():void
+			{
+				if( loaderCounter > 0 )
+				{
+					loaderCounter--;
+				}
+
+				if( loaderCounter == 0 && popup != null )
+				{
+					PopUpManager.removePopUp( popup );
+					popup = null;
+				}
+			}
+
+			private static var dotCount:int = 3;
+			private static function dotter():void
+			{
+				if( loaderCounter > 0 && popup != null )
+				{
+					popup.dots = "";
+					for( var i:int = 0; i < dotCount; i++ )
+						popup.dots += ".";
+
+					if( dotCount++ >= 3 )
+						dotCount = 1;
+
+					setTimeout( dotter, 250 );
+				}
+				else // resets
+					dotCount = 3;
+			}
+
+		]]>
+	</mx:Script>
+
+	<mx:Label text="Carregando"/>
+	<mx:Label text="{dots}" width="10" paddingLeft="-5"/>
+
+</mx:HBox>

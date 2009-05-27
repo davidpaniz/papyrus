@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NotificationBase xmlns="org.papyrus.components.notification.*"
+				  xmlns:mx="http://www.adobe.com/2006/mxml"
+				  styleName="notificationAsk"
+				  modal="true">
+
+	<mx:Script>
+		<![CDATA[
+			public var confirmHandler:Function;
+
+			private function confirm():void
+			{
+				confirmHandler();
+				close();
+			}
+		]]>
+	</mx:Script>
+
+	<mx:HBox width="100%">
+		<mx:Image source="{NotificationBase.ICON_ERROR}"/>
+		
+		<mx:Text text="{text}"
+			selectable="false" color="0xFFFFFF"
+			verticalCenter="0"
+			width="100%"/>		
+	</mx:HBox>	
+	
+	<mx:Spacer height="100%"/>
+		
+	<mx:HBox width="100%" horizontalAlign="right">
+		<mx:Button label="Ok" click="confirm()"/>
+	</mx:HBox>
+
+</NotificationBase>

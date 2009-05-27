@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NotificationBase xmlns="org.papyrus.components.notification.*"
+				  xmlns:mx="http://www.adobe.com/2006/mxml"
+				  toolTip="Clique para fechar"
+				  useHandCursor="true"
+				  mouseChildren="false"
+				  buttonMode="true"
+				  backgroundColor="0x000000"
+				  click="close()">
+	
+	<mx:HBox width="100%">
+		<mx:Image source="{image}"/>
+		
+		<mx:Text width="100%" text="{text}" fontWeight="bold" fontStyle="12" color="0xFFFFFF"
+				 selectable="false"/>
+	</mx:HBox>
+
+</NotificationBase>

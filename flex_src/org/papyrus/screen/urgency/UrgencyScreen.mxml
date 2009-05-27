@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"  show="getList()">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.services.Service;
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.services.UrgencyService;
+			import org.papyrus.model.Urgency;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			[Bindable]
+			private var listUrgencys:ArrayCollection;
+			private var urgency:Urgency;
+			
+			public function save():void
+			{
+				this.urgency = new Urgency();
+				this.urgency.id   = new Number(txtId.text);
+				this.urgency.description   = txtDs.text;
+				//Chama o metodo Save do servico "urgencyService"
+				new UrgencyService().saveUrgency(urgency, onResultSave);
+			}
+			//Função que será executada após a conclusão do método save
+			public function onResultSave(urgency:Urgency):void
+			{
+				NotificatorManager.warn("Salvo com Sucesso!");
+				getList();
+			}
+			public function remove():void
+			{
+				if (dg.selectedItem != null) {
+					urgency = dg.selectedItem as Urgency;
+					new UrgencyService().deleteUrgency(urgency, onResultRemove);
+				} else {
+					Alert.show("Selecione um Item no DataGrid");
+				}
+			}
+			//Função que será executada após a conclusão do método remove
+			public function onResultRemove(urgency:Urgency):void
+			{
+				NotificatorManager.warn("Excluido com Sucesso!");
+				getList();
+			}
+			public function getList():void
+			{
+				hideForm();
+				new UrgencyService().listUrgency(onResultGetList);
+			}
+			//Função que será executada após a conclusão do método getList
+			public function onResultGetList(list:ArrayCollection):void
+			{
+				listUrgencys = list;
+			}
+			public function setDefault():void
+			{
+				cleanForm();
+				showForm();
+			}
+			private function showForm():void
+			{
+				urgencyForm.includeInLayout = true;
+				urgencyForm.visible = true;
+				txtDs.setFocus();
+			}
+			
+			private function hideForm():void
+			{
+				urgencyForm.includeInLayout = false;
+				urgencyForm.visible = false;
+			}
+			
+			private function cleanForm():void
+			{
+				txtId.text = "";
+				txtDs.text = "";
+			}
+		]]>
+	</mx:Script>
+	<mx:Resize id="resize" />
+	<mx:VBox width="100%" resizeEffect="{resize}">
+		<mx:Text text="{resourceManager.getString('urgency', 'urgency.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listUrgencys}" click="showForm();">
+			<mx:columns>
+				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
+				<mx:DataGridColumn headerText="Urgency" dataField="description"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
+		</mx:ControlBar>
+	</mx:VBox>
+	<mx:Form id="urgencyForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
+		<mx:FormHeading label="Urgência" width="100%"/>
+		<mx:FormItem label="ID:" width="127">
+			<mx:TextInput width="100%" id="txtId"
+				text="{Urgency(dg.selectedItem).id}" editable="false" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="Urgency:" width="345">
+			<mx:TextInput width="100%" id="txtDs"
+				text="{Urgency(dg.selectedItem).description}"/>
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="hideForm()"/>
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
+				textAlign="center"/>
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>

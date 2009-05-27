@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		   verticalScrollPolicy="off" horizontalScrollPolicy="off"	
+		   backgroundSize="100%"
+		   paddingLeft="60"
+		   creationComplete="focus()"
+		   show="focus()" >
+
+	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.User;
+			import org.papyrus.services.UserService;
+
+			private var user:User = new User();
+			public var loginHandler:Function;
+			
+			private function focus():void
+			{
+				email.text = UserService.getEmailFromLSO();
+
+				if(email.text != "")
+				{
+					password.setFocus();
+					remember.selected = true;
+				}
+				else
+				{
+					email.setFocus();
+				}
+				adjustControls();
+			}
+
+			private function login():void
+			{
+				user.password = password.text;
+				user.email = email.text;
+				
+				new UserService().login(user, remember.selected, loginHandler);
+			}
+			
+			public function adjustControls():void
+			{
+				this.invalidateDisplayList();
+				this.invalidateSize();
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Box >
+		<mx:Form id="form" width="100%" >
+			<mx:FormItem label="{resourceManager.getString('general', 'email')}:" width="100%" id="fiEmail">
+				<mx:TextInput id="email"
+					enter="login()"
+					width="100%"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString('general', 'password')}:"	width="100%" id="fiPasswd">
+				<mx:TextInput id="password"
+					enter="login()"
+					displayAsPassword="true"
+					width="100%"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:Box>
+
+	<mx:CheckBox id="remember" color="0xFFFFFF" textRollOverColor="0x89bd55"
+		label="{resourceManager.getString('general', 'remember_me_on_this_computer')}"/>
+
+	<mx:HBox >
+		<mx:LinkButton id="lnkForget"
+			label="{resourceManager.getString('general', 'forgot_my_password')}"/>
+		<mx:Button label="{resourceManager.getString('general', 'enter')}" click="login()"/>
+	</mx:HBox>
+		
+
+</mx:VBox>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"       
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<!--
+		Carregamento do Arquivo de Configuracoes de conexão
+	-->
+	<context:property-placeholder location="classpath:connection.properties" />
+	
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+   		<property name="driverClassName">
+			<value>${connection.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${connection.url}</value>
+		</property>
+		<property name="username">
+			<value>${connection.username}</value>
+		</property>
+		<property name="password">
+			<value>${connection.password}</value>
+		</property>
+    </bean>
+    
+    <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<!-- Carrega todos os HBM's -->
+		<property name="annotatedClasses">
+			<list>
+				<value>org.papyrus.domain.model.Urgency</value>
+				<value>org.papyrus.domain.model.User</value>
+			</list>
+		</property>
+		<!-- Configuracoes do Hibernate -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					${connection.dialect}
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean
+						class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+		<property name="sessionFactory"> 
+		<ref bean="sessionFactory" /> 
+		</property> 
+	</bean> 
+			
+   <!--
+		Session Manager
+	-->
+	<bean id="org.papyrus.infra.http.SessionManager" class="org.papyrus.infra.http.SessionManager" scope="session" >   
+		<aop:scoped-proxy/>
+	</bean>
+	
+   <!--
+		Transaction Manager
+	-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<aop:config>
+		<aop:aspect ref="userSessionVerifierInterceptor">
+			<aop:around method="validate" pointcut="execution(* org.papyrus.domain.service.*.*(..)) and not @annotation(org.papyrus.infra.http.DoesntRequiresLogin)"/>
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="userSessionVerifierInterceptor"
+		class="org.papyrus.infra.http.UserSessionVerifierInterceptor" autowire="constructor"/>
+
+	
+	
+	<!-- Habilita os Services para serem transicionais via a Annotation @Transactional -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- ============================== AOP DEFINITIONS ================================ -->
+	<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+	<!--
+		Activates various annotations to be detected in bean classes:
+		Spring's @Required and @Autowired, as well as JSR 250's @Resource.
+	-->
+	<context:annotation-config />
+	<context:component-scan
+		base-package="org.papyrus..*" />
+   
+</beans>

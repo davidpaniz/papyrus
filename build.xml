@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+	 27/04/20009
+	
+	Papyrus ITSM Project
+                   
+	 David Paniz                                                                
+     ====================================================================== -->
+<project name="Papyrus ITSM" default="compile"  xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<description>Full Build of Papyrus ITSM</description>
+
+	<property file="build.properties" />
+
+	<property name="localhost" value="localhost"/>
+
+	<property name="war.file" value="${war.filename}.war" />
+
+	<property name="selenium.hub" value="${localhost}"/>
+
+	<path id="libs.classpath" path=".">
+		<fileset dir="${libs.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="artifacts.classpath">
+		<fileset dir="${artifacts.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="compile.classpath">
+		<path refid="libs.classpath" />
+		<path refid="servlet-api.classpath" />
+		<path refid="mock.classpath" />
+		<path refid="junit.classpath" />
+	</path>
+	
+	<path id="mock.classpath">
+		<fileset dir="${artifacts.lib.dir}">
+			<include name="jmock/*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="junit.classpath">
+		<fileset dir="${artifacts.lib.dir}">
+			<include name="junit/*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="tests.classpath">
+		<pathelement path="${tmp.classes.dir}" />
+		<path refid="compile.classpath" />
+	</path>
+
+	<path id="tasks.classpath">
+		<pathelement path="${tmp.classes.dir}" />
+		<pathelement path="${tests.resources.dir}" />
+		<path refid="libs.classpath" />
+		<pathelement path="${tmp.test-classes.dir}" />
+	</path>
+
+	<path id="servlet-api.classpath">
+		<fileset dir="${common.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="integration-test.classpath">
+		<path refid="libs.classpath" />
+		<path refid="tests.classpath" />
+		<pathelement path="${tmp.test-classes.dir}" />
+		<fileset dir="${artifacts.lib.dir}/selenium" includes="*.jar" />
+	</path>
+
+
+	<path id="hub.classpath">
+		<fileset dir="${artifacts.lib.dir}/selenium">
+			<include name="selenium-grid-hub-standalone-*.jar" />
+		</fileset>
+	</path>
+
+	<path id="remote-control.classpath">
+		<fileset dir="${artifacts.lib.dir}/selenium">
+			<include name="selenium-server-*.jar" />
+		</fileset>
+		<!-- Selenium Server must be first in classpath -->
+		<fileset dir="${artifacts.lib.dir}/selenium">
+			<include name="selenium-grid-remote-control-standalone-*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef classpathref="artifacts.classpath" resource="tasks.properties" />
+
+	<target name="clean" description="--> delete build artifacts">
+		<delete file="${war.file}" />
+		<delete file="${artifacts.dir}" />
+		<delete dir="${tmp.dir}" />
+		<delete dir="${tmp.webinf.dir}" />
+		<delete dir="${tmp.classes.dir}" />
+		<delete dir="${tmp.test-classes.dir}" />
+		<delete dir="${artifacts.dir}/reports" />
+		<delete dir="${artifacts.dir}/cobertura" />
+		<delete dir="${artifacts.dir}/junit" />
+		<delete dir="${artifacts.dir}" />
+		<delete dir="${instrumentation.dir}" />
+	</target>
+
+	<target name="prepare" description="--> prepares directories">
+		<mkdir dir="${tmp.dir}" />
+		<mkdir dir="${tmp.webinf.dir}" />
+		<mkdir dir="${tmp.classes.dir}" />
+		<mkdir dir="${tmp.test-classes.dir}" />
+		<mkdir dir="${artifacts.dir}" />
+		<mkdir dir="${artifacts.dir}/reports" />
+		<mkdir dir="${artifacts.dir}/cobertura" />
+		<mkdir dir="${artifacts.dir}/dependece" />
+		<mkdir dir="${instrumentation.dir}" />
+	</target>
+
+	<target name="compile" depends="prepare, flexCompile" description="--> compiles the classes">
+		<javac destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
+
+		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8">
+			<classpath>
+				<fileset dir="${artifacts.lib.dir}/jetty" includes="*.jar" />
+				<fileset dir="${artifacts.lib.dir}/selenium" includes="*.jar" />
+				<fileset dir="${artifacts.lib.dir}/jmock" includes="*.jar" />
+			</classpath>
+		</javac>
+	</target>
+	
+	
+	<property name="argument1" value="-debug=false -warnings=false -optimize=true -benchmark=true -default-size 1024 768 -services '${webapp.dir}/WEB-INF/flex/services-config.xml'" />
+	<property name="argument2" value="-compiler.context-root ${context.root}" />
+	<property name="argument3" value="-library-path+='${flex.libs.dir}' -source-path=locale/{locale}" />
+	
+	<target name="flexCompile">
+		
+		<echo>Compiling Flex</echo>
+	
+		<exec executable="${flex.sdk.mxml.compiler}" dir="." failonerror="false" failifexecutionfails="no">
+			<arg line="${flex.src.dir}/${main.app}.mxml -output ${webapp.dir}/${main.app}.swf ${argument1} ${argument2} ${argument3}" />
+		</exec>
+		
+	</target>
+
+	<target name="test" depends="compile" description="-> run the tests">
+		<copy todir="${tmp.test-classes.dir}" overwrite="true">
+			<fileset dir="${tests.resources.dir}" />
+		</copy>
+		<copy todir="${tmp.classes.dir}" overwrite="true">
+			<fileset dir="${tests.resources.dir}" />
+		</copy>
+		<fileset dir="${tmp.test-classes.dir}" id="unittests.fileset">
+			<include name="**/*TestCase.class" />
+			<exclude name="**/testutil/*.class" />
+		</fileset>
+
+		<delete file="cobertura.ser" verbose="false" />
+
+		<cobertura-instrument todir="${instrumentation.dir}">
+			<fileset dir="${tmp.classes.dir}" >
+				<include name="**/*.class" /> 
+				<exclude name="**/support/spring/*" />
+				<exclude name="**/support/vraptor/*" />
+				<exclude name="**/util/Config.class" />
+				<exclude name="**/util/ConfigKeys.class" />
+				<exclude name="**/util/mail/EmailSenderTask.class" />
+				<exclude name="**/util/mail/IdentifiableMimeMessage.class" />
+				<exclude name="**/util/mail/SpammerTaskExecutor.class" />
+				<exclude name="**/support/hibernate/HibernateSchemaExport.class" />
+				<exclude name="**/support/hibernate/OpenSessionInViewFilter.class" />
+				<exclude name="**/AfiliadosServlet.class" />
+			</fileset>
+		</cobertura-instrument>
+
+		<echo message="Running unit tests..." />
+		<junit fork="yes" printsummary="true" forkmode="once" showoutput="true" failureproperty="failed-test">
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser" />
+
+			<classpath>
+				<pathelement path="${instrumentation.dir}" />
+				<pathelement path="${tmp.test-classes.dir}" />
+			</classpath>
+			<classpath refid="tests.classpath" />
+			<classpath refid="artifacts.classpath" />
+
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${artifacts.dir}/reports">
+				<fileset refid="unittests.fileset" />
+			</batchtest>
+		</junit>
+		<antcall target="test-report" />
+		<antcall target="cobertura-report" />
+	</target>
+
+
+	<target name="test-report">
+		<junitreport todir="${artifacts.dir}/">
+			<fileset dir="${artifacts.dir}/reports">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report styledir="${build.style}" format="frames" todir="${artifacts.dir}/junit" />
+		</junitreport>
+		<fail if="failed-test" message="Testes unitarios com problema!" />
+		<fail if="failed-mysql-test" message="Testes unitarios usando MYSQL com problema!" />
+		<fail if="failed-integration-test" message="Testes de integração com problema!" />
+	</target>
+
+	<target name="cobertura-report" description="--> generate project's artifacts">
+		<cobertura-report format="html" destdir="${artifacts.dir}/cobertura">
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+				<exclude name="**/*Test.java" />
+				<exclude name="**/support/spring/*" />
+				<exclude name="**/support/vraptor/*" />
+				<exclude name="**/util/Config.java" />
+				<exclude name="**/util/ConfigKeys.java" />
+				<exclude name="**/util/mail/EmailSenderTask.java" />
+				<exclude name="**/util/mail/IdentifiableMimeMessage.java" />
+				<exclude name="**/util/mail/SpammerTaskExecutor.java" />
+				<exclude name="**/support/hibernate/HibernateSchemaExport.java" />
+				<exclude name="**/support/hibernate/OpenSessionInViewFilter.java" />
+				<exclude name="**/AfiliadosServlet.java" />
+			</fileset>
+		</cobertura-report>
+	</target>
+	
+	<!-- Ivy -->
+	<property name="ivy.lib.dir" value="${libs.dir}" />
+	<target name="resolve-dependence" description="--> Download dependences">
+        <delete includeemptydirs="true">
+            <fileset dir="${libs.dir}">
+            	<include name="*.jar"/>
+        	</fileset>
+    	</delete>
+        <ivy:retrieve />
+        <ivy:report todir="${artifacts.dir}/dependence"/>
+    </target>
+
+	<!-- -->
+	<target name="war-test" depends="compile" description="--> generate project's war">
+		<delete file="${artifacts.dir}/${war.file}" />
+		
+		<delete dir="${webapp.dir}/WEB-INF/classes" />
+		
+		<copy todir="${tmp.classes.dir}"  overwrite="true"> 
+			<fileset dir="${resources.dir}" >
+ 				<exclude name="hibernate.cfg.xml" />
+ 				<exclude name="hibernate.properties" />
+				<exclude name="developer-custom.properties" />
+				<exclude name="*.sql" />
+			</fileset>
+		</copy>
+	
+		<copy todir="${tmp.test-classes.dir}" overwrite="true">
+			<fileset dir="${tests.resources.dir}/integration/" />
+		</copy>
+		<copy todir="${tmp.classes.dir}" overwrite="true">
+			<fileset dir="${tests.resources.dir}/integration/" />
+		</copy>
+		
+		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
+			<fileset dir="${webapp.dir}" excludes="WEB-INF/web.xml" />
+			<classes dir="${tmp.classes.dir}" />
+			<lib dir="${libs.dir}">
+				<exclude name="servlet*.jar" />
+			</lib>
+		</war>
+	</target>
+
+	<!-- Testes de integração -->
+	<!--target name="integration-tests" depends="war-test, start-hsqldb, start-jettys" description="-> runs integration tests">
+		<echo message="Running integration tests..." />
+		<junit fork="off" showoutput="true" failureproperty="failed-integration-test" >
+			<sysproperty key="server.host" value="${localhost}" />
+			<sysproperty key="server.port" value="8580" />
+			<sysproperty key="server.timeout" value="7500" />
+			<sysproperty key="database.port" value="9500" />
+			<sysproperty key="server.context" value="/afiliados" />
+			<sysproperty key="pool.size" value="1" />
+			<classpath refid="integration-test.classpath" />
+			<formatter type="xml" />
+			<batchtest fork="on" todir="${artifacts.dir}/reports">
+				<fileset dir="${tmp.test-classes.dir}">
+					<include name="**/integracao/**/*Test.class" />
+					<include name="**/integracao/**/*TestCase.class" />
+					<exclude name="**/SeleniumTestCase.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<antcall target="test-report" />
+	</target -->
+
+	<target name="tests" depends="clean, resolve-dependence, test" description="-> run All tests"/>
+		
+	<!-- hsqldb -->
+	<macrodef name="hsqldb" description="-->starts a hsqldb">
+		<attribute name="dbport"/>
+		<sequential>
+			<echo message="Starting HSQLDB on port @{dbport}" />
+			<java classpath="${common.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server">
+				<arg line="-database.0 mem:ig-afiliados" />
+				<arg line="-dbname.0 ig-afiliados" />
+				<arg line="-port @{dbport}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<target name="start-hsqldb" description="-->starts a hsqldb">
+		<hsqldb dbport="9500"/>
+	</target>
+
+	<target name="hsqldb" depends="start-hsqldb">
+		<input message="Press Enter to quit..."/>
+	</target>
+
+	<!-- jetty -->
+	<macrodef name="jetty">
+		<attribute name="port" default="8580" />
+		<attribute name="databasePort" default="9500" />
+		<sequential>
+			<taskdef name="jetty-start" classname="br.com.caelum.tasks.JettyStartTask">
+				<classpath>
+					<fileset dir="${artifacts.lib.dir}/jetty" includes="*.jar" />
+					<fileset dir="${artifacts.lib.dir}/caelum" includes="*.jar" />
+					<pathelement path="${tmp.test-classes.dir}" />
+					<path refid="servlet-api.classpath" />
+				</classpath>
+			</taskdef>
+			<jetty-start waitForShutdown="false" port="@{port}" databasePort="@{databasePort}">
+				<context war="${artifacts.dir}/${war.file}" classes="${tmp.classes.dir}" base="${webapp.dir}" lib="${libs.dir}" context="/afiliados" />
+			</jetty-start>
+		</sequential>
+	</macrodef>
+
+	<target name="start-jettys" description="--> runs all jettys instances">
+		<jetty port="8580" databasePort="9500" />	
+		<echo message="Jettys started" />
+	</target>
+
+	<!-- Selenium remote-control -->
+	<macrodef name="remote-control">
+		<attribute name="port" />
+		<sequential>
+			<echo message="Starting remote control on port @{port}, ${localhost}" />
+			<fail unless="localhost" message="IP da propria maquina nao foi setado corretamente: -Dlocalhost=????" />
+			<java classpathref="remote-control.classpath" classname="com.thoughtworks.selenium.grid.remotecontrol.SelfRegisteringRemoteControlLauncher" fork="true" spawn="true">
+				<arg value="-port" />
+				<arg value="@{port}" />
+				<arg value="-host" />
+				<arg value="${localhost}" />
+				<arg value="-hubURL" />
+				<arg value="http://${selenium.hub}:4444" />
+				<arg value="-env" />
+				<arg value="*firefox" />
+				<arg line="${seleniumArgs}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<target name="launch-hub" description="Launch Selenium Hub">
+		<parallel>
+			<!-- forever -->
+			<java classname="com.thoughtworks.selenium.grid.hub.HubServer" classpathref="hub.classpath" />
+			<sequential>
+				<sleep seconds="5"/>
+				<property name="seleniumArgs" value="" />
+				<remote-control port="5555" />
+			</sequential>
+		</parallel>
+	</target>
+
+	<target name="selenium" depends="launch-hub">
+		<input message="Started selenium... press enter to stop" />
+	</target>
+</project>

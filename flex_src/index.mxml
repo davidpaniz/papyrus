@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="horizontal" 
+	xmlns:local="*" 
+	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
+	creationComplete="init()">
+	<mx:Metadata>
+		[ResourceBundle("general")]
+		[ResourceBundle("urgency")]
+	</mx:Metadata>
+
+	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.Model;
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.services.LocaleService;
+			import locale.Locale;
+		
+			[Bindable]
+			private var locales:Array = [ new Locale("en_US", "English (US)") , new Locale("pt_BR", "Portugês Brasil") ];
+	
+			private function init():void
+			{
+				var selectedLocale:String = LocaleService.getLocale();
+				for(var i:int = 0 ; i < locales.length; i++){
+					if(locales[i].location == selectedLocale){
+						localeComboBox.selectedIndex = i;
+						setLocale( locales[i]["location"] )
+						break;
+					}else{
+						localeComboBox.selectedIndex = 0;
+					}
+				}
+			}
+	
+			private function localeChange(event:Event):void
+			{
+				setLocale( localeComboBox.selectedItem["location"] );
+			}
+			
+			private function setLocale(locale:String):void
+			{
+				LocaleService.saveLocale(locale);
+				resourceManager.localeChain = [ locale, "en_US" ];
+			}
+	
+			private function loginHandler(result:Boolean):void
+			{
+				if( result == true )
+				{
+					vsHome.visible = false;
+					vsHome.includeInLayout = false;
+					vs.includeInLayout = true;
+					vs.visible = true;
+					linkBar.dataProvider = vs;
+				}
+				else
+				{
+					NotificatorManager.error("Erro no Login");
+				}
+			}
+			
+		]]>
+	</mx:Script>
+
+
+
+	<mx:HDividedBox width="100%" height="100%" >
+		<mx:VBox width="23%" verticalScrollPolicy="off" horizontalScrollPolicy="off"  >
+			<mx:HBox>
+				<mx:Text text="{resourceManager.getString('general', 'location')}:"/>
+				<mx:ComboBox id="localeComboBox" dataProvider="{locales}"
+					labelField="description"
+					enabled="{Model.inst().user == null}"
+					change="localeChange(event)" />
+			</mx:HBox>
+			<mx:ApplicationControlBar width="100%">
+				<mx:LinkBar id="linkBar" direction="vertical" dataProvider="{vsHome}" width="100%"/>
+			</mx:ApplicationControlBar>
+		</mx:VBox>
+		<mx:Box width="100%" height="100%">
+			<mx:ViewStack id="vsHome" width="100%" height="100%" creationPolicy="auto" >
+				<home:Login label="{resourceManager.getString('general', 'login')}" width="100%" loginHandler="loginHandler"/>
+			</mx:ViewStack>
+			<mx:ViewStack id="vs" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+				<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
+				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
+			</mx:ViewStack>
+		</mx:Box>
+	</mx:HDividedBox>
+</mx:Application>

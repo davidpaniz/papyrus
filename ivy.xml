@@ -1,0 +1,63 @@
+<ivy-module version="2.0">
+	<info organisation="br.com.paniz" module="exemplo-ivy" />
+	<dependencies>
+		<dependency org="com.adobe.blazeds" name="blazeds-core" rev="3.2.0.3978" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="com.adobe.blazeds" name="blazeds-common" rev="3.2.0.3978" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="com.adobe.blazeds" name="blazeds-opt" rev="3.2.0.3978" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="com.adobe.blazeds" name="blazeds-proxy" rev="3.2.0.3978" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="com.adobe.blazeds" name="blazeds-remoting" rev="3.2.0.3978" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="junit" name="junit" rev="4.4" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.6" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="javax.servlet" name="jstl" rev="1.1.2" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.aspectj" name="aspectjweaver" rev="1.6.4" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.hibernate" name="hibernate-annotations" rev="3.3.1.GA" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.springframework" name="spring" rev="2.5.6.SEC01" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.springframework" name="spring-aop" rev="2.5.6.SEC01" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.slf4j" name="nlog4j" rev="1.2.25" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="org.objenesis" name="objenesis" rev="1.1" conf="*->*,!sources,!javadoc" ></dependency>
+		<exclude org="aopalliance" />
+		<exclude org="asm" artifact="asm-tree" />
+		<exclude org="asm" artifact="asm-attrs" />
+		<exclude org="com.bea.wlplatform" />
+		<exclude org="com.caucho" />
+		<exclude org="com.experlog" />
+		<exclude org="com.jamonapi" />
+		<exclude org="com.lowagie" />
+		<exclude org="com.oracle" />
+		<exclude org="com.oracle.toplink" />
+		<exclude org="com.sun.jdmk" />
+		<exclude org="com.sun.jmx" />
+		<exclude org="commons-attributes" />
+		<exclude org="jasperreports" />
+		<exclude org="javassist" />
+		<exclude org="javax.activation" />
+		<exclude org="javax.ejb" />
+		<exclude org="javax.faces" />
+		<exclude org="javax.jdo" />
+		<exclude org="javax.jms" />
+		<exclude org="javax.mail" />
+		<exclude org="javax.portlet" />
+		<exclude org="javax.resource" />
+		<exclude org="javax.xml" />
+		<exclude org="jexcelapi" />
+		<exclude org="jotm" />
+		<exclude org="net.sf.jsr107cache" />
+		<exclude org="opensymphony" />
+		<exclude org="org.apache.axis" />
+		<exclude org="org.apache.ibatis" />
+		<exclude org="org.apache.poi" />
+		<exclude org="org.apache.tiles" />
+		<exclude org="org.beanshell" />
+		<exclude org="org.codehaus.groovy" />
+		<exclude org="org.jruby" />
+		<exclude org="org.freemarker" />
+		<exclude org="struts" />
+		<exclude org="tomcat" />
+		<exclude org="velocity" />
+		<exclude org="velocity-tools" />
+		<exclude org="cglib" artifact="cglib" />
+		<exclude artifact="persistence-api" />
+		<exclude artifact="hibernate-entitymanager" />
+		<exclude artifact="jsp-api" />
+	</dependencies>
+</ivy-module>
