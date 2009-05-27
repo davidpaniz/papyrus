@@ -231,15 +231,17 @@
 	<!-- Ivy -->
 	<property name="ivy.lib.dir" value="${libs.dir}" />
 	<target name="resolve-dependence" description="--> Download dependences">
+		<antcall target="clean-dependence"></antcall>
+        <ivy:retrieve />
+        <ivy:report todir="${artifacts.dir}/dependence"/>
+    </target>
+	<target name="clean-dependence">
         <delete includeemptydirs="true">
             <fileset dir="${libs.dir}">
             	<include name="*.jar"/>
         	</fileset>
     	</delete>
-        <ivy:retrieve />
-        <ivy:report todir="${artifacts.dir}/dependence"/>
-    </target>
-
+	</target>
 	<!-- -->
 	<target name="war-test" depends="compile" description="--> generate project's war">
 		<delete file="${artifacts.dir}/${war.file}" />
