@@ -1,4 +1,10 @@
 *.class
+*.swf
 *.DS_Store
 target
+WebContent/WEB-INF/calsses
 WebContent/WEB-INF/lib
+WebContent/history
+WebContent/org
+html-template
+cobertura.ser
