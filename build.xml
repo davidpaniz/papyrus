@@ -134,7 +134,7 @@
 	
 	<property name="argument1" value="-debug=false -warnings=false -optimize=true -benchmark=true -default-size 1024 768 -services '${webapp.dir}/WEB-INF/flex/services-config.xml'" />
 	<property name="argument2" value="-compiler.context-root ${context.root}" />
-	<property name="argument3" value="-library-path+='${flex.libs.dir}' -source-path=locale/{locale}" />
+	<property name="argument3" value="-library-path+='${flex.libs.dir}' -source-path=${flex.src.dir}/locale/{locale}" />
 	
 	<target name="flexCompile">
 		
