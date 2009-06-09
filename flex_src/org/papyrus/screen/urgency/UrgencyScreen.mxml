@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
 	 width="488" height="384"  show="getList()">
+	<mx:Metadata>
+		[ResourceBundle("general")]
+	</mx:Metadata>
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.services.Service;
@@ -15,50 +18,53 @@
 			private var listUrgencys:ArrayCollection;
 			private var urgency:Urgency;
 			
-			public function save():void
+			private function save():void
 			{
 				this.urgency = new Urgency();
 				this.urgency.id   = new Number(txtId.text);
 				this.urgency.description   = txtDs.text;
-				//Chama o metodo Save do servico "urgencyService"
 				new UrgencyService().saveUrgency(urgency, onResultSave);
 			}
-			//Função que será executada após a conclusão do método save
-			public function onResultSave(urgency:Urgency):void
+			
+			private function onResultSave(urgency:Urgency):void
 			{
-				NotificatorManager.warn("Salvo com Sucesso!");
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
 			}
-			public function remove():void
+			
+			private function remove():void
 			{
 				if (dg.selectedItem != null) {
 					urgency = dg.selectedItem as Urgency;
 					new UrgencyService().deleteUrgency(urgency, onResultRemove);
 				} else {
-					Alert.show("Selecione um Item no DataGrid");
+					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
 			}
-			//Função que será executada após a conclusão do método remove
-			public function onResultRemove(urgency:Urgency):void
+			
+			private function onResultRemove(urgency:Urgency):void
 			{
-				NotificatorManager.warn("Excluido com Sucesso!");
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
 			}
-			public function getList():void
+			
+			private function getList():void
 			{
 				hideForm();
 				new UrgencyService().listUrgency(onResultGetList);
 			}
-			//Função que será executada após a conclusão do método getList
-			public function onResultGetList(list:ArrayCollection):void
+			
+			private function onResultGetList(list:ArrayCollection):void
 			{
 				listUrgencys = list;
 			}
-			public function setDefault():void
+			
+			private function setDefault():void
 			{
 				cleanForm();
 				showForm();
 			}
+			
 			private function showForm():void
 			{
 				urgencyForm.includeInLayout = true;

@@ -43,6 +43,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>org.papyrus.domain.model.Urgency</value>
+				<value>org.papyrus.domain.model.Impact</value>
 				<value>org.papyrus.domain.model.User</value>
 			</list>
 		</property>

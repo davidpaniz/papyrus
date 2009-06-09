@@ -20,7 +20,7 @@ public class UrgencyDao implements UrgencyRepository {
 		this.template = template;
 	}
 
-	public Urgency save(Urgency urgency) {
+	public Urgency saveOrUpdate(Urgency urgency) {
 		template.saveOrUpdate(urgency);
 		return urgency;
 	}

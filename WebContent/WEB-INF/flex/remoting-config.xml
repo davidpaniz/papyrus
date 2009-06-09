@@ -23,4 +23,11 @@
 			<source>userService</source>
 		</properties>
 	</destination>
+	
+	<destination id="impactService">
+		<properties>
+			<factory>spring</factory>
+			<source>impactService</source>
+		</properties>
+	</destination>
 </service>

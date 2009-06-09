@@ -5,9 +5,6 @@ package org.papyrus.model
 	public class Urgency
 	{
 		public var id:Number;
-		public var name:String;
 		public var description:String;
-		public var position:Number;
-
 	}
 }

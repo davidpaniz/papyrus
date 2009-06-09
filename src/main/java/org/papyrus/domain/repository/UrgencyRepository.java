@@ -17,15 +17,9 @@ public interface UrgencyRepository {
 	 * @param the
 	 *            urgency that will be persisted
 	 */
-	Urgency save(Urgency urgency);
+	Urgency saveOrUpdate(Urgency urgency);
 
 	List<Urgency> list();
-
-	/**
-	 * @param id
-	 * @return Urgency whith the specific id
-	 */
-	Urgency findById(Integer id);
 
 	/**
 	 * @param urgency

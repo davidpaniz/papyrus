@@ -16,8 +16,6 @@ public interface UrgencyService {
 
 	Urgency saveUrgency(Urgency urgency) throws Exception;
 
-	Urgency findById(Integer id) throws Exception;
-
 	List<Urgency> listUrgency() throws Exception;
 
 }

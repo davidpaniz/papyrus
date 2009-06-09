@@ -21,11 +21,6 @@ public class Urgency {
 	@GeneratedValue(generator = "Urgency_Seq", strategy = GenerationType.AUTO)
 	private long id;
 	private String description;
-	// @Column(nullable = false)
-	private String name;
-
-	// @Column(unique = true)
-	// private int position;
 
 	public long getId() {
 		return id;
@@ -42,20 +37,4 @@ public class Urgency {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	// public int getPosition() {
-	// return position;
-	// }
-	//
-	// public void setPosition(int position) {
-	// this.position = position;
-	// }
 }

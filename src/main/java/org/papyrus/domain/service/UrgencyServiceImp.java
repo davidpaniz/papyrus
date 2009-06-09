@@ -26,10 +26,6 @@ public class UrgencyServiceImp implements UrgencyService {
 		this.repository = repository;
 	}
 
-	public Urgency findById(Integer id) throws Exception {
-		return repository.findById(id);
-	}
-
 	public List<Urgency> listUrgency() throws Exception {
 		return repository.list();
 	}
@@ -39,6 +35,6 @@ public class UrgencyServiceImp implements UrgencyService {
 	}
 
 	public Urgency saveUrgency(Urgency urgency) throws Exception {
-		return repository.save(urgency);
+		return repository.saveOrUpdate(urgency);
 	}
 }
