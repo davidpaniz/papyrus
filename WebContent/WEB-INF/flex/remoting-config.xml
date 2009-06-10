@@ -30,4 +30,11 @@
 			<source>impactService</source>
 		</properties>
 	</destination>
+	
+	<destination id="priorityService">
+		<properties>
+			<factory>spring</factory>
+			<source>priorityService</source>
+		</properties>
+	</destination>
 </service>

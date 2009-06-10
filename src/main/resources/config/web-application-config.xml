@@ -42,9 +42,10 @@
 		<!-- Carrega todos os HBM's -->
 		<property name="annotatedClasses">
 			<list>
+				<value>org.papyrus.domain.model.User</value>
 				<value>org.papyrus.domain.model.Urgency</value>
 				<value>org.papyrus.domain.model.Impact</value>
-				<value>org.papyrus.domain.model.User</value>
+				<value>org.papyrus.domain.model.Priority</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->
