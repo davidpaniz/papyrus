@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"  show="getList()" xmlns:controls="br.com.dclick.mm.components.controls.*" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.Priority;
+			import org.papyrus.services.Service;
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.services.PriorityService;
+			import org.papyrus.model.Priority;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			[Bindable]
+			private var priorityList:ArrayCollection;
+			private var priority:Priority;
+			
+			private function save():void
+			{
+				this.priority = new Priority();
+				this.priority.id   = new Number(txtId.text);
+				this.priority.description   = txtDs.text;
+				new PriorityService().savePriority(priority, onResultSave);
+			}
+			
+			private function onResultSave(priority:Priority):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				getList();
+			}
+			
+			private function remove():void
+			{
+				if (dg.selectedItem != null) {
+					priority = dg.selectedItem as Priority;
+					new PriorityService().deletePriority(priority, onResultRemove);
+				} else {
+					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
+				}
+			}
+			
+			private function onResultRemove(priority:Priority):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
+				getList();
+			}
+			
+			private function getList():void
+			{
+				hideForm();
+				new PriorityService().listPriority(onResultGetList);
+			}
+			
+			private function onResultGetList(list:ArrayCollection):void
+			{
+				priorityList = list;
+			}
+			
+			private function setDefault():void
+			{
+				cleanForm();
+				showForm();
+			}
+			
+			private function showForm():void
+			{
+				priorityForm.includeInLayout = true;
+				priorityForm.visible = true;
+				txtDs.setFocus();
+			}
+			
+			private function hideForm():void
+			{
+				priorityForm.includeInLayout = false;
+				priorityForm.visible = false;
+			}
+			
+			private function cleanForm():void
+			{
+				txtId.text = "";
+				txtDs.text = "";
+			}
+		]]>
+	</mx:Script>
+	<mx:Resize id="resize" />
+	<mx:VBox width="100%" resizeEffect="{resize}">
+		<mx:Text text="{resourceManager.getString('priority', 'priority.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{priorityList}" click="showForm();">
+			<mx:columns>
+				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
+				<mx:DataGridColumn headerText="Priority" dataField="description"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
+		</mx:ControlBar>
+	</mx:VBox>
+	<mx:Form id="priorityForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
+		<mx:FormHeading label="{resourceManager.getString('general', 'priority')}" width="100%"/>
+		<mx:FormItem label="ID:" width="127">
+			<mx:TextInput width="100%" id="txtId"
+				text="{Priority(dg.selectedItem).id}" editable="false" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
+			<mx:TextInput width="100%" id="txtDs"
+				text="{Priority(dg.selectedItem).description}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
+			<combobox:UrgencyComboBox width="100%" id="cbUrgency"
+				text="{Priority(dg.selectedItem).description}"/>
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="hideForm()"/>
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
+				textAlign="center"/>
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EntityComboBox xmlns="org.papyrus.components.combobox.*" xmlns:mx="http://www.adobe.com/2006/mxml" resourceFunction="{new UrgencyService().listUrgency}" creationComplete="init();" labelField="description">
+	<mx:Script>
+		<![CDATA[
+			import org.papyrus.services.Service;
+			import org.papyrus.services.UrgencyService;
+		]]>
+	</mx:Script>
+	
+</EntityComboBox>
