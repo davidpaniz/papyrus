@@ -2,23 +2,23 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="description"
-				dataId="urgency" serviceMethod="{new UrgencyService().listUrgency}" entityClass="{Urgency}"
+				dataId="impact" serviceMethod="{new ImpactService().listImpact}" entityClass="{Impact}"
 				isRequired="true"
 				>
 	<mx:Script>
 		<![CDATA[
-			import org.papyrus.model.Urgency;
-			import org.papyrus.services.UrgencyService;
-						
+			import org.papyrus.model.Impact;
+			import org.papyrus.services.ImpactService;
+			
 			public static function reset():void
 			{
-				observableMap.put("urgency", null );
-				refresh("urgency");
+				observableMap.put("impact", null );
+				refresh("impact");
 			}
 			
 			override protected function callService():void
 			{
-	 			new UrgencyService().listUrgency( handler );
+	 			new ImpactService().listImpact( handler );
 			}
 		]]>
 	</mx:Script>

@@ -1,13 +1,10 @@
 package org.papyrus.components.combobox
 {
-	import mx.collections.ArrayCollection;
 	import mx.controls.ComboBox;
 	import mx.events.ListEvent;
-	
+
 	public class EntityComboBox extends ComboBox
 	{
-		protected var resourceFunction:Function;
-		
 		override public function set selectedItem( entity:Object ):void
 		{
 			super.selectedItem = 1;
@@ -23,16 +20,8 @@ package org.papyrus.components.combobox
 				count++;
 			}
 
-			// se chegou aqui é porque não achou o item
+			// It was not found
 			super.selectedIndex = 0;
-		}
-		
-		public function init():void {
-			resourceFunction(configDataProvider);
-		}
-		
-		private function configDataProvider(dataProvider:ArrayCollection):void {
-			super.dataProvider = dataProvider;
 		}
 	}
 }

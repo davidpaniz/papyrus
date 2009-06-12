@@ -1,10 +1,10 @@
 package org.papyrus.services
 {
 	import mx.collections.ArrayCollection;
-	import mx.controls.Alert;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
+	import org.papyrus.components.combobox.ImpactComboBox;
 	import org.papyrus.components.notification.NotificatorManager;
 	import org.papyrus.model.Impact;
 
@@ -45,6 +45,8 @@ package org.papyrus.services
 		{
 			if(saveCallback != null)
 				saveCallback(event.result as Impact);
+				
+			ImpactComboBox.reset();
 		}
 		
 		public function saveImpactFault( event:FaultEvent ):void
@@ -69,11 +71,8 @@ package org.papyrus.services
 		{
 			if(deleteCallback != null)
 				deleteCallback(event.result as Impact);
+				
+			ImpactComboBox.reset();
 		}
-		
-		/*************************************
-		 * 
-		 * ***********************************/
-
 	}
 }

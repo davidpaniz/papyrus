@@ -3,6 +3,8 @@
 	 width="488" height="384"  show="getList()" xmlns:controls="br.com.dclick.mm.components.controls.*" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
+			import org.papyrus.model.Impact;
+			import org.papyrus.model.Urgency;
 			import org.papyrus.model.Priority;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
@@ -21,6 +23,8 @@
 				this.priority = new Priority();
 				this.priority.id   = new Number(txtId.text);
 				this.priority.description   = txtDs.text;
+				this.priority.urgency = cbUrgency.selectedItem as Urgency;
+				this.priority.impact = cbImpact.selectedItem as Impact;
 				new PriorityService().savePriority(priority, onResultSave);
 			}
 			
@@ -63,6 +67,17 @@
 				showForm();
 			}
 			
+			private function populateForm():void
+			{
+				var item:Priority = dg.selectedItem as Priority;
+				cbUrgency.selectedItem = item.urgency;
+				cbImpact.selectedItem = item.impact;
+				txtDs.text = item.description;
+				txtId.text = item.id.toString();
+				
+				showForm();
+			}
+			
 			private function showForm():void
 			{
 				priorityForm.includeInLayout = true;
@@ -80,13 +95,15 @@
 			{
 				txtId.text = "";
 				txtDs.text = "";
+				cbImpact.selectedIndex = 0;
+				cbUrgency.selectedIndex = 0;
 			}
 		]]>
 	</mx:Script>
 	<mx:Resize id="resize" />
 	<mx:VBox width="100%" resizeEffect="{resize}">
 		<mx:Text text="{resourceManager.getString('priority', 'priority.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{priorityList}" click="showForm();">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{priorityList}" click="populateForm();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
 				<mx:DataGridColumn headerText="Priority" dataField="description"/>
@@ -99,16 +116,16 @@
 	<mx:Form id="priorityForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
 		<mx:FormHeading label="{resourceManager.getString('general', 'priority')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
-			<mx:TextInput width="100%" id="txtId"
-				text="{Priority(dg.selectedItem).id}" editable="false" enabled="false"/>
+			<mx:TextInput id="txtId" width="100%" editable="false" enabled="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
-			<mx:TextInput width="100%" id="txtDs"
-				text="{Priority(dg.selectedItem).description}"/>
+			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
-			<combobox:UrgencyComboBox width="100%" id="cbUrgency"
-				text="{Priority(dg.selectedItem).description}"/>
+			<combobox:UrgencyComboBox width="100%" id="cbUrgency" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
+			<combobox:ImpactComboBox width="100%" id="cbImpact" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
