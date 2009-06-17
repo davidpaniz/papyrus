@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TextInput xmlns:mx="http://www.adobe.com/2006/mxml"
+			>
+	  
+	  <mx:Script>
+	  	<![CDATA[
+	  		import mx.collections.ArrayCollection;
+	  		import mx.controls.Alert;
+	  		
+		  	override protected function keyUpHandler(event:KeyboardEvent):void
+			{
+				var charCode:Number = event.charCode;
+				var char:String = String.fromCharCode(charCode);
+				if(char.match("[0-9]"))
+				{
+		  			format();
+			  	}
+				else
+				{
+			  		if(char.match("\\D+"))
+					{
+						if(charCode != 0 && charCode != 27 && charCode != 8)
+				  		{
+							var oldValue:String = event.target.text; 
+				  			event.target.text = oldValue.substr(0, oldValue.length - 1); 
+						}
+					}
+		  		}
+			  		
+		  	}
+			  	
+			private function format():void
+			{
+				var formattedText:String = "";
+				var cleanText:String = text.replace(":","").replace(":","");
+				if (cleanText.length >= 2) 
+				{
+					formattedText += cleanText.substr(0, 2) + ":";
+					if (cleanText.length >= 4) 
+					{
+						formattedText += cleanText.substr(2, 2) + ":";
+						formattedText += cleanText.substr(4, 2);
+					}
+					else
+					{
+						formattedText += cleanText.substr(2);
+					}
+				} 
+				else{
+					formattedText = text;
+				}
+				text = formattedText; 
+				selectionBeginIndex = text.length; 
+				selectionEndIndex = text.length;
+			}
+			  	
+	  	]]>
+	  </mx:Script>
+	
+</mx:TextInput>

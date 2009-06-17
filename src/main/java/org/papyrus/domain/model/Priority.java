@@ -3,12 +3,16 @@
  */
 package org.papyrus.domain.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity that represents an Impact
@@ -22,6 +26,12 @@ public class Priority {
 	@GeneratedValue(generator = "Priory_Seq", strategy = GenerationType.AUTO)
 	private long id;
 	private String description;
+
+	@Temporal(TemporalType.TIME)
+	private Date duration;
+
+	@Temporal(TemporalType.TIME)
+	private Date response;
 
 	@ManyToOne
 	private Urgency urgency;

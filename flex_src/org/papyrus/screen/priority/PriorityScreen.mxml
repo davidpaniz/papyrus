@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  show="getList()" xmlns:controls="br.com.dclick.mm.components.controls.*" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*">
+	 width="488" height="384"  show="getList()" xmlns:controls="br.com.dclick.mm.components.controls.*" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*">
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.Impact;
@@ -120,6 +120,9 @@
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
+			<input:HourTextInput />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
 			<combobox:UrgencyComboBox width="100%" id="cbUrgency" />
