@@ -1,11 +1,15 @@
 package org.papyrus.infra.http;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpSession;
 
 import org.papyrus.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SessionManager {
+public class SessionManager implements Serializable {
+	private static final long serialVersionUID = 8221501580592231395L;
+
 	private final static String CURRENT_USER = "user";
 	private HttpSession session;
 

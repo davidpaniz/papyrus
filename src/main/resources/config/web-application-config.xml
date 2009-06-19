@@ -46,6 +46,9 @@
 				<value>org.papyrus.domain.model.Urgency</value>
 				<value>org.papyrus.domain.model.Impact</value>
 				<value>org.papyrus.domain.model.Priority</value>
+				<value>org.papyrus.domain.model.Incident</value>
+				<value>org.papyrus.domain.model.WorkOrder</value>
+				<value>org.papyrus.domain.model.Attachment</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TextInput xmlns:mx="http://www.adobe.com/2006/mxml"
+	initialize="init();"
 			>
 	  
 	  <mx:Script>
 	  	<![CDATA[
+	  		import mx.formatters.DateFormatter;
+	  		import mx.validators.DateValidator;
+	  		import mx.validators.StringValidator;
 	  		import mx.collections.ArrayCollection;
 	  		import mx.controls.Alert;
 	  		
+	  		private var dateFormatter:DateFormatter = new DateFormatter();
+	  		
+	  		public function set date(date:Date):void {
+	  			this.text = dateFormatter.format(date);
+	  		}
+	  		
+	  		public function get date():Date {
+	  			var date:Date = new Date();
+	  			date.hours = new Number(text.substr(0,2));
+	  			date.minutes = new Number(text.substr(3,2));
+	  			date.seconds = new Number(text.substr(6,2));
+	  			return date;
+	  		}
+	  		
+		  	private function init():void {
+	  			dateFormatter.formatString = "JJ:NN:SS";
+		  	}
+		  	
 		  	override protected function keyUpHandler(event:KeyboardEvent):void
 			{
 				var charCode:Number = event.charCode;
@@ -19,7 +41,7 @@
 				{
 			  		if(char.match("\\D+"))
 					{
-						if(charCode != 0 && charCode != 27 && charCode != 8)
+						if(charCode != 0 && charCode != 27 && charCode != 8 && charCode != 9)
 				  		{
 							var oldValue:String = event.target.text; 
 				  			event.target.text = oldValue.substr(0, oldValue.length - 1); 

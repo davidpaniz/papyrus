@@ -70,4 +70,20 @@ public class Priority {
 	public Urgency getUrgency() {
 		return urgency;
 	}
+
+	public void setDuration(Date duration) {
+		this.duration = duration;
+	}
+
+	public Date getDuration() {
+		return duration;
+	}
+
+	public void setResponse(Date response) {
+		this.response = response;
+	}
+
+	public Date getResponse() {
+		return response;
+	}
 }

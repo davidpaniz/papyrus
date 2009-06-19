@@ -37,4 +37,11 @@
 			<source>priorityService</source>
 		</properties>
 	</destination>
+	
+	<destination id="incidentService">
+		<properties>
+			<factory>spring</factory>
+			<source>incidentService</source>
+		</properties>
+	</destination>
 </service>

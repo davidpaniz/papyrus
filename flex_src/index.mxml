@@ -4,7 +4,7 @@
 	layout="horizontal" 
 	xmlns:local="*" 
 	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
-	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*">
+	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -90,6 +90,7 @@
 				<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
 				<impact:ImpactScreen label="{resourceManager.getString('general', 'impact')}" width="100%" height="100%" />
 				<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
+				<incident:IncidentScreen label="{resourceManager.getString('general', 'incident')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
 		</mx:Box>

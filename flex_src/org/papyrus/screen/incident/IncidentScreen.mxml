@@ -3,34 +3,34 @@
 	 width="488" height="384"  show="getList()" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*">
 	 	<mx:Script>
 		<![CDATA[
+			import org.papyrus.model.enum.IncidentStatus;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
-			import org.papyrus.model.Priority;
+			import org.papyrus.model.Incident;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.PriorityService;
-			import org.papyrus.model.Priority;
+			import org.papyrus.services.IncidentService;
+			import org.papyrus.model.Incident;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			[Bindable]
-			private var priorityList:ArrayCollection;
-			private var priority:Priority;
+			private var incidentList:ArrayCollection;
+			private var incident:Incident;
 			
 			private function save():void
 			{
-				this.priority = new Priority();
-				this.priority.id   = new Number(txtId.text);
-				this.priority.description   = txtDs.text;
-				this.priority.urgency = cbUrgency.selectedItem as Urgency;
-				this.priority.impact = cbImpact.selectedItem as Impact;
-				this.priority.duration = txtDuration.date;
-				this.priority.response = txtResponse.date;
-				new PriorityService().savePriority(priority, onResultSave);
+				this.incident = new Incident();
+				this.incident.id   = new Number(txtId.text);
+				this.incident.description   = txtDs.text;
+				this.incident.status = txtStatus.text;
+				//this.incident.status = IncidentStatus.valueOf(txtStatus.text);
+				
+				new IncidentService().saveIncident(incident, onResultSave);
 			}
 			
-			private function onResultSave(priority:Priority):void
+			private function onResultSave(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -39,14 +39,14 @@
 			private function remove():void
 			{
 				if (dg.selectedItem != null) {
-					priority = dg.selectedItem as Priority;
-					new PriorityService().deletePriority(priority, onResultRemove);
+					incident = dg.selectedItem as Incident;
+					new IncidentService().deleteIncident(incident, onResultRemove);
 				} else {
 					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
 				}
 			}
 			
-			private function onResultRemove(priority:Priority):void
+			private function onResultRemove(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
 				getList();
@@ -55,12 +55,12 @@
 			private function getList():void
 			{
 				hideForm();
-				new PriorityService().listPriority(onResultGetList);
+				new IncidentService().listIncident(onResultGetList);
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void
 			{
-				priorityList = list;
+				incidentList = list;
 			}
 			
 			private function setDefault():void
@@ -71,28 +71,26 @@
 			
 			private function populateForm():void
 			{
-				var item:Priority = dg.selectedItem as Priority;
+				var item:Incident = dg.selectedItem as Incident;
 				cbUrgency.selectedItem = item.urgency;
 				cbImpact.selectedItem = item.impact;
 				txtDs.text = item.description;
 				txtId.text = item.id.toString();
-				txtDuration.date = item.duration;
-				txtResponse.date = item.response;
 				
 				showForm();
 			}
 			
 			private function showForm():void
 			{
-				priorityForm.includeInLayout = true;
-				priorityForm.visible = true;
+				incidentForm.includeInLayout = true;
+				incidentForm.visible = true;
 				txtDs.setFocus();
 			}
 			
 			private function hideForm():void
 			{
-				priorityForm.includeInLayout = false;
-				priorityForm.visible = false;
+				incidentForm.includeInLayout = false;
+				incidentForm.visible = false;
 			}
 			
 			private function cleanForm():void
@@ -106,29 +104,32 @@
 	</mx:Script>
 	<mx:Resize id="resize" />
 	<mx:VBox width="100%" resizeEffect="{resize}">
-		<mx:Text text="{resourceManager.getString('priority', 'priority.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{priorityList}" click="populateForm();">
+		<mx:Text text="{resourceManager.getString('incident', 'incident.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" click="populateForm();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
-				<mx:DataGridColumn headerText="Priority" dataField="description"/>
+				<mx:DataGridColumn headerText="Incident" dataField="description"/>
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
 		</mx:ControlBar>
 	</mx:VBox>
-	<mx:Form id="priorityForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
-		<mx:FormHeading label="{resourceManager.getString('general', 'priority')}" width="100%"/>
+	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
+		<mx:FormHeading label="{resourceManager.getString('general', 'incident')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput id="txtId" width="100%" editable="false" enabled="false"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('priority', 'duration')}:" width="345" >
+		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
+			<mx:TextInput id="txtStatus" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('incident', 'duration')}:" width="345" >
 			<input:HourTextInput id="txtDuration" />
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('priority', 'response')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('incident', 'response')}:" width="345">
 			<input:HourTextInput id="txtResponse" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
