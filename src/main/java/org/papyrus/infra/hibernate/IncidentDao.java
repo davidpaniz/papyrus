@@ -2,6 +2,7 @@ package org.papyrus.infra.hibernate;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.repository.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,16 @@ public class IncidentDao implements IncidentRepository {
 	}
 
 	public List<Incident> list() {
-		List list = template.find("from Incident");
+		DetachedCriteria criteria = DetachedCriteria.forClass(Incident.class);
+		List<Incident> list = template.findByCriteria(criteria);
+
+		for (Incident incident : list) {
+			incident.getWorkOrders()
+					.size();
+			incident.getAttachments()
+					.size();
+		}
+
 		return list;
 
 	}

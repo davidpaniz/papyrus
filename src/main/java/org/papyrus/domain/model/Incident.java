@@ -53,7 +53,7 @@ public class Incident {
 	@OneToMany
 	private List<WorkOrder> workOrders;
 	@OneToMany
-	private List<Attachment> attachment;
+	private List<Attachment> attachments;
 
 	public long getId() {
 		return id;
@@ -143,12 +143,11 @@ public class Incident {
 		this.workOrders = workOrders;
 	}
 
-	public List<Attachment> getAttachment() {
-		return attachment;
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 
-	public void setAttachment(List<Attachment> attachment) {
-		this.attachment = attachment;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
-
 }

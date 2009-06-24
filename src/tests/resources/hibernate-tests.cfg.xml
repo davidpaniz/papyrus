@@ -19,5 +19,10 @@
 		
 		<mapping class="org.papyrus.domain.model.User" />
 		<mapping class="org.papyrus.domain.model.Urgency" />
+		<mapping class="org.papyrus.domain.model.Priority" />
+		<mapping class="org.papyrus.domain.model.Incident" />
+		<mapping class="org.papyrus.domain.model.Impact" />
+		<mapping class="org.papyrus.domain.model.WorkOrder" />
+		<mapping class="org.papyrus.domain.model.Attachment" />
 	</session-factory>
 </hibernate-configuration>
