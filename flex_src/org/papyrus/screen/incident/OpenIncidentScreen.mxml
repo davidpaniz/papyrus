@@ -24,8 +24,7 @@
 				this.incident = new Incident();
 				this.incident.id   = new Number(txtId.text);
 				this.incident.description   = txtDs.text;
-				this.incident.status = txtStatus.text;
-				//this.incident.status = IncidentStatus.valueOf(txtStatus.text);
+				this.incident.status = cbStatus.selectedItem.toString();
 				
 				new IncidentService().saveIncident(incident, onResultSave);
 			}
@@ -123,20 +122,14 @@
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
-			<mx:TextInput id="txtStatus" width="100%" />
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('incident', 'duration')}:" width="345" >
-			<input:HourTextInput id="txtDuration" />
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('incident', 'response')}:" width="345">
-			<input:HourTextInput id="txtResponse" />
-		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
 			<combobox:UrgencyComboBox width="100%" id="cbUrgency" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
 			<combobox:ImpactComboBox width="100%" id="cbImpact" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'status')}:" width="345">
+			<combobox:IncidentStatusComboBox width="100%" id="cbStatus" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
