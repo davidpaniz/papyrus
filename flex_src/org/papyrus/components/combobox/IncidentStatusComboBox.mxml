@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:ComboBox xmlns:mx="http://www.adobe.com/2006/mxml" dataProvider="{staticDataProvider}" creationComplete="init()" labelFunction="showI18NLabel">
+<mx:ComboBox xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()" labelFunction="showI18NLabel">
 	<mx:Script >
 		<![CDATA[
 			import mx.events.ListEvent;
@@ -11,6 +11,8 @@
 			private function init():void {
 				staticDataProvider.addItem("OPENED");
 				staticDataProvider.addItem("CLOSED");
+				
+				dataProvider = staticDataProvider;
 			}
 			
 			private function showI18NLabel(item:Object):String {
