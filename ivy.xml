@@ -42,7 +42,6 @@
 		<exclude org="jexcelapi" />
 		<exclude org="jotm" />
 		<exclude org="net.sf.jsr107cache" />
-		<exclude org="opensymphony" />
 		<exclude org="org.apache.axis" />
 		<exclude org="org.apache.ibatis" />
 		<exclude org="org.apache.poi" />

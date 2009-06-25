@@ -3,7 +3,7 @@
 *.DS_Store
 target
 build/classes
-WebContent/WEB-INF/calsses
+WebContent/WEB-INF/classes
 WebContent/WEB-INF/lib
 WebContent/history
 WebContent/org

@@ -24,6 +24,8 @@
 				this.incident = new Incident();
 				this.incident.id   = new Number(txtId.text);
 				this.incident.description   = txtDs.text;
+				this.incident.impact = cbImpact.selectedItem as Impact;
+				this.incident.urgency = cbUrgency.selectedItem as Urgency;
 				this.incident.status = cbStatus.selectedItem.toString();
 				
 				new IncidentService().saveIncident(incident, onResultSave);
