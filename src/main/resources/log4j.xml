@@ -9,13 +9,18 @@
                 </layout>
         </appender>
  
-        <category name="org.vraptor">
-                <priority value="DEBUG" />
+        <category name="org.springframework">
+                <priority value="WARN" />
                 <appender-ref ref="stdout" />
         </category>
  
-        <category name="org.springframework">
+        <category name="org.hibernate">
                 <priority value="WARN" />
+                <appender-ref ref="stdout" />
+        </category>
+ 
+        <category name="org.papyrus">
+                <priority value="TRACE" />
                 <appender-ref ref="stdout" />
         </category>
  
