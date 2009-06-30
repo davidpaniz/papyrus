@@ -25,5 +25,5 @@ public abstract class Action {
 		return id;
 	}
 
-	public abstract void doAction(ActionParameter parameter);
+	public abstract void doAction();
 }

@@ -6,11 +6,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "Condition_Seq")
-public class Condition {
+public class ActionCondition {
 
 	@Id
 	@GeneratedValue(generator = "Condition_Seq", strategy = GenerationType.AUTO)
@@ -19,8 +20,12 @@ public class Condition {
 	private boolean onCreate;
 	private boolean onUpdate;
 	private boolean onDelete;
+
 	@Enumerated(EnumType.STRING)
 	private ConditionType type;
+
+	@ManyToOne
+	private BusinessRule businessRule;
 
 	public Long getId() {
 		return id;
@@ -38,27 +43,36 @@ public class Condition {
 		this.type = type;
 	}
 
+	public boolean getOnCreate() {
+		return onCreate;
+	}
+
 	public void setOnCreate(boolean onCreate) {
 		this.onCreate = onCreate;
 	}
 
-	public boolean isOnCreate() {
-		return onCreate;
+	public boolean getOnUpdate() {
+		return onUpdate;
 	}
 
 	public void setOnUpdate(boolean onUpdate) {
 		this.onUpdate = onUpdate;
 	}
 
-	public boolean isOnUpdate() {
-		return onUpdate;
+	public boolean getOnDelete() {
+		return onDelete;
 	}
 
 	public void setOnDelete(boolean onDelete) {
 		this.onDelete = onDelete;
 	}
 
-	public boolean isOnDelete() {
-		return onDelete;
+	public void setBusinessRule(BusinessRule businessRule) {
+		this.businessRule = businessRule;
 	}
+
+	public BusinessRule getBusinessRule() {
+		return businessRule;
+	}
+
 }

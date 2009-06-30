@@ -20,8 +20,8 @@ public class BusinessRule {
 	private boolean enabled;
 	private String description;
 	private String name;
-	@OneToMany
-	private List<Condition> conditions;
+	@OneToMany(mappedBy = "businessRule")
+	private List<ActionCondition> conditions;
 	@OneToMany
 	private List<Action> actions;
 
@@ -57,11 +57,11 @@ public class BusinessRule {
 		this.name = name;
 	}
 
-	public List<Condition> getConditions() {
+	public List<ActionCondition> getConditions() {
 		return conditions;
 	}
 
-	public void setConditions(List<Condition> conditions) {
+	public void setConditions(List<ActionCondition> conditions) {
 		this.conditions = conditions;
 	}
 

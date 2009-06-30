@@ -8,21 +8,18 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class SendMailAction extends Action {
 
-	@Override
-	public void doAction(ActionParameter parameter) {
-		System.out.println(((SendMailParameter) parameter).getMessage());
+	private String message;
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
-	public class SendMailParameter implements ActionParameter {
-		private final String message;
+	public String getMessage() {
+		return message;
+	}
 
-		public SendMailParameter(String message) {
-			this.message = message;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
+	@Override
+	public void doAction() {
+		System.out.println(this.message);
 	}
 }
