@@ -23,7 +23,7 @@ public interface ImpactRepository {
 
 	/**
 	 * @param impact
-	 * @return the same object if deleted or null if same problems ocurrer
+	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Impact delete(Impact impact);
 

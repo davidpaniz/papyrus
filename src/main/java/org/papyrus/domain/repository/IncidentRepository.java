@@ -23,7 +23,7 @@ public interface IncidentRepository {
 
 	/**
 	 * @param incident
-	 * @return the same object if deleted or null if same problems ocurrer
+	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Incident delete(Incident incident);
 

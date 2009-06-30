@@ -23,7 +23,7 @@ public interface UrgencyRepository {
 
 	/**
 	 * @param urgency
-	 * @return the same object if deleted or null if same problems ocurrer
+	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Urgency delete(Urgency urgency);
 

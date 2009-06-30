@@ -14,44 +14,20 @@ public class Condition {
 
 	@Id
 	@GeneratedValue(generator = "Condition_Seq", strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
-	private boolean create;
-	private boolean update;
-	private boolean delete;
+	private boolean onCreate;
+	private boolean onUpdate;
+	private boolean onDelete;
 	@Enumerated(EnumType.STRING)
 	private ConditionType type;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public boolean isCreate() {
-		return create;
-	}
-
-	public void setCreate(boolean create) {
-		this.create = create;
-	}
-
-	public boolean isUpdate() {
-		return update;
-	}
-
-	public void setUpdate(boolean update) {
-		this.update = update;
-	}
-
-	public boolean isDelete() {
-		return delete;
-	}
-
-	public void setDelete(boolean delete) {
-		this.delete = delete;
 	}
 
 	public ConditionType getType() {
@@ -60,5 +36,29 @@ public class Condition {
 
 	public void setType(ConditionType type) {
 		this.type = type;
+	}
+
+	public void setOnCreate(boolean onCreate) {
+		this.onCreate = onCreate;
+	}
+
+	public boolean isOnCreate() {
+		return onCreate;
+	}
+
+	public void setOnUpdate(boolean onUpdate) {
+		this.onUpdate = onUpdate;
+	}
+
+	public boolean isOnUpdate() {
+		return onUpdate;
+	}
+
+	public void setOnDelete(boolean onDelete) {
+		this.onDelete = onDelete;
+	}
+
+	public boolean isOnDelete() {
+		return onDelete;
 	}
 }

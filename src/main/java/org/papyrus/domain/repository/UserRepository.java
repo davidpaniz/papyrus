@@ -18,19 +18,4 @@ public interface UserRepository {
 	User save(User user);
 
 	User login(User user);
-
-	// List<Urgency> list();
-	//
-	// /**
-	// * @param id
-	// * @return Urgency whith the specific id
-	// */
-	// Urgency findById(Integer id);
-	//
-	// /**
-	// * @param urgency
-	// * @return the same object if deleted or null if same problems ocurrer
-	// */
-	// Urgency delete(Urgency urgency);
-
 }

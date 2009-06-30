@@ -37,6 +37,10 @@
 				<value>org.papyrus.domain.model.Incident</value>
 				<value>org.papyrus.domain.model.WorkOrder</value>
 				<value>org.papyrus.domain.model.Attachment</value>
+				<value>org.papyrus.domain.model.BusinessRule</value>
+				<value>org.papyrus.domain.model.Condition</value>
+				<value>org.papyrus.domain.model.Action</value>
+				<value>org.papyrus.domain.model.SendMailAction</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

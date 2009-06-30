@@ -23,7 +23,7 @@ public interface PriorityRepository {
 
 	/**
 	 * @param priority
-	 * @return the same object if deleted or null if same problems ocurrer
+	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Priority delete(Priority priority);
 
