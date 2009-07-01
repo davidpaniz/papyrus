@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"  show="getList()">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.Impact;
+			import org.papyrus.services.Service;
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.services.ImpactService;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			[Bindable]
+			private var impactList:ArrayCollection;
+			private var impact:Impact;
+			
+			private function save():void
+			{
+				this.impact = new Impact();
+				this.impact.id   = new Number(txtId.text);
+				this.impact.description   = txtDs.text;
+				new ImpactService().saveImpact(impact, onResultSave);
+			}
+			
+			private function onResultSave(impact:Impact):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				getList();
+			}
+			
+			private function remove():void
+			{
+				if (dg.selectedItem != null) {
+					impact = dg.selectedItem as Impact;
+					new ImpactService().deleteImpact(impact, onResultRemove);
+				} else {
+					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
+				}
+			}
+			
+			private function onResultRemove(impact:Impact):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
+				getList();
+			}
+			
+			private function getList():void
+			{
+				hideForm();
+				new ImpactService().listImpact(onResultGetList);
+			}
+			
+			private function onResultGetList(list:ArrayCollection):void
+			{
+				impactList = list;
+			}
+			
+			private function setDefault():void
+			{
+				cleanForm();
+				showForm();
+			}
+			
+			private function showForm():void
+			{
+				impactForm.includeInLayout = true;
+				impactForm.visible = true;
+				txtDs.setFocus();
+			}
+			
+			private function hideForm():void
+			{
+				impactForm.includeInLayout = false;
+				impactForm.visible = false;
+			}
+			
+			private function cleanForm():void
+			{
+				txtId.text = "";
+				txtDs.text = "";
+			}
+		]]>
+	</mx:Script>
+	<mx:Resize id="resize" />
+	<mx:VBox width="100%" resizeEffect="{resize}">
+		<mx:Text text="{resourceManager.getString('impact', 'impact.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{impactList}" click="showForm();">
+			<mx:columns>
+				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
+				<mx:DataGridColumn headerText="Impact" dataField="description"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
+		</mx:ControlBar>
+	</mx:VBox>
+	<mx:Form id="impactForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
+		<mx:FormHeading label="{resourceManager.getString('general', 'impact')}" width="100%"/>
+		<mx:FormItem label="ID:" width="127">
+			<mx:TextInput width="100%" id="txtId"
+				text="{Impact(dg.selectedItem).id}" editable="false" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
+			<mx:TextInput width="100%" id="txtDs"
+				text="{Impact(dg.selectedItem).description}"/>
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="hideForm()"/>
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
+				textAlign="center"/>
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>
