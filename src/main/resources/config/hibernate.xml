@@ -38,7 +38,7 @@
 				<value>org.papyrus.domain.model.WorkOrder</value>
 				<value>org.papyrus.domain.model.Attachment</value>
 				<value>org.papyrus.domain.model.BusinessRule</value>
-				<value>org.papyrus.domain.model.ActionCondition</value>
+				<value>org.papyrus.domain.model.Condition</value>
 				<value>org.papyrus.domain.model.Action</value>
 				<value>org.papyrus.domain.model.SendMailAction</value>
 			</list>
@@ -62,7 +62,15 @@
 				</entry>
 			</map>
 		</property>
+<!--	   <property name="namingStrategy" ref="namingStrategy" />-->
 	</bean>
+	
+<!--	<bean id="namingStrategy" class="org.papyrus.infra.hibernate.PrefixedImprovedNamingStrategy">-->
+<!--		<constructor-arg>-->
+<!--			<value>${prefix_table_name}</value>-->
+<!--		</constructor-arg>-->
+<!--	</bean>-->
+<!--	-->
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
 		<property name="sessionFactory"> 
 			<ref bean="sessionFactory" /> 

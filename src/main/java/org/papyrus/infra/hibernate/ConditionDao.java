@@ -2,7 +2,7 @@ package org.papyrus.infra.hibernate;
 
 import java.util.List;
 
-import org.papyrus.domain.model.ActionCondition;
+import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.ConditionType;
 import org.papyrus.domain.repository.ConditionRepository;
@@ -22,18 +22,18 @@ public class ConditionDao implements ConditionRepository {
 		this.template = template;
 	}
 
-	public ActionCondition saveOrUpdate(ActionCondition condition) {
+	public Condition saveOrUpdate(Condition condition) {
 		template.saveOrUpdate(condition);
 		return condition;
 	}
 
-	public List<ActionCondition> list() {
+	public List<Condition> list() {
 		List list = template.find("from Condition");
 		return list;
 
 	}
 
-	public ActionCondition delete(ActionCondition condition) {
+	public Condition delete(Condition condition) {
 		template.delete(condition);
 		return condition;
 	}

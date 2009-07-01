@@ -31,10 +31,8 @@ public class IncidentDao implements IncidentRepository {
 		List<Incident> list = template.findByCriteria(criteria);
 
 		for (Incident incident : list) {
-			incident.getWorkOrders()
-					.size();
-			incident.getAttachments()
-					.size();
+			incident.setWorkOrders(null);
+			incident.setAttachments(null);
 		}
 
 		return list;

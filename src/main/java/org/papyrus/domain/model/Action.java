@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -17,6 +18,9 @@ public abstract class Action {
 	@GeneratedValue(generator = "Action_Seq", strategy = GenerationType.AUTO)
 	private Long id;
 
+	@ManyToOne
+	private BusinessRule businessRule;
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -26,4 +30,12 @@ public abstract class Action {
 	}
 
 	public abstract void doAction();
+
+	public void setBusinessRule(BusinessRule businessRule) {
+		this.businessRule = businessRule;
+	}
+
+	public BusinessRule getBusinessRule() {
+		return businessRule;
+	}
 }

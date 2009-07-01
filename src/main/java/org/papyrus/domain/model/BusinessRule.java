@@ -21,8 +21,9 @@ public class BusinessRule {
 	private String description;
 	private String name;
 	@OneToMany(mappedBy = "businessRule")
-	private List<ActionCondition> conditions;
-	@OneToMany
+	private List<Condition> conditions;
+
+	@OneToMany(mappedBy = "businessRule")
 	private List<Action> actions;
 
 	public long getId() {
@@ -57,11 +58,11 @@ public class BusinessRule {
 		this.name = name;
 	}
 
-	public List<ActionCondition> getConditions() {
+	public List<Condition> getConditions() {
 		return conditions;
 	}
 
-	public void setConditions(List<ActionCondition> conditions) {
+	public void setConditions(List<Condition> conditions) {
 		this.conditions = conditions;
 	}
 

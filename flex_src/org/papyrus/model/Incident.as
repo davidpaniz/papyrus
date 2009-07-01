@@ -2,8 +2,6 @@ package org.papyrus.model
 {
 	import mx.collections.ArrayCollection;
 	
-	import org.papyrus.model.enum.IncidentStatus;
-	
 	[RemoteClass(alias="org.papyrus.domain.model.Incident")]
 	public class Incident
 	{

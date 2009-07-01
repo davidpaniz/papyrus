@@ -2,7 +2,7 @@ package org.papyrus.domain.repository;
 
 import java.util.List;
 
-import org.papyrus.domain.model.ActionCondition;
+import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.ConditionType;
 
@@ -19,15 +19,15 @@ public interface ConditionRepository {
 	 * @param the
 	 *            condition that will be persisted
 	 */
-	ActionCondition saveOrUpdate(ActionCondition condition);
+	Condition saveOrUpdate(Condition condition);
 
-	List<ActionCondition> list();
+	List<Condition> list();
 
 	/**
 	 * @param condition
 	 * @return the same object if deleted or null if some problems ocurrer
 	 */
-	ActionCondition delete(ActionCondition condition);
+	Condition delete(Condition condition);
 
 	List<BusinessRule> findCreateRules(ConditionType incident);
 
