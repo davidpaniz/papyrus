@@ -41,4 +41,12 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		}
 
 	}
+
+	public BusinessRule deleteBusinessRule(BusinessRule businessRule) {
+		return repository.delete(businessRule);
+	}
+
+	public BusinessRule saveBusinessRule(BusinessRule businessRule) {
+		return repository.saveOrUpdate(businessRule);
+	}
 }

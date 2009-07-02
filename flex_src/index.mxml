@@ -4,7 +4,7 @@
 	layout="horizontal" 
 	xmlns:local="*" 
 	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
-	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*">
+	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -92,6 +92,7 @@
 				<impact:ImpactScreen label="{resourceManager.getString('general', 'impact')}" width="100%" height="100%" />
 				<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
 				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
+				<businessRules:BusinessRulesScreen label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
 		</mx:Box>
