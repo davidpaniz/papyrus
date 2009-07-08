@@ -29,7 +29,6 @@ public class Incident {
 	@Id
 	@GeneratedValue(generator = "Incident_Seq", strategy = GenerationType.AUTO)
 	private long id;
-
 	private String clientName;
 
 	private String description;
@@ -54,14 +53,6 @@ public class Incident {
 	private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getClientName() {
 		return clientName;
@@ -149,5 +140,13 @@ public class Incident {
 
 	public List<Attachment> getAttachments() {
 		return attachments;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
 	}
 }

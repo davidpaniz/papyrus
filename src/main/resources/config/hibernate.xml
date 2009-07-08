@@ -35,6 +35,7 @@
 				<value>org.papyrus.domain.model.Impact</value>
 				<value>org.papyrus.domain.model.Priority</value>
 				<value>org.papyrus.domain.model.Incident</value>
+				<value>org.papyrus.domain.model.IncidentTemplate</value>
 				<value>org.papyrus.domain.model.WorkOrder</value>
 				<value>org.papyrus.domain.model.Attachment</value>
 				<value>org.papyrus.domain.model.BusinessRule</value>

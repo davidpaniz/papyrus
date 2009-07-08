@@ -27,6 +27,12 @@ public class Condition {
 	@Enumerated(EnumType.STRING)
 	private ConditionType type;
 
+	private String expression1;
+	private String expression2;
+
+	@Enumerated(EnumType.STRING)
+	private ConditionComparisonOperator comparisonOperator;
+
 	@ManyToOne
 	private BusinessRule businessRule;
 
