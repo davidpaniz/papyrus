@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 public class Priority {
 	@Id
 	@GeneratedValue(generator = "Priory_Seq", strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String description;
 
 	@Temporal(TemporalType.TIME)
@@ -39,11 +39,11 @@ public class Priority {
 	@ManyToOne
 	private Impact impact;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

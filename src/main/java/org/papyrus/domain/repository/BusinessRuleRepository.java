@@ -1,8 +1,10 @@
 package org.papyrus.domain.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
+import org.papyrus.domain.model.ConditionType;
 
 /**
  * @author David Paniz
@@ -27,4 +29,7 @@ public interface BusinessRuleRepository {
 	 */
 	BusinessRule delete(BusinessRule businessRule);
 
+	List<BusinessRule> findCreateRules(ConditionType type);
+
+	<T> T load(Class<T> type, Serializable id);
 }

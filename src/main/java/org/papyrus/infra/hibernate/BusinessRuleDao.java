@@ -1,8 +1,10 @@
 package org.papyrus.infra.hibernate;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
+import org.papyrus.domain.model.ConditionType;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,5 +36,17 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 	public BusinessRule delete(BusinessRule businessRule) {
 		template.delete(businessRule);
 		return businessRule;
+	}
+
+	public List<BusinessRule> findCreateRules(ConditionType type) {
+		return template.getSessionFactory()
+				.getCurrentSession()
+				.createQuery("select br from BusinessRule br where br.onCreate = true and c.type = :type")
+				.setParameter("type", type)
+				.list();
+	}
+
+	public <T> T load(Class<T> type, Serializable id) {
+		return (T) template.get(type, id);
 	}
 }

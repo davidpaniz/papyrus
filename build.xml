@@ -119,7 +119,7 @@
 		<mkdir dir="${instrumentation.dir}" />
 	</target>
 
-	<target name="compile" depends="prepare, flexCompile" description="--> compiles the classes">
+	<target name="compile" depends="clean, prepare, flexCompile" description="--> compiles the classes">
 		<javac destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
 
 		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8">

@@ -25,10 +25,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @SequenceGenerator(name = "Incident_Seq")
-public class Incident {
+public class Incident implements ConditionComparable {
 	@Id
 	@GeneratedValue(generator = "Incident_Seq", strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String clientName;
 
 	private String description;
@@ -142,11 +142,11 @@ public class Incident {
 		return attachments;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 }

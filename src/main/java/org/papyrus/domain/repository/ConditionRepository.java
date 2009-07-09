@@ -3,8 +3,6 @@ package org.papyrus.domain.repository;
 import java.util.List;
 
 import org.papyrus.domain.model.Condition;
-import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.ConditionType;
 
 /**
  * @author David Paniz
@@ -28,7 +26,5 @@ public interface ConditionRepository {
 	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Condition delete(Condition condition);
-
-	List<BusinessRule> findCreateRules(ConditionType incident);
 
 }
