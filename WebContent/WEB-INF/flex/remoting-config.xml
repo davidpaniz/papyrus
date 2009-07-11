@@ -44,4 +44,18 @@
 			<source>incidentService</source>
 		</properties>
 	</destination>
+	
+	<destination id="businessRuleService">
+		<properties>
+			<factory>spring</factory>
+			<source>businessRuleService</source>
+		</properties>
+	</destination>
+	
+	<destination id="conditionService">
+		<properties>
+			<factory>spring</factory>
+			<source>conditionService</source>
+		</properties>
+	</destination>
 </service>

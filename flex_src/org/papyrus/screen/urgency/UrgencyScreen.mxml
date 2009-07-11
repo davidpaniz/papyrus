@@ -62,6 +62,15 @@
 				showForm();
 			}
 			
+			private function populateForm():void
+			{
+				if(dg.selectedItem != null) {
+					txtId.text = (dg.selectedItem as Urgency).id.toString();
+					txtDs.text = (dg.selectedItem as Urgency).description;
+				}
+				showForm();
+			}
+			
 			private function showForm():void
 			{
 				urgencyForm.includeInLayout = true;

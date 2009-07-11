@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.ConditionType;
+import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,15 +39,19 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 		return businessRule;
 	}
 
-	public List<BusinessRule> findCreateRules(ConditionType type) {
+	public List<BusinessRule> findCreateRules(BusinessRuleType type) {
 		return findRule(type, "onCreate");
 	}
 
-	public List<BusinessRule> findUpdateRules(ConditionType type) {
+	public List<BusinessRule> findUpdateRules(BusinessRuleType type) {
 		return findRule(type, "onUpdate");
 	}
 
-	private List<BusinessRule> findRule(ConditionType type, String field) {
+	public List<BusinessRule> findDeleteRules(BusinessRuleType type) {
+		return findRule(type, "onDelete");
+	}
+
+	private List<BusinessRule> findRule(BusinessRuleType type, String field) {
 		return template.getSessionFactory()
 				.getCurrentSession()
 				.createCriteria(BusinessRule.class)

@@ -33,20 +33,20 @@ package org.papyrus.services
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveIncident( incident:Incident, callbackFunction:Function ):void
+		private var createCallback:Function;
+		public function createIncident( incident:Incident, callbackFunction:Function ):void
 		{
-			this.saveCallback = callbackFunction;
-			service.saveIncident( incident );
+			this.createCallback = callbackFunction;
+			service.createIncident( incident );
 		}
 		
-		public function saveIncidentResult( event:ResultEvent ):void
+		public function createIncidentResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Incident);
+			if(createCallback != null)
+				createCallback(event.result as Incident);
 		}
 		
-		public function saveIncidentFault( event:FaultEvent ):void
+		public function createIncidentFault( event:FaultEvent ):void
 		{
 			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
 				NotificatorManager.error("Já existe uma palavra com essa descrição");

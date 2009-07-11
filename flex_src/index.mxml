@@ -11,6 +11,7 @@
 		[ResourceBundle("impact")]
 		[ResourceBundle("incident")]
 		[ResourceBundle("priority")]
+		[ResourceBundle("businessRule")]
 	</mx:Metadata>
 
 	<mx:Script>
@@ -92,7 +93,7 @@
 				<impact:ImpactScreen label="{resourceManager.getString('general', 'impact')}" width="100%" height="100%" />
 				<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
 				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
-				<businessRules:BusinessRulesScreen label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
+				<businessRules:BusinessRulesForm label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
 		</mx:Box>

@@ -63,6 +63,13 @@
 				showForm();
 			}
 			
+			private function populateForm():void
+			{
+				txtId.text = (dg.selectedItem as Impact).id.toString();
+				txtDs.text = (dg.selectedItem as Impact).description;
+				showForm();
+			}
+			
 			private function showForm():void
 			{
 				impactForm.includeInLayout = true;
@@ -86,7 +93,7 @@
 	<mx:Resize id="resize" />
 	<mx:VBox width="100%" resizeEffect="{resize}">
 		<mx:Text text="{resourceManager.getString('impact', 'impact.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{impactList}" click="showForm();">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{impactList}" click="populateForm();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
 				<mx:DataGridColumn headerText="Impact" dataField="description"/>
@@ -99,12 +106,10 @@
 	<mx:Form id="impactForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
 		<mx:FormHeading label="{resourceManager.getString('general', 'impact')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
-			<mx:TextInput width="100%" id="txtId"
-				text="{Impact(dg.selectedItem).id}" editable="false" enabled="false"/>
+			<mx:TextInput width="100%" id="txtId" editable="false" enabled="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
-			<mx:TextInput width="100%" id="txtDs"
-				text="{Impact(dg.selectedItem).description}"/>
+			<mx:TextInput width="100%" id="txtDs"/>
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

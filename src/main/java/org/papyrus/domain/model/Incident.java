@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 public class Incident implements ConditionComparable {
 	@Id
 	@GeneratedValue(generator = "Incident_Seq", strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 	private String clientName;
 
 	private String description;
@@ -142,11 +142,11 @@ public class Incident implements ConditionComparable {
 		return attachments;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 }

@@ -5,12 +5,12 @@ package org.papyrus.model
 	public class Condition
 	{
 		public var id:Number;
-		
-		public var onCreate:Boolean;
-		public var onUpdate:Boolean;
-		public var onDelete:Boolean;
-		
-		public var type:String;
+
+		public var expression1:String;
+		public var expression2:String;
+
+		public var comparisonOperator:String;
+		public var logicalOperator:String;
 		
 		public var businessRule:BusinessRule;
 	}

@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 public class User {
 	@Id
 	@GeneratedValue(generator = "User_Seq", strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -28,11 +28,11 @@ public class User {
 	private String password;
 	private boolean active;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

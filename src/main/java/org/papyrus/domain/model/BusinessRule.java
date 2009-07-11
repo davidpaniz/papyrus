@@ -19,7 +19,7 @@ public class BusinessRule {
 
 	@Id
 	@GeneratedValue(generator = "Business_Rule_Seq", strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	private boolean enabled;
 	private String description;
@@ -30,7 +30,7 @@ public class BusinessRule {
 	private boolean onDelete;
 
 	@Enumerated(EnumType.STRING)
-	private ConditionType type;
+	private BusinessRuleType type;
 
 	@OneToMany(mappedBy = "businessRule")
 	private List<Condition> conditions;
@@ -38,11 +38,11 @@ public class BusinessRule {
 	@OneToMany(mappedBy = "businessRule")
 	private List<Action> actions;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -110,22 +110,34 @@ public class BusinessRule {
 		this.onDelete = onDelete;
 	}
 
-	public void setType(ConditionType type) {
+	public void setType(BusinessRuleType type) {
 		this.type = type;
 	}
 
-	public ConditionType getType() {
+	public BusinessRuleType getType() {
 		return type;
 	}
 
 	public boolean shouldExecute(ConditionComparable oldValue, ConditionComparable newValue)
 			throws BusinessRuleException {
 		boolean result = false;
-
-		for (Condition condition : this.conditions) {
-			result = result && condition.test(oldValue, newValue);
+		// TODO refactoring plz. Documentation too!
+		Condition before = null;
+		for (int i = 0; i < conditions.size(); i++) {
+			Condition condition = conditions.get(i);
+			boolean conditionResult = condition.test(oldValue, newValue);
+			if (i == 0) {
+				result = conditionResult;
+			} else {
+				if (before.getLogicalOperator() == ConditionLogicalOperator.OR) {
+					result = result || conditionResult;
+				} else {
+					result = result && conditionResult;
+				}
+			}
+			before = condition;
 		}
+
 		return result;
 	}
-
 }

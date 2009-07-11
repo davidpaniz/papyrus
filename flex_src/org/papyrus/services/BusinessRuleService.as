@@ -1,12 +1,10 @@
 package org.papyrus.services
 {
 	import mx.collections.ArrayCollection;
-	import mx.controls.Alert;
-	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import org.papyrus.components.notification.NotificatorManager;
 	import org.papyrus.model.BusinessRule;
+	import org.papyrus.model.Condition;
 
 	public class BusinessRuleService extends Service
 	{
@@ -47,12 +45,6 @@ package org.papyrus.services
 				saveCallback(event.result as BusinessRule);
 		}
 		
-		public function saveBusinessRuleFault( event:FaultEvent ):void
-		{
-			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
-				NotificatorManager.error("Já existe uma palavra com essa descrição");
-		}
-
 
 		/*************************************
 		 * DELETE 

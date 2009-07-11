@@ -5,7 +5,7 @@ package org.papyrus.domain.service;
 
 import java.util.List;
 
-import org.papyrus.domain.model.ConditionType;
+import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.repository.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,12 @@ public class IncidentServiceImp implements IncidentService {
 	}
 
 	public Incident createIncident(Incident incident) throws Exception {
-		businessRuleService.executeCreateCondition(ConditionType.INCIDENT, incident);
+		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
 		return repository.saveOrUpdate(incident);
 	}
 
 	public Incident updateIncident(Incident incident) throws Exception {
-		businessRuleService.executeUpdateCondition(ConditionType.INCIDENT, incident);
+		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
 		return repository.saveOrUpdate(incident);
 	}
 }

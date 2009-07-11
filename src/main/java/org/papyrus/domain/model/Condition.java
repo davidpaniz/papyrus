@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import net.vidageek.mirror.dsl.Mirror;
 import net.vidageek.mirror.exception.MirrorException;
@@ -15,12 +16,13 @@ import net.vidageek.mirror.exception.MirrorException;
 import org.papyrus.domain.exception.BusinessRuleException;
 
 @Entity
+@Table(name = "conditions")
 @SequenceGenerator(name = "Condition_Seq")
 public class Condition {
 
 	@Id
 	@GeneratedValue(generator = "Condition_Seq", strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	private String expression1;
 	private String expression2;
@@ -28,14 +30,17 @@ public class Condition {
 	@Enumerated(EnumType.STRING)
 	private ConditionComparisonOperator comparisonOperator;
 
+	@Enumerated(EnumType.STRING)
+	private ConditionLogicalOperator logicalOperator;
+
 	@ManyToOne
 	private BusinessRule businessRule;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -112,5 +117,13 @@ public class Condition {
 
 	public void setComparisonOperator(ConditionComparisonOperator comparisonOperator) {
 		this.comparisonOperator = comparisonOperator;
+	}
+
+	public void setLogicalOperator(ConditionLogicalOperator logicalOperator) {
+		this.logicalOperator = logicalOperator;
+	}
+
+	public ConditionLogicalOperator getLogicalOperator() {
+		return logicalOperator;
 	}
 }

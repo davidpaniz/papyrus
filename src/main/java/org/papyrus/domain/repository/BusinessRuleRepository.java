@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.ConditionType;
+import org.papyrus.domain.model.BusinessRuleType;
 
 /**
  * @author David Paniz
@@ -29,9 +29,11 @@ public interface BusinessRuleRepository {
 	 */
 	BusinessRule delete(BusinessRule businessRule);
 
-	List<BusinessRule> findCreateRules(ConditionType type);
+	List<BusinessRule> findCreateRules(BusinessRuleType type);
 
-	List<BusinessRule> findUpdateRules(ConditionType type);
+	List<BusinessRule> findUpdateRules(BusinessRuleType type);
+
+	List<BusinessRule> findDeleteRules(BusinessRuleType type);
 
 	<T> T load(Class<T> type, Serializable id);
 
