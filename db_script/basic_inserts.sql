@@ -1,0 +1,1 @@
+insert into `User` (email, password, active) values( 'a@a.com', '123', true);
