@@ -14,7 +14,9 @@ import org.papyrus.domain.model.Incident;
 public interface IncidentService {
 	Incident deleteIncident(Incident incident) throws Exception;
 
-	Incident saveIncident(Incident incident) throws Exception;
+	Incident createIncident(Incident incident) throws Exception;
+
+	Incident updateIncident(Incident incident) throws Exception;
 
 	List<Incident> listIncident() throws Exception;
 

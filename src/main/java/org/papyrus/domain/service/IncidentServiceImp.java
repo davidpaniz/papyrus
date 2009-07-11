@@ -37,8 +37,13 @@ public class IncidentServiceImp implements IncidentService {
 		return repository.delete(incident);
 	}
 
-	public Incident saveIncident(Incident incident) throws Exception {
+	public Incident createIncident(Incident incident) throws Exception {
 		businessRuleService.executeCreateCondition(ConditionType.INCIDENT, incident);
+		return repository.saveOrUpdate(incident);
+	}
+
+	public Incident updateIncident(Incident incident) throws Exception {
+		businessRuleService.executeUpdateCondition(ConditionType.INCIDENT, incident);
 		return repository.saveOrUpdate(incident);
 	}
 }

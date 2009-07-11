@@ -10,7 +10,11 @@ public interface BusinessRuleService {
 	void executeCreateCondition(ConditionType type, ConditionComparable conditionComparable)
 			throws BusinessRuleException;
 
+	void executeUpdateCondition(ConditionType type, ConditionComparable conditionComparable)
+			throws BusinessRuleException;
+
 	BusinessRule deleteBusinessRule(BusinessRule businessRule);
 
 	BusinessRule saveBusinessRule(BusinessRule businessRule);
+
 }

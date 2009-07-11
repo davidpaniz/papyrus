@@ -3,6 +3,7 @@ package org.papyrus.infra.hibernate;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.ConditionType;
 import org.papyrus.domain.repository.BusinessRuleRepository;
@@ -39,10 +40,20 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 	}
 
 	public List<BusinessRule> findCreateRules(ConditionType type) {
+		return findRule(type, "onCreate");
+	}
+
+	public List<BusinessRule> findUpdateRules(ConditionType type) {
+		return findRule(type, "onUpdate");
+	}
+
+	private List<BusinessRule> findRule(ConditionType type, String field) {
 		return template.getSessionFactory()
 				.getCurrentSession()
-				.createQuery("select br from BusinessRule br where br.onCreate = true and c.type = :type")
-				.setParameter("type", type)
+				.createCriteria(BusinessRule.class)
+				.add(Restrictions.eq("enabled", true))
+				.add(Restrictions.eq("type", type))
+				.add(Restrictions.eq(field, true))
 				.list();
 	}
 

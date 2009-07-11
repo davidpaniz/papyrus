@@ -13,6 +13,7 @@
 			import mx.controls.Alert;
 			[Bindable]
 			private var businessRuleList:ArrayCollection;
+			[Bindable]
 			private var businessRule:BusinessRule;
 			
 			private function save():void

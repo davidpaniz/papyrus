@@ -33,6 +33,18 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	public void executeCreateCondition(ConditionType type, ConditionComparable conditionComparable)
 			throws BusinessRuleException {
 		List<BusinessRule> rules = repository.findCreateRules(type);
+		execute(type, conditionComparable, rules);
+
+	}
+
+	public void executeUpdateCondition(ConditionType type, ConditionComparable conditionComparable)
+			throws BusinessRuleException {
+		List<BusinessRule> rules = repository.findUpdateRules(type);
+		execute(type, conditionComparable, rules);
+	}
+
+	private void execute(ConditionType type, ConditionComparable conditionComparable, List<BusinessRule> rules)
+			throws BusinessRuleException {
 		for (BusinessRule businessRule : rules) {
 			ConditionComparable oldValue = repository.load(type.getType(), conditionComparable.getId());
 			if (businessRule.shouldExecute(oldValue, conditionComparable)) {
@@ -42,7 +54,6 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 				}
 			}
 		}
-
 	}
 
 	public BusinessRule deleteBusinessRule(BusinessRule businessRule) {
@@ -52,4 +63,5 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	public BusinessRule saveBusinessRule(BusinessRule businessRule) {
 		return repository.saveOrUpdate(businessRule);
 	}
+
 }

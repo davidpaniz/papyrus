@@ -31,5 +31,8 @@ public interface BusinessRuleRepository {
 
 	List<BusinessRule> findCreateRules(ConditionType type);
 
+	List<BusinessRule> findUpdateRules(ConditionType type);
+
 	<T> T load(Class<T> type, Serializable id);
+
 }
