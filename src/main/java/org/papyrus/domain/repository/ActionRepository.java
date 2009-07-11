@@ -1,7 +1,5 @@
 package org.papyrus.domain.repository;
 
-import java.util.List;
-
 import org.papyrus.domain.model.Action;
 
 /**
@@ -18,8 +16,6 @@ public interface ActionRepository {
 	 *            action that will be persisted
 	 */
 	Action saveOrUpdate(Action action);
-
-	List<Action> list();
 
 	/**
 	 * @param action

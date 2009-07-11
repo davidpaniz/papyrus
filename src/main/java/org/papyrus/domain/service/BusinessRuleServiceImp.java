@@ -11,6 +11,7 @@ import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class BusinessRuleServiceImp implements BusinessRuleService {
 	private final BusinessRuleRepository repository;
 	private final ConditionRepository conditionRepository;
+	private final ActionRepository actionRepository;
 
 	@Autowired
-	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository) {
+	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
+			ActionRepository actionRepository) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
+		this.actionRepository = actionRepository;
 	}
 
 	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
@@ -75,6 +79,10 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		for (Condition condition : businessRule.getConditions()) {
 			condition.setBusinessRule(persistedBusinessRule);
 			conditionRepository.saveOrUpdate(condition);
+		}
+		for (Action action : businessRule.getActions()) {
+			action.setBusinessRule(persistedBusinessRule);
+			actionRepository.saveOrUpdate(action);
 		}
 
 		return persistedBusinessRule;

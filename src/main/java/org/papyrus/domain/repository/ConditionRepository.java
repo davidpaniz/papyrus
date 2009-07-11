@@ -1,7 +1,5 @@
 package org.papyrus.domain.repository;
 
-import java.util.List;
-
 import org.papyrus.domain.model.Condition;
 
 /**
@@ -18,8 +16,6 @@ public interface ConditionRepository {
 	 *            condition that will be persisted
 	 */
 	Condition saveOrUpdate(Condition condition);
-
-	List<Condition> list();
 
 	/**
 	 * @param condition

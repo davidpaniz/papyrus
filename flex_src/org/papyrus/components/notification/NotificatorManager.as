@@ -2,7 +2,6 @@ package org.papyrus.components.notification
 {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import flash.geom.Point;
 	import flash.utils.setTimeout;
 	
 	import mx.collections.ArrayCollection;
@@ -31,7 +30,7 @@ package org.papyrus.components.notification
 		
 		public static function ask( text:String, handler:Function):NotificationBase
 		{
-			var notification:NotificationBase = NotificationBase.createAskNotification( NotificationType.ASK, text, handler );
+			var notification:NotificationBase = new NotificationBase().createAskNotification( NotificationType.ASK, text, handler );
 			showNotification( notification );
 
 			return notification;
@@ -39,7 +38,7 @@ package org.papyrus.components.notification
 		
 		public static function notificationWithFunction( text:String, handler:Function):NotificationBase
 		{
-			var notification:NotificationBase = NotificationBase.createNotificationWithFunction( NotificationType.ERROR, text, handler );
+			var notification:NotificationBase = new NotificationBase().createNotificationWithFunction( NotificationType.ERROR, text, handler );
 			showNotification( notification );
 
 			return notification;
@@ -60,7 +59,7 @@ package org.papyrus.components.notification
 
 		private static function doNotify( type:NotificationType, text:String, delay:int ):void
 		{
-			var notification:NotificationBase = NotificationBase.createNotification( type, text );
+			var notification:NotificationBase = new NotificationBase().createNotification( type, text );
 			showNotification( notification, delay );
 		}
 		private static function showNotification( notification:NotificationBase, delay:int = -1 ):void
@@ -110,7 +109,7 @@ package org.papyrus.components.notification
 
 		private static function doNotifyInPlace( type:NotificationType, text:String, container:UIComponent, delay:int ):void
 		{
-			var notification:NotificationBase = NotificationBase.createNotification( type, text );
+			var notification:NotificationBase = new NotificationBase().createNotification( type, text );
 
 			notification.percentWidth = 100;
 			notification.percentHeight = 100;

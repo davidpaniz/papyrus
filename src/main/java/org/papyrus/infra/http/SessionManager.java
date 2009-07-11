@@ -33,16 +33,4 @@ public class SessionManager implements Serializable {
 	public void removeUser() {
 		this.session.setAttribute(CURRENT_USER, null);
 	}
-
-	//
-	// public void removeCurrentUser() {
-	// this.requestsession
-	// .removeAttribute(CURRENT_USER);
-	// }
-	//
-	// public User getCurrentUser() {
-	// return (User) this.requestsession
-	// .getAttribute(CURRENT_USER);
-	// }
-
 }

@@ -39,6 +39,7 @@ public class UserServiceImp implements UserService {
 		return userRepository.save(user);
 	}
 
+	@DoesntRequiresLogin
 	public void logoutUser() {
 		sessionManager.removeUser();
 	}

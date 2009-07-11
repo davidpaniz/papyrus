@@ -48,24 +48,24 @@ package org.papyrus.components.notification
 			} );
 		}
 
-		public static function createNotification( type:NotificationType, text:String ):NotificationBase
+		public function createNotification( type:NotificationType, text:String ):NotificationBase
 		{
 			var notification:Notification = new Notification();
 			return create( notification, type, text );
 		}
-		public static function createAskNotification( type:NotificationType, text:String, handler:Function ):NotificationBase
+		public function createAskNotification( type:NotificationType, text:String, handler:Function ):NotificationBase
 		{
 			var notification:AskNotification = new AskNotification();
 			notification.confirmHandler = handler;
 			return create( notification, type, text );
 		}
-		public static function createNotificationWithFunction( type:NotificationType, text:String, handler:Function ):NotificationBase
+		public function createNotificationWithFunction( type:NotificationType, text:String, handler:Function ):NotificationBase
 		{
 			var notification:NotificationWithFunction = new NotificationWithFunction();
 			notification.confirmHandler = handler;
-			return create( notification, type, text );
+			return create( notification, type, resourceManager.getString('general', text ) );
 		}
-		private static function create( notification:NotificationBase, type:NotificationType, text:String ):NotificationBase
+		private function create( notification:NotificationBase, type:NotificationType, text:String ):NotificationBase
 		{
 			notification.styleName = type.style;
 			notification.text      = text;

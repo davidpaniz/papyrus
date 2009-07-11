@@ -71,11 +71,8 @@ package org.papyrus.services
 		{
 			if( event.fault.faultString.indexOf( "org.papyrus.domain.exception.UserNotLoggedIn" ) == 0 )
 			{
-				NotificatorManager. notificationWithFunction("Sua sessão expirou! Por favor, faça login novamente.", new UserService().logoutUser );
-			}
-			else if(event.fault.faultString.indexOf( "java.lang.reflect.UndeclaredThrowableException" ) == 0)
-			{
-				NotificatorManager.notificationWithFunction("Sua sessão expirou! Por favor, faça login novamente.", new UserService().logoutUser );
+					NotificatorManager. notificationWithFunction( "session_expired", new UserService().logoutUser );
+				
 			}
 			else
 				resultOrFault( event, defaultFaultHandler, SUFIX_FAULT );

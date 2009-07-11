@@ -3,6 +3,7 @@
 	 width="488" height="384"  xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.Action;
 			import org.papyrus.model.BusinessRule;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
@@ -28,6 +29,9 @@
 				var conditions:ArrayCollection = new ArrayCollection();
 				conditions.addItem(conditionForm.condition);
 				param.conditions = conditions;
+				var actions:ArrayCollection = new ArrayCollection();
+				actions.addItem(new Action());
+				param.actions = actions;
 				new BusinessRuleService().saveBusinessRule(param, onResultSave);
 			}
 			
