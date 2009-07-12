@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  show="getList()" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
+	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.Impact;
@@ -33,34 +33,18 @@
 			private function onResultSave(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
-				getList();
+				//TODO close
 			}
 			
 			private function remove():void
 			{
-				if (dg.selectedItem != null) {
-					incident = dg.selectedItem as Incident;
-					new IncidentService().deleteIncident(incident, onResultRemove);
-				} else {
-					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
-				}
+				new IncidentService().deleteIncident(incident, onResultRemove);
 			}
 			
 			private function onResultRemove(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
-				getList();
-			}
-			
-			private function getList():void
-			{
-				hideForm();
-				new IncidentService().listIncident(onResultGetList);
-			}
-			
-			private function onResultGetList(list:ArrayCollection):void
-			{
-				incidentList = list;
+				//TODO close form
 			}
 			
 			private function setDefault():void
@@ -69,7 +53,7 @@
 				showForm();
 			}
 			
-			private function populateForm():void
+			/* private function populateForm():void
 			{
 				var item:Incident = dg.selectedItem as Incident;
 				cbUrgency.selectedItem = item.urgency;
@@ -79,7 +63,7 @@
 				
 				showForm();
 				cbStatus.selectedItem = (item.status as Object);
-			}
+			} */
 			
 			private function showForm():void
 			{
@@ -103,19 +87,6 @@
 			}
 		]]>
 	</mx:Script>
-	<mx:Resize id="resize" />
-	<mx:VBox width="100%" resizeEffect="{resize}">
-		<mx:Text text="{resourceManager.getString('incident', 'incident.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" click="populateForm();">
-			<mx:columns>
-				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
-				<mx:DataGridColumn headerText="Incident" dataField="description"/>
-			</mx:columns>
-		</mx:DataGrid>
-		<mx:ControlBar horizontalAlign="center">
-			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
-		</mx:ControlBar>
-	</mx:VBox>
 	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false">
 		<mx:FormHeading label="{resourceManager.getString('general', 'incident')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">

@@ -72,7 +72,10 @@ package org.papyrus.services
 			if( event.fault.faultString.indexOf( "org.papyrus.domain.exception.UserNotLoggedIn" ) == 0 )
 			{
 					NotificatorManager. notificationWithFunction( "session_expired", new UserService().logoutUser );
-				
+			} 
+			else if ( event.fault.faultString.indexOf( "Session already invalidated" ) == 0 )
+			{
+					NotificatorManager. notificationWithFunction( "session_expired", new UserService().logoutUser );
 			}
 			else
 				resultOrFault( event, defaultFaultHandler, SUFIX_FAULT );
