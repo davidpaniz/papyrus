@@ -67,7 +67,7 @@
 			
 		]]>
 	</mx:Script>
-
+	<mx:Style source="./org/papyrus/_assets/css/default.css" />
 
 
 	<mx:HDividedBox width="100%" height="100%" >

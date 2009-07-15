@@ -3,6 +3,7 @@
 	 width="488" height="384"  show="getList()" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import mx.managers.PopUpManager;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
 			import org.papyrus.model.Incident;
@@ -44,14 +45,27 @@
 				incidentList = list;
 			}
 			
-			private function showForm():void
+			private var form:OpenIncidentScreen;
+			private function openIncident():void
 			{
+				form = new OpenIncidentScreen();
+				form.closeFunction = closePopup;
+				form.setStyle("backgroundAlpha", 0.8);
+				form.setStyle("backgroundColor", "#999999");
+				PopUpManager.addPopUp(form, dg.parent, false);
+				form.incident = dg.selectedItem as Incident;
 			}
+			
+			private function closePopup():void
+			{
+                PopUpManager.removePopUp(form);
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" >
 		<mx:Text text="{resourceManager.getString('incident', 'incident.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" >
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="openIncident()">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
 				<mx:DataGridColumn headerText="Incident" dataField="description"/>
