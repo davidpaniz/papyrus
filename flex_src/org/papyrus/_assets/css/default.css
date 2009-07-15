@@ -1,0 +1,12 @@
+/* CSS file */
+Application {
+   backgroundColor: #DDDDDD;
+}
+ApplicationControlBar {
+   shadowDirection: left;
+   borderStyle: solid;
+}
+
+Label {
+	theme-color: #003366;
+}
