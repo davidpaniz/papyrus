@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
+	 	<mx:Script>
+		<![CDATA[
+	 			import org.papyrus.model.Condition;
+	 			import mx.collections.ArrayCollection;
+			private function addCondition():void
+			{
+				container.addChild(new ConditionForm());	
+			}
+			
+			public function get conditions():ArrayCollection
+			{
+				var conditions:ArrayCollection = new ArrayCollection();
+				var conditionForms:Array = container.getChildren();
+				for(var formName:String in conditionForms)
+				{
+					var conditionForm:ConditionForm = container.getChildByName(formName) as ConditionForm;
+					conditions.addItem(conditionForm.condition);					
+				}
+				return conditions;
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" id="container">
+		<businessRules:ConditionForm />
+	</mx:VBox>
+	<mx:LinkButton click="addCondition()" label="adicionar" />
+</mx:VBox>
