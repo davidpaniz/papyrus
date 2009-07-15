@@ -23,7 +23,11 @@ public class SessionManager implements Serializable {
 	}
 
 	public boolean isNotLogged() {
-		return this.session.getAttribute(CURRENT_USER) == null;
+		try {
+			return this.session.getAttribute(CURRENT_USER) == null;
+		} catch (java.lang.IllegalStateException e) {
+			return true;
+		}
 	}
 
 	public void addUser(User user) {
@@ -31,6 +35,11 @@ public class SessionManager implements Serializable {
 	}
 
 	public void removeUser() {
-		this.session.setAttribute(CURRENT_USER, null);
+		try {
+			this.session.setAttribute(CURRENT_USER, null);
+			this.session.invalidate();
+		} catch (java.lang.IllegalStateException e) {
+			return;
+		}
 	}
 }

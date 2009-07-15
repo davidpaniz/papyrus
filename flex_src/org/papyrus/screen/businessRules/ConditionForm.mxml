@@ -18,28 +18,25 @@
 				return cond;
 			}
 			
-			public function set condition(con:Condition):void
+			public function set condition(condition:Condition):void
 			{
-				this._condition = con;
+				this._condition = condition;
 			}
 			
 		]]>
 	</mx:Script>
-	<mx:VBox width="100%" >
-		<mx:Form id="condForm" width="100%" height="100%" >
-			<mx:FormItem label="ID:" width="127" visible="false" includeInLayout="false">
-				<mx:TextInput id="txtId" text="{_condition.id}" editable="false" enabled="false" width="100%" />
-			</mx:FormItem>
-			<mx:FormItem label="{resourceManager.getString('businessRule', 'expression')}1:" width="345">
-				<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="100%" />
-			</mx:FormItem>
-			<mx:FormItem label="{resourceManager.getString('businessRule', 'type')}:" width="345" >
-				<enum:ComparisonOperatorComboBox id="cbComparison" selectedItem="{_condition.comparisonOperator}"/>
-			</mx:FormItem>
-			<mx:FormItem label="{resourceManager.getString('businessRule', 'expression')}2:" width="345">
-				<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="100%" />
-			</mx:FormItem>
-		</mx:Form>
-	</mx:VBox>
+	<mx:HBox width="100%" >
+			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
+			<mx:TextInput id="txtId" text="{_condition.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
+			
+			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}1:" />
+			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="250" />
+			
+			<mx:Label text="{resourceManager.getString('businessRule', 'type')}:"  />
+			<enum:ComparisonOperatorComboBox id="cbComparison" selectedItem="{_condition.comparisonOperator}"/>
+			
+			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}2:" />
+			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="250" />
+	</mx:HBox>
 
 </mx:HBox>

@@ -50,7 +50,7 @@
 			{
 				form = new OpenIncidentScreen();
 				form.closeFunction = closePopup;
-				form.setStyle("backgroundAlpha", 0.8);
+				form.setStyle("backgroundAlpha", 0.9);
 				form.setStyle("backgroundColor", "#999999");
 				PopUpManager.addPopUp(form, dg.parent, false);
 				form.incident = dg.selectedItem as Incident;

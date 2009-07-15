@@ -56,4 +56,7 @@
 		<servlet-name>MessageBrokerServlet</servlet-name>
 		<url-pattern>/messagebroker/*</url-pattern>
 	</servlet-mapping>
+	    <session-config>
+      <session-timeout>20</session-timeout> 
+    </session-config>
 </web-app>
