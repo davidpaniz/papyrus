@@ -27,9 +27,7 @@
 				param.onDelete = checkDelete.selected;
 				param.type = (cbType.selectedItem as String);
 				param.conditions = conditionForm.conditions;
-				var actions:ArrayCollection = new ArrayCollection();
-				actions.addItem(new Action());
-				param.actions = actions;
+				param.actions = actionForm.actions;
 				new BusinessRuleService().saveBusinessRule(param, onResultSave);
 			}
 			
@@ -62,7 +60,7 @@
 			<mx:VBox label="{resourceManager.getString('businessRule', 'conditions')}" height="100%" width="100%" >
 				<mx:HBox width="100%" >
 					<mx:Label text="{resourceManager.getString('businessRule', 'when_a')}" />
-					<enum:BusinessRuleTypeComboBox id="cbType" selectedItem="{businessRule.type}"/>
+					<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{businessRule.type}"/>
 					
 					<mx:Label text="{resourceManager.getString('businessRule', 'created')}:" />
 					<mx:CheckBox id="checkCreate" selected="{businessRule.onCreate}" />
@@ -75,6 +73,7 @@
 				</mx:HBox>			
 				<businessRules:ConditionsSubForm id="conditionForm"  height="100%" width="100%"/>
 			</mx:VBox> 
+			<businessRules:ActionsSubForm id="actionForm"  height="100%" width="100%"/>
 		</mx:TabNavigator>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'cancel')}" />

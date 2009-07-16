@@ -14,10 +14,9 @@
 			{
 				var conditions:ArrayCollection = new ArrayCollection();
 				var conditionForms:Array = container.getChildren();
-				for(var formName:String in conditionForms)
+				for(var i:int = 0; i < conditionForms.length; i++)
 				{
-					var conditionForm:ConditionForm = container.getChildByName(formName) as ConditionForm;
-					conditions.addItem(conditionForm.condition);					
+					conditions.addItem((conditionForms[i] as ConditionForm).condition);					
 				}
 				return conditions;
 			}

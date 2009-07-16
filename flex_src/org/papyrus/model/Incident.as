@@ -3,7 +3,7 @@ package org.papyrus.model
 	import mx.collections.ArrayCollection;
 	
 	[RemoteClass(alias="org.papyrus.domain.model.Incident")]
-	public class Incident
+	public class Incident implements ConditionComparable
 	{
 		public var id:Number;
 		public var clientName:String;

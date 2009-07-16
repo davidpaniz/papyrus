@@ -12,8 +12,9 @@
 			{
 				var cond:Condition = new Condition();
 				cond.expression1 = txtExpression1.text;
-				cond.expression2 = txtExpression2.text;
 				cond.comparisonOperator = (cbComparison.selectedItem as String);
+				cond.expression2 = txtExpression2.text;
+				cond.logicalOperator = cbLogical.selectedItem as String;
 				
 				return cond;
 			}

@@ -7,5 +7,8 @@ package org.papyrus.model
 		public var id:Number;
 		
 		public var businessRule:BusinessRule;
+		public var method:String;
+		public var type:String;
+		public var detail:ConditionComparable;
 	}
 }
