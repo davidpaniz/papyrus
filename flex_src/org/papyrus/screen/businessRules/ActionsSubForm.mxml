@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
+	 	<mx:Script>
+		<![CDATA[
+	 			import org.papyrus.model.Action;
+	 			import mx.collections.ArrayCollection;
+			private function addAction():void
+			{
+				container.addChild(new ActionForm());	
+			}
+			
+			public function get actions():ArrayCollection
+			{
+				var actions:ArrayCollection = new ArrayCollection();
+				var actionForms:Array = container.getChildren();
+				for(var i:int = 0; i < actionForms.length; i++)
+				{
+					actions.addItem((actionForms[i] as ActionForm).action);					
+				}
+				return actions;
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" id="container">
+		<businessRules:ActionForm />
+	</mx:VBox>
+	<mx:LinkButton click="addAction()" label="{resourceManager.getString('general', 'add')}" />
+</mx:VBox>

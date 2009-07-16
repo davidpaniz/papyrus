@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	 	<mx:Script>
+		<![CDATA[
+	 			import org.papyrus.model.WorkOrder;
+	 			import org.papyrus.model.Action;
+	 			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var _action:Action;
+			
+			public function get action():Action
+			{
+				var action:Action = new Action();
+				action.method = cbMethod.selectedItem as String;
+				action.type = cbType.selectedItem as String;
+				
+				var workOrder:WorkOrder = new WorkOrder();
+				workOrder.description = "testando... acho que agora vai funcionar";
+				
+				action.detail = workOrder;
+				return action;
+			}
+			
+			public function set action(action:Action):void
+			{
+				this._action = action;
+			}
+			
+			private function remove():void
+			{
+				this.parent.removeChild(this);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" >
+			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
+			<mx:TextInput id="txtId" text="{_action.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
+			
+			<enum:ActionMethodComboBox id="cbMethod" selectedItem="{_action.method}"/>
+			<mx:Spacer />
+			<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{_action.type}"/>
+			<mx:Spacer />
+			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
+	</mx:HBox>
+
+</mx:HBox>
