@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
+	 width="488" height="100%"  xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
 	 			import org.papyrus.model.Action;
@@ -40,38 +40,41 @@
 			
 		]]>
 	</mx:Script>
-	<mx:VBox width="100%" >
+	<mx:VBox width="100%" height="100%" paddingRight="10" paddingBottom="20">
 		<mx:Text text="{resourceManager.getString('businessRule', 'business_rule.managemant')}" />
 				
 		<mx:TabNavigator width="100%" height="100%">
-			<mx:Form id="businessRuleForm" width="100%" height="100%" defaultButton="{btSalvar}" label="bla">
-				<mx:FormHeading label="{resourceManager.getString('businessRule', 'business_rule')}" width="100%"/>
-				<mx:FormItem label="ID:" width="127" visible="false" includeInLayout="false">
-					<mx:TextInput id="txtId" text="{businessRule.id}" editable="false" enabled="false" width="100%" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'business_rule')}:" width="345">
+			<mx:VBox id="businessRuleForm" width="100%" height="100%" defaultButton="{btSalvar}" label="{resourceManager.getString('businessRule', 'business_rule')}"  paddingRight="10" paddingBottom="20">
+				<mx:HBox width="100%" >
+					<mx:TextInput id="txtId" text="{businessRule.id}" editable="false" enabled="false" width="100%" visible="false" includeInLayout="false" />
+					<mx:Label text="{resourceManager.getString('businessRule', 'name')}:" />
 					<mx:TextInput id="txtName" text="{businessRule.name}" width="100%" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('general', 'enabled')}:" width="345" >
+				</mx:HBox>
+				<mx:HBox width="100%" >
+					<mx:Label text="{resourceManager.getString('general', 'enabled')}:"  />
 					<mx:CheckBox id="checkEnabled" selected="{businessRule.enabled}" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'description')}:" width="345">
-					<mx:TextArea id="txtDescription" text="{businessRule.description}" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'type')}:" width="345" >
+				</mx:HBox>
+				<mx:HBox width="100%" height="100%" paddingRight="10" paddingBottom="20">
+					<mx:Label text="{resourceManager.getString('businessRule', 'description')}:" />
+					<mx:TextArea id="txtDescription" text="{businessRule.description}" width="100%" height="100%" />
+				</mx:HBox>
+			</mx:VBox>
+			<mx:VBox label="{resourceManager.getString('businessRule', 'conditions')}" height="100%" width="100%" >
+				<mx:HBox width="100%" >
+					<mx:Label text="{resourceManager.getString('businessRule', 'when_a')}" />
 					<enum:BusinessRuleTypeComboBox id="cbType" selectedItem="{businessRule.type}"/>
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'onCreate')}:" width="345" >
+					
+					<mx:Label text="{resourceManager.getString('businessRule', 'created')}:" />
 					<mx:CheckBox id="checkCreate" selected="{businessRule.onCreate}" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'onUpdate')}:" width="345" >
+					
+					<mx:Label text="{resourceManager.getString('businessRule', 'updated')}:" />
 					<mx:CheckBox id="checkUpdate" selected="{businessRule.onUpdate}" />
-				</mx:FormItem>
-				<mx:FormItem label="{resourceManager.getString('businessRule', 'onDelete')}:" width="345" >
+					
+					<mx:Label text="{resourceManager.getString('businessRule', 'deleted')}:" />
 					<mx:CheckBox id="checkDelete" selected="{businessRule.onDelete}" />
-				</mx:FormItem>
-			</mx:Form>
-			<businessRules:ConditionsSubForm id="conditionForm" label="conditions"/>
+				</mx:HBox>			
+				<businessRules:ConditionsSubForm id="conditionForm"  height="100%" width="100%"/>
+			</mx:VBox> 
 		</mx:TabNavigator>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'cancel')}" />

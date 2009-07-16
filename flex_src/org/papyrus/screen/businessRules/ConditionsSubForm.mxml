@@ -26,5 +26,5 @@
 	<mx:VBox width="100%" id="container">
 		<businessRules:ConditionForm />
 	</mx:VBox>
-	<mx:LinkButton click="addCondition()" label="adicionar" />
+	<mx:LinkButton click="addCondition()" label="{resourceManager.getString('general', 'add')}" />
 </mx:VBox>

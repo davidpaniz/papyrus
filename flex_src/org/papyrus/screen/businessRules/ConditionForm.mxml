@@ -23,20 +23,27 @@
 				this._condition = condition;
 			}
 			
+			private function remove():void
+			{
+				this.parent.removeChild(this);
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" >
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_condition.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
-			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}1:" />
+			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}:" />
 			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="250" />
-			
-			<mx:Label text="{resourceManager.getString('businessRule', 'type')}:"  />
+			<mx:Spacer />
 			<enum:ComparisonOperatorComboBox id="cbComparison" selectedItem="{_condition.comparisonOperator}"/>
-			
-			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}2:" />
+			<mx:Spacer />
 			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="250" />
+			<mx:Spacer />
+			<enum:LogicalOperatorComboBox id="cbLogical" selectedItem="{_condition.logicalOperator}"/>
+			<mx:Spacer />
+			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>
 
 </mx:HBox>
