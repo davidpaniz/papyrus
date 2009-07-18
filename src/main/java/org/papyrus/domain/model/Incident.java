@@ -49,10 +49,12 @@ public class Incident implements ConditionComparable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dueDate;
 
-	@OneToMany
+	@OneToMany(mappedBy = "incident")
 	private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
+
+	private boolean template;
 
 	public String getClientName() {
 		return clientName;
@@ -148,5 +150,23 @@ public class Incident implements ConditionComparable {
 
 	public long getId() {
 		return id;
+	}
+
+	public boolean isTemplate() {
+		return template;
+	}
+
+	public void setTemplate(boolean template) {
+		this.template = template;
+	}
+
+	public ConditionComparable fromTemplate(ConditionComparable oldValue, ConditionComparable newValue) {
+		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
+		Incident incident = new Incident();
+		incident.setDescription(resolver.valueOf(this.description)
+				.toString());
+		incident.setDueDate(this.dueDate);
+		incident.setId(this.id);
+		return incident;
 	}
 }

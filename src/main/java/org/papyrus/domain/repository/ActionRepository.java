@@ -15,12 +15,6 @@ public interface ActionRepository {
 	 * @param the
 	 *            action that will be persisted
 	 */
-	Action saveOrUpdate(Action action);
-
-	/**
-	 * @param action
-	 * @return the same object if deleted or null if some problems ocurrer
-	 */
-	Action delete(Action action);
+	Action save(Action action);
 
 }

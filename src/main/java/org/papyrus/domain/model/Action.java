@@ -34,7 +34,7 @@ public class Action {
 	private BusinessRuleType type;
 
 	@Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER)
-	@AnyMetaDef(idType = "integer", metaType = "string", metaValues = {
+	@AnyMetaDef(idType = "long", metaType = "string", metaValues = {
 			@MetaValue(value = "INCIDENT", targetEntity = Incident.class),
 			@MetaValue(value = "WORK_ORDER", targetEntity = WorkOrder.class) })
 	@JoinColumn(name = "detail_id")
@@ -61,14 +61,13 @@ public class Action {
 	}
 
 	public void setDetail(ConditionComparable detail) {
-		if (type != null) {
-			if (detail.getClass()
-					.equals(this.type.getType())) {
-				this.detail = detail;
-			} else {
-				throw new IllegalStateException();
-			}
+		if (type != null && !detail.getClass()
+				.equals(this.type.getType())) {
+			throw new IllegalArgumentException(type.getType()
+					.toString() + " does not match with " + detail.getClass()
+					.toString());
 		}
+		this.detail = detail;
 	}
 
 	public ConditionComparable getDetail() {
@@ -84,14 +83,13 @@ public class Action {
 	}
 
 	public void setType(BusinessRuleType type) {
-		if (detail != null) {
-			if (detail.getClass()
-					.equals(type.getType())) {
-				this.type = type;
-			} else {
-				throw new IllegalStateException();
-			}
+		if (detail != null && !detail.getClass()
+				.equals(type.getType())) {
+			throw new IllegalArgumentException(type.getType()
+					.toString() + " does not match with " + detail.getClass()
+					.toString());
 		}
+		this.type = type;
 	}
 
 	public BusinessRuleType getType() {

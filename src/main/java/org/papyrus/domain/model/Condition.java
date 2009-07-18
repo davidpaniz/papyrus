@@ -10,9 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import net.vidageek.mirror.dsl.Mirror;
-import net.vidageek.mirror.exception.MirrorException;
-
 import org.papyrus.domain.exception.BusinessRuleException;
 
 @Entity
@@ -54,8 +51,9 @@ public class Condition {
 
 	@SuppressWarnings("unchecked")
 	public boolean test(ConditionComparable oldValue, ConditionComparable newValue) throws BusinessRuleException {
-		Object firstParam = getParameter(oldValue, newValue, expression1);
-		Object secondParam = getParameter(oldValue, newValue, expression2);
+		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
+		Object firstParam = resolver.valueOf(expression1);
+		Object secondParam = resolver.valueOf(expression2);
 
 		if (this.comparisonOperator == ConditionComparisonOperator.EQ) {
 			return firstParam.equals(secondParam);
@@ -68,31 +66,6 @@ public class Condition {
 		}
 
 		return false;
-	}
-
-	private Object getParameter(ConditionComparable oldValue, ConditionComparable newValue, String expression)
-			throws BusinessRuleException {
-		try {
-
-			if (expression.indexOf("#") >= 0) {
-				return getValue(oldValue, fieldInExpression(expression));
-			} else if (expression.indexOf("$") >= 0) {
-				return getValue(newValue, fieldInExpression(expression));
-			}
-		} catch (MirrorException e) {
-			throw new BusinessRuleException(e);
-		}
-		return expression;
-	}
-
-	private String fieldInExpression(String expression) {
-		return expression.substring(2, expression.length() - 1);
-	}
-
-	private Object getValue(Object param, String filedName) {
-		return new Mirror().on(param)
-				.invoke()
-				.getterFor(filedName);
 	}
 
 	public String getExpression1() {

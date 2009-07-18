@@ -17,13 +17,8 @@ public class ActionDao implements ActionRepository {
 		this.template = template;
 	}
 
-	public Action saveOrUpdate(Action action) {
+	public Action save(Action action) {
 		template.saveOrUpdate(action);
-		return action;
-	}
-
-	public Action delete(Action action) {
-		template.delete(action);
 		return action;
 	}
 }
