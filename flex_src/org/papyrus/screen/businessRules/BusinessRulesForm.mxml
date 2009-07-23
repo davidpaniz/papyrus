@@ -73,7 +73,7 @@
 				</mx:HBox>			
 				<businessRules:ConditionsSubForm id="conditionForm"  height="100%" width="100%"/>
 			</mx:VBox> 
-			<businessRules:ActionsSubForm id="actionForm"  height="100%" width="100%"/>
+			<businessRules:ActionsSubForm id="actionForm" label="{resourceManager.getString('businessRule', 'actions')}" height="100%" width="100%"/>
 		</mx:TabNavigator>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'cancel')}" />

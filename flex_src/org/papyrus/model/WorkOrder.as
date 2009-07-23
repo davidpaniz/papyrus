@@ -15,8 +15,10 @@ package org.papyrus.model
 
 		public function asDetail():ArrayCollection
 		{
-			var template:ArrayCollection = new ArrayCollection();
-			return template;
+			var detail:ArrayCollection = new ArrayCollection();
+			detail.addItem(TemplateValue.createTemplateValue("id", id.toString()));
+			detail.addItem(TemplateValue.createTemplateValue("description", description));
+			return detail;
 			//FIXME 
 		}
 	}

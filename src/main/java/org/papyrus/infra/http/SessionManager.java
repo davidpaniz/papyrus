@@ -13,11 +13,6 @@ public class SessionManager implements Serializable {
 	private final static String CURRENT_USER = "user";
 	private HttpSession session;
 
-	// @Autowired
-	// public SessionManager(HttpSession session) {
-	// this.session = session;
-	// }
-
 	@Autowired
 	public void setSession(HttpSession session) {
 		this.session = session;

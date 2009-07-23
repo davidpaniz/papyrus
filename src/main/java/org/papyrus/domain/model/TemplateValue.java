@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -17,8 +16,9 @@ public class TemplateValue {
 	private String field;
 	private String value;
 
-	@ManyToOne
-	private Action action;
+	//
+	// @ManyToOne
+	// private Action action;
 
 	public long getId() {
 		return id;
@@ -43,13 +43,13 @@ public class TemplateValue {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public void setAction(Action action) {
-		this.action = action;
-	}
+	//
+	// public Action getAction() {
+	// return action;
+	// }
+	//
+	// public void setAction(Action action) {
+	// this.action = action;
+	// }
 
 }

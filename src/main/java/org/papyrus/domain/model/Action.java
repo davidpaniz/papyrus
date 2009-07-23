@@ -2,9 +2,11 @@ package org.papyrus.domain.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "Action_Seq")
-public abstract class Action {
+public class Action {
 
 	@Id
 	@GeneratedValue(generator = "Action_Seq", strategy = GenerationType.AUTO)
@@ -36,8 +38,8 @@ public abstract class Action {
 	// @JoinColumn(name = "detail_id")
 	// private ConditionComparable detail;
 
-	@OneToMany(mappedBy = "action")
-	private List<TemplateValue> values;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<TemplateValue> detail;
 
 	public void setId(long id) {
 		this.id = id;
@@ -75,6 +77,14 @@ public abstract class Action {
 		return type;
 	}
 
+	public void setDetail(List<TemplateValue> detail) {
+		this.detail = detail;
+	}
+
+	public List<TemplateValue> getDetail() {
+		return detail;
+	}
+
 	//
 	// public void setDetails(ConditionComparable comparable) {
 	// // FIXME fix this method. Wainting finish frontend
@@ -89,11 +99,4 @@ public abstract class Action {
 	// }
 	// }
 
-	public void setValues(List<TemplateValue> values) {
-		this.values = values;
-	}
-
-	public List<TemplateValue> getValues() {
-		return values;
-	}
 }
