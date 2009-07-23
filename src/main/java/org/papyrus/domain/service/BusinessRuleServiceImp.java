@@ -13,7 +13,6 @@ import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.ConditionComparable;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
-import org.papyrus.domain.repository.ConditionComparableRepository;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,15 +29,13 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	private final BusinessRuleRepository repository;
 	private final ConditionRepository conditionRepository;
 	private final ActionRepository actionRepository;
-	private final ConditionComparableRepository conditionComparableRepository;
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository, ConditionComparableRepository conditionComparableRepository) {
+			ActionRepository actionRepository) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
-		this.conditionComparableRepository = conditionComparableRepository;
 	}
 
 	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
@@ -85,9 +82,8 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		}
 		for (Action action : businessRule.getActions()) {
 			action.setBusinessRule(persistedBusinessRule);
-			ConditionComparable detail = action.getDetail();
-			detail.setTemplate(true);
-			conditionComparableRepository.save(detail);
+			// ConditionComparable detail = action.getDetail();
+			// FIXME have to save de detail of the action
 			actionRepository.save(action);
 		}
 

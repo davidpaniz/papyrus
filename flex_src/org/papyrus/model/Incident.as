@@ -22,5 +22,10 @@ package org.papyrus.model
 		{
 		}
 
+		public function asDetail():ArrayCollection
+		{
+			return new ArrayCollection();
+			//FIXME 
+		}
 	}
 }

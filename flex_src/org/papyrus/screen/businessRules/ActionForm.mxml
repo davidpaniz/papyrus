@@ -3,11 +3,14 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import mx.managers.PopUpManager;
+	 			import org.papyrus.screen.incident.WorkOrderForm;
 	 			import org.papyrus.model.WorkOrder;
 	 			import org.papyrus.model.Action;
 	 			import mx.collections.ArrayCollection;
 			[Bindable]
 			private var _action:Action;
+			private var details:ArrayCollection
 			
 			public function get action():Action
 			{
@@ -32,6 +35,30 @@
 				this.parent.removeChild(this);
 			}
 			
+						
+			private var workOrderForm:WorkOrderForm;
+			private function openDetails():void
+			{
+				workOrderForm = new WorkOrderForm();
+				workOrderForm.onCancel = closePopup;
+				workOrderForm.onOk = okForm;
+				workOrderForm.setStyle("backgroundAlpha", 0.9);
+				workOrderForm.setStyle("backgroundColor", "#999999");
+				PopUpManager.addPopUp(workOrderForm, this, false);
+			}
+			
+			private function closePopup():void
+			{
+                PopUpManager.removePopUp(workOrderForm);
+			}
+			
+			private function okForm():void
+			{
+				details = workOrderForm.workOrder.asDetail();
+                PopUpManager.removePopUp(workOrderForm);
+			}
+			
+			
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" >
@@ -41,6 +68,8 @@
 			<enum:ActionMethodComboBox id="cbMethod" selectedItem="{_action.method}"/>
 			<mx:Spacer />
 			<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{_action.type}"/>
+			<mx:Spacer />
+			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>
