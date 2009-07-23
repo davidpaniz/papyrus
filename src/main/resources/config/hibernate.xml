@@ -40,6 +40,7 @@
 				<value>org.papyrus.domain.model.BusinessRule</value>
 				<value>org.papyrus.domain.model.Condition</value>
 				<value>org.papyrus.domain.model.Action</value>
+				<value>org.papyrus.domain.model.TemplateValue</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->
