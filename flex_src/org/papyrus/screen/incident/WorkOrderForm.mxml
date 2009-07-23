@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	 	<mx:Script>
+		<![CDATA[
+	 			import org.papyrus.model.WorkOrder;
+	 			import mx.collections.ArrayCollection;
+	 			
+			[Bindable]
+			public var isTemplate:Boolean = false;
+			
+			[Bindable]
+			private var _workOrder:WorkOrder;
+			
+			public function get workOrder():WorkOrder
+			{
+				var workOrder:WorkOrder = new WorkOrder();
+				workOrder.description = txtDescription.text;
+
+				return workOrder;
+			}
+			
+			public function set workOrder(workOrder:WorkOrder):void
+			{
+				this._workOrder = workOrder;
+			}
+			
+			private function remove():void
+			{
+				this.parent.removeChild(this);
+			}
+			
+			public var onOk:Function;
+			public var onCancel:Function;
+			
+			private function ok():void
+			{
+				onOk();
+			}
+			
+			private function cancel():void
+			{
+				onCancel();
+			}
+		]]>
+	</mx:Script>
+	<mx:Form id="form" width="100%" height="100%" defaultButton="{btOk}" >
+		<mx:FormItem label="ID:" width="345" >
+			<mx:TextInput id="txtId" text="{_workOrder.id}"  editable="{!isTemplate}" enabled="{!isTemplate}" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'status')}:" width="345">
+			<mx:TextInput id="txtDescription" text="{_workOrder.description}" />
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel();"/>
+			<mx:Button label="{resourceManager.getString('general', 'ok')}" id="btOk" click="ok();"
+				textAlign="center"/>
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>
