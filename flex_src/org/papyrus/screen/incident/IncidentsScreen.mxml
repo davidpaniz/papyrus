@@ -53,7 +53,8 @@
 				form.setStyle("backgroundAlpha", 0.9);
 				form.setStyle("backgroundColor", "#999999");
 				PopUpManager.addPopUp(form, dg.parent, false);
-				form.incident = dg.selectedItem as Incident;
+				var item:Incident = dg.selectedItem as Incident;
+				form.incident = item == null ? new Incident : item;
 			}
 			
 			private function closePopup():void

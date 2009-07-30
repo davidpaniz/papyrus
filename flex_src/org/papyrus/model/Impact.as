@@ -4,7 +4,7 @@ package org.papyrus.model
 	[Bindable]
 	public class Impact
 	{
-		public var id:Number;
+		public var id:Number = 0;
 		public var description:String;
 	}
 }

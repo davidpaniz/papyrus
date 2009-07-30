@@ -15,7 +15,7 @@
 		<dependency org="org.springframework" name="spring-aop" rev="2.5.6.SEC01" conf="*->*,!sources,!javadoc" ></dependency>
 		<dependency org="org.slf4j" name="nlog4j" rev="1.2.25" conf="*->*,!sources,!javadoc" ></dependency>
 		<dependency org="org.objenesis" name="objenesis" rev="1.1" conf="*->*,!sources,!javadoc" ></dependency>
-		<dependency org="net.vidageek" name="mirror" rev="1.4" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="net.vidageek" name="mirror" rev="1.5" conf="*->*,!sources,!javadoc" ></dependency>
 		<exclude org="aopalliance" />
 		<exclude org="asm" artifact="asm-tree" />
 		<exclude org="asm" artifact="asm-attrs" />
@@ -31,12 +31,10 @@
 		<exclude org="commons-attributes" />
 		<exclude org="jasperreports" />
 		<exclude org="javassist" />
-		<exclude org="javax.activation" />
 		<exclude org="javax.ejb" />
 		<exclude org="javax.faces" />
 		<exclude org="javax.jdo" />
 		<exclude org="javax.jms" />
-		<exclude org="javax.mail" />
 		<exclude org="javax.portlet" />
 		<exclude org="javax.resource" />
 		<exclude org="javax.xml" />

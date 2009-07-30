@@ -36,5 +36,4 @@ public interface BusinessRuleRepository {
 	List<BusinessRule> findDeleteRules(BusinessRuleType type);
 
 	<T> T load(Class<T> type, Serializable id);
-
 }

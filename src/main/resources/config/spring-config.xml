@@ -15,9 +15,10 @@
 	<!--
 		Load properties from config file
 	-->
-	<context:property-placeholder location="classpath:base-config.properties" />
+	<context:property-placeholder location="classpath:base-database.properties,classpath:mail.properties,classpath:user-database.properties,classpath:base-config.properties" />
 
 	<import resource="hibernate.xml"/>
+	<import resource="mail.xml"/>
 
    <!--
 		Session Manager

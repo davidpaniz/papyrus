@@ -19,7 +19,6 @@ package org.papyrus.model
 			detail.addItem(TemplateValue.createTemplateValue("id", id.toString()));
 			detail.addItem(TemplateValue.createTemplateValue("description", description));
 			return detail;
-			//FIXME 
 		}
 	}
 }

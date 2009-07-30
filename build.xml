@@ -6,7 +6,7 @@
                    
 	 David Paniz                                                                
      ====================================================================== -->
-<project name="Papyrus ITSM" default="compile"  xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="Papyrus ITSM" default="resolve-dependence"  xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<description>Full Build of Papyrus ITSM</description>
 

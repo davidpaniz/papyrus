@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import net.vidageek.mirror.dsl.Mirror;
+import net.vidageek.mirror.invoke.dsl.InvocationHandler;
+
 @Entity
 @SequenceGenerator(name = "Action_Seq")
 public class Action {
@@ -85,18 +88,19 @@ public class Action {
 		return detail;
 	}
 
-	//
-	// public void setDetails(ConditionComparable comparable) {
-	// // FIXME fix this method. Wainting finish frontend
-	// this.values = new ArrayList<TemplateValue>();
-	// List<Field> fields = new Mirror().on(comparable.getClass())
-	// .reflectAll()
-	// .fields();
-	// GetterHandler getterHandler = new Mirror().on(comparable)
-	// .get();
-	// for (Field field : fields) {
-	// new TemplateValue(field.getName(), getterHandler.field(field));
-	// }
-	// }
+	public ConditionComparable detail(ConditionComparable oldValue) {
+		ConditionComparable conditionComparable = new Mirror().on(type.getType())
+				.invoke()
+				.constructor()
+				.withoutArgs();
+		InvocationHandler<Object> handler = new Mirror().on(conditionComparable)
+				.invoke();
+		ExpressionResolver expressionResolver = new ExpressionResolver(oldValue, null);
+		for (TemplateValue templateValue : detail) {
+			handler.setterFor(templateValue.getField())
+					.withValue(expressionResolver.valueOf(templateValue.getValue()));
+		}
 
+		return conditionComparable;
+	}
 }

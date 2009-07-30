@@ -32,7 +32,7 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository) {
+			ActionRepository actionRepository, MailService mailService) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
@@ -64,7 +64,8 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 			if (businessRule.shouldExecute(oldValue, conditionComparable)) {
 				List<Action> actions = businessRule.getActions();
 				for (Action action : actions) {
-					action.doAction();
+					ConditionComparable detail = action.detail(oldValue);
+
 				}
 			}
 		}
@@ -82,8 +83,6 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		}
 		for (Action action : businessRule.getActions()) {
 			action.setBusinessRule(persistedBusinessRule);
-			// ConditionComparable detail = action.getDetail();
-			// FIXME have to save de detail of the action
 			actionRepository.save(action);
 		}
 
