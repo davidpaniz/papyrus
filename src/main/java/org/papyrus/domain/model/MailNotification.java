@@ -60,6 +60,7 @@ public class MailNotification implements MimeMessagePreparator, ConditionCompara
 	public void prepare(MimeMessage mimeMessage) throws Exception {
 		MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 		message.setTo(this.address);
+		message.setSubject(subject);
 		// FIXME "from" must be parameterized
 		message.setFrom("papyrus@davidpaniz.com");
 		message.setText(body, false);

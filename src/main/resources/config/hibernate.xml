@@ -27,7 +27,6 @@
 		<property name="dataSource">
 			<ref local="dataSource" />
 		</property>
-		<!-- Carrega todos os HBM's -->
 		<property name="annotatedClasses">
 			<list>
 				<value>org.papyrus.domain.model.User</value>
@@ -41,6 +40,8 @@
 				<value>org.papyrus.domain.model.Condition</value>
 				<value>org.papyrus.domain.model.Action</value>
 				<value>org.papyrus.domain.model.TemplateValue</value>
+				<value>org.papyrus.domain.model.MailNotification</value>
+				<value>org.papyrus.domain.model.Task</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

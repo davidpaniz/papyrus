@@ -19,7 +19,8 @@ public class ConditionComparableDao implements ConditionComparableRepository {
 
 	public ConditionComparable saveTemplate(ConditionComparable conditionComparable) {
 		conditionComparable.asTemplate();
-		return (ConditionComparable) template.save(conditionComparable);
+		template.save(conditionComparable);
+		return conditionComparable;
 	}
 
 	public void activeTemplate(ConditionComparable conditionComparable) {
@@ -27,6 +28,10 @@ public class ConditionComparableDao implements ConditionComparableRepository {
 				conditionComparable.getId());
 		loadedCondition.activeTemplate();
 		template.update(loadedCondition);
+	}
+
+	public ConditionComparable load(ConditionComparable detail) {
+		return (ConditionComparable) template.load(detail.getClass(), detail.getId());
 	}
 
 }

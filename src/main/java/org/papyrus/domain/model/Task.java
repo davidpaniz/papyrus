@@ -25,8 +25,8 @@ public class Task {
 	@GeneratedValue(generator = "Task_Seq", strategy = GenerationType.AUTO)
 	private long id;
 
-	@Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER)
-	@AnyMetaDef(idType = "integer", metaType = "string", metaValues = {
+	@Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER, optional = false)
+	@AnyMetaDef(idType = "long", metaType = "string", metaValues = {
 			@MetaValue(value = "INCIDENT", targetEntity = Incident.class),
 			@MetaValue(value = "WORK_ORDER", targetEntity = WorkOrder.class),
 			@MetaValue(value = "MAIL_NOTIFICATION", targetEntity = MailNotification.class) })

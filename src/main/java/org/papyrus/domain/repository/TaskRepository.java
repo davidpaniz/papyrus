@@ -8,4 +8,6 @@ public interface TaskRepository {
 	Task saveTask(Task task);
 
 	List<Task> taskToExecute();
+
+	void update(Task task);
 }

@@ -25,4 +25,6 @@ public interface ConditionComparableRepository {
 	 *            conditionComparable that will be activated
 	 */
 	void activeTemplate(ConditionComparable conditionComparable);
+
+	 ConditionComparable load(ConditionComparable detail);
 }

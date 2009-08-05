@@ -72,5 +72,7 @@
 	</bean>
 	 
 	<bean id="scheduleTask" class="org.papyrus.infra.schedule.ScheduleTask" autowire="constructor" />
+	
+	<bean id="org.papyrus.infra.schedule.HibernateAwareTask" class="org.papyrus.infra.schedule.HibernateAwareTask" autowire="constructor"/>
    
 </beans>
