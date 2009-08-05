@@ -18,6 +18,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.papyrus.domain.repository.ConditionComparableRepository;
+import org.papyrus.domain.service.MailService;
+
 /**
  * Entity that represents an Impact
  * 
@@ -53,6 +56,8 @@ public class Incident implements ConditionComparable {
 	private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
+
+	private boolean template;
 
 	public String getClientName() {
 		return clientName;
@@ -148,6 +153,26 @@ public class Incident implements ConditionComparable {
 
 	public long getId() {
 		return id;
+	}
+
+	public void execute(MailService mailService, ConditionComparableRepository conditionComparableRepository) {
+		conditionComparableRepository.activeTemplate(this);
+	}
+
+	public void activeTemplate() {
+		this.template = false;
+	}
+
+	public void asTemplate() {
+		this.template = true;
+	}
+
+	public boolean isTemplate() {
+		return template;
+	}
+
+	public void setTemplate(boolean template) {
+		this.template = template;
 	}
 
 }

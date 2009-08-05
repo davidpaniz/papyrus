@@ -1,5 +1,6 @@
 package org.papyrus.domain.model;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -139,5 +140,10 @@ public class BusinessRule {
 		}
 
 		return result;
+	}
+
+	public Calendar calculateDate() {
+		// FIXME should implement method
+		return Calendar.getInstance();
 	}
 }

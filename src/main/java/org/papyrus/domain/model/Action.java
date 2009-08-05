@@ -88,14 +88,14 @@ public class Action {
 		return detail;
 	}
 
-	public ConditionComparable detail(ConditionComparable oldValue) {
+	public ConditionComparable detail(ConditionComparable oldValue, ConditionComparable newValue) {
 		ConditionComparable conditionComparable = new Mirror().on(type.getType())
 				.invoke()
 				.constructor()
 				.withoutArgs();
 		InvocationHandler<Object> handler = new Mirror().on(conditionComparable)
 				.invoke();
-		ExpressionResolver expressionResolver = new ExpressionResolver(oldValue, null);
+		ExpressionResolver expressionResolver = new ExpressionResolver(oldValue, newValue);
 		for (TemplateValue templateValue : detail) {
 			handler.setterFor(templateValue.getField())
 					.withValue(expressionResolver.valueOf(templateValue.getValue()));

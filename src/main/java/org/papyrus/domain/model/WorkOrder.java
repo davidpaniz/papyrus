@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.papyrus.domain.repository.ConditionComparableRepository;
+import org.papyrus.domain.service.MailService;
+
 @Entity
 @SequenceGenerator(name = "Work_Order_Seq")
 public class WorkOrder implements ConditionComparable {
@@ -17,6 +20,7 @@ public class WorkOrder implements ConditionComparable {
 
 	@ManyToOne
 	private Incident incident;
+	private boolean template;
 
 	public long getId() {
 		return id;
@@ -42,4 +46,23 @@ public class WorkOrder implements ConditionComparable {
 		return incident;
 	}
 
+	public void execute(MailService mailService, ConditionComparableRepository conditionComparableRepository) {
+		conditionComparableRepository.activeTemplate(this);
+	}
+
+	public void activeTemplate() {
+		this.template = false;
+	}
+
+	public void asTemplate() {
+		this.template = true;
+	}
+
+	public boolean isTemplate() {
+		return template;
+	}
+
+	public void setTemplate(boolean template) {
+		this.template = template;
+	}
 }

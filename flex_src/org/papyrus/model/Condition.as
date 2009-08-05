@@ -2,7 +2,7 @@ package org.papyrus.model
 {
 	[RemoteClass(alias="org.papyrus.domain.model.Condition")]
 	[Bindable]
-	public class Condition
+	public class Condition 
 	{
 		public var id:Number;
 

@@ -3,6 +3,7 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.papyrus.domain.exception.BusinessRuleException;
@@ -11,9 +12,12 @@ import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Task;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
+import org.papyrus.domain.repository.ConditionComparableRepository;
 import org.papyrus.domain.repository.ConditionRepository;
+import org.papyrus.domain.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,13 +33,18 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	private final BusinessRuleRepository repository;
 	private final ConditionRepository conditionRepository;
 	private final ActionRepository actionRepository;
+	private final TaskRepository taskRepository;
+	private final ConditionComparableRepository conditionComparableRepository;
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository, MailService mailService) {
+			ActionRepository actionRepository, MailService mailService,
+			ConditionComparableRepository conditionComparableRepository, TaskRepository taskRepository) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
+		this.conditionComparableRepository = conditionComparableRepository;
+		this.taskRepository = taskRepository;
 	}
 
 	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
@@ -62,10 +71,12 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		ConditionComparable oldValue = repository.load(type.getType(), conditionComparable.getId());
 		for (BusinessRule businessRule : rules) {
 			if (businessRule.shouldExecute(oldValue, conditionComparable)) {
+				Calendar taskDate = businessRule.calculateDate();
 				List<Action> actions = businessRule.getActions();
 				for (Action action : actions) {
-					ConditionComparable detail = action.detail(oldValue);
-
+					ConditionComparable detail = conditionComparableRepository.saveTemplate(action.detail(oldValue,
+							conditionComparable));
+					taskRepository.saveTask(new Task(detail, taskDate));
 				}
 			}
 		}

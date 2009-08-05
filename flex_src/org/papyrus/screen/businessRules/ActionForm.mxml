@@ -3,6 +3,7 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.MailNotification;
 	 			import mx.managers.PopUpManager;
 	 			import org.papyrus.screen.incident.WorkOrderForm;
 	 			import org.papyrus.model.WorkOrder;
@@ -18,8 +19,14 @@
 			{
 				var action:Action = new Action();
 				action.method = cbMethod.selectedItem as String;
-				action.type = cbType.selectedItem as String;
-				action.detail = this.detail;
+//				action.type = cbType.selectedItem as String;
+//				action.detail = this.detail;
+				var mail:MailNotification = new MailNotification();
+				mail.address = "davidpaniz@gmail.com"; 
+				mail.body = "Testando Uhu!" ;
+				mail.subject = "Teste";
+				action.detail = mail.asDetail();
+				action.type = "MAIL_NOTIFICATION";
 				return action;
 			}
 			
