@@ -31,14 +31,18 @@ public class ScheduleTask extends TimerTask {
 	@Override
 	public void run() {
 		logger.trace("Running Scheduler");
-		hibernateAwareTask.execute(new HibernateRunnable() {
-			public void run() {
-				for (Task task : taskRepository.taskToExecute()) {
-					executeTask(task);
-				}
+		try {
+			hibernateAwareTask.execute(new HibernateRunnable() {
+				public void run() {
+					for (Task task : taskRepository.taskToExecute()) {
+						executeTask(task);
+					}
 
-			}
-		});
+				}
+			});
+		} catch (Exception e) {
+			logger.error("Error on Scheduler", e);
+		}
 	}
 
 	private void executeTask(Task task) {

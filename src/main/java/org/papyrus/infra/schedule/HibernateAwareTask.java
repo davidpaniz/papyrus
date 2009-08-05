@@ -13,15 +13,19 @@ public class HibernateAwareTask {
 	}
 
 	public void execute(HibernateRunnable runnable) {
-		TransactionSynchronizationManager.bindResource(this.sessionFactory, new SessionHolder(
-				this.sessionFactory.openSession()));
-		this.sessionFactory.getCurrentSession()
-				.beginTransaction();
+		try {
+			TransactionSynchronizationManager.bindResource(this.sessionFactory, new SessionHolder(
+					this.sessionFactory.openSession()));
+			this.sessionFactory.getCurrentSession()
+					.beginTransaction();
 
-		runnable.run();
+			runnable.run();
 
-		this.sessionFactory.getCurrentSession()
-				.getTransaction()
-				.commit();
+			this.sessionFactory.getCurrentSession()
+					.getTransaction()
+					.commit();
+		} finally {
+			TransactionSynchronizationManager.unbindResource(this.sessionFactory);
+		}
 	}
 }
