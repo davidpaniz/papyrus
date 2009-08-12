@@ -21,11 +21,5 @@ package org.papyrus.model
 		public function Incident()
 		{
 		}
-
-		public function asDetail():ArrayCollection
-		{
-			return new ArrayCollection();
-			//FIXME 
-		}
 	}
 }

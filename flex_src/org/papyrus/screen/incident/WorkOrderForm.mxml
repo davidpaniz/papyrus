@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*">
+<ConditionComparableScreen xmlns="org.papyrus.components.containers.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:enum="org.papyrus.components.combobox.enum.*" >
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.TemplateValue;
 	 			import org.papyrus.model.WorkOrder;
 	 			import mx.collections.ArrayCollection;
-	 			
-			[Bindable]
-			public var isTemplate:Boolean = false;
 			
 			[Bindable]
 			private var _workOrder:WorkOrder;
@@ -20,6 +19,15 @@
 				return workOrder;
 			}
 			
+			override public function asDetail():ArrayCollection
+			{
+				var result:ArrayCollection = new ArrayCollection();
+				result.addItem(TemplateValue.createTemplateValue("id", txtId.text));
+				result.addItem(TemplateValue.createTemplateValue("description", txtDescription.text));
+				
+				return result;
+			}
+			
 			public function set workOrder(workOrder:WorkOrder):void
 			{
 				this._workOrder = workOrder;
@@ -30,15 +38,13 @@
 				this.parent.removeChild(this);
 			}
 			
-			public var onOk:Function;
-			public var onCancel:Function;
 			
-			private function ok():void
+			protected function ok():void
 			{
 				onOk();
 			}
 			
-			private function cancel():void
+			protected function cancel():void
 			{
 				onCancel();
 			}
@@ -58,4 +64,4 @@
 		</mx:ControlBar>
 	</mx:Form>
 
-</mx:HBox>
+</ConditionComparableScreen>

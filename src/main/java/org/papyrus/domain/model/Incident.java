@@ -57,7 +57,7 @@ public class Incident implements ConditionComparable {
 	@OneToMany
 	private List<Attachment> attachments;
 
-	private boolean template;
+	private boolean template = false;
 
 	public String getClientName() {
 		return clientName;

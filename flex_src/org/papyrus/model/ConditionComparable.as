@@ -7,7 +7,6 @@ package org.papyrus.model
 	[Bindable]
 	public interface ConditionComparable
 	{
-		function asDetail():ArrayCollection;
 		
 	}
 }

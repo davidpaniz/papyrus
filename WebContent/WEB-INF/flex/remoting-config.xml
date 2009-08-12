@@ -58,4 +58,11 @@
 			<source>conditionService</source>
 		</properties>
 	</destination>
+	
+	<destination id="mailNotificationService">
+		<properties>
+			<factory>spring</factory>
+			<source>mailNotificationService</source>
+		</properties>
+	</destination>
 </service>

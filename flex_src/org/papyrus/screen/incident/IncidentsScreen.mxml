@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  show="getList()" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
+	  xmlns:urgency="org.papyrus.screen.urgency.*" 
+	  xmlns:combobox="org.papyrus.components.combobox.*" 
+	  xmlns:input="org.papyrus.components.input.*" 
+	  xmlns:enum="org.papyrus.components.combobox.enum.*"
+	 width="488" height="384"  show="getList()" >
+
 	 	<mx:Script>
 		<![CDATA[
-	 			import mx.managers.PopUpManager;
+ 			import mx.managers.PopUpManager;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
 			import org.papyrus.model.Incident;
@@ -76,4 +81,5 @@
 			<mx:Button label="{resourceManager.getString('general', 'new')}" />
 		</mx:ControlBar>
 	</mx:VBox>
+
 </mx:HBox>

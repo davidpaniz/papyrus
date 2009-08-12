@@ -5,7 +5,7 @@
 	xmlns:local="*" 
 	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
 	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*" xmlns:businessRules="org.papyrus.screen.businessRules.*"
-	height="100%" width="100%">
+	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -13,6 +13,7 @@
 		[ResourceBundle("incident")]
 		[ResourceBundle("priority")]
 		[ResourceBundle("businessRule")]
+		[ResourceBundle("notificationManager")]
 	</mx:Metadata>
 
 	<mx:Script>
@@ -95,6 +96,7 @@
 				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
 				<incident:IncidentsScreen label="{resourceManager.getString('general', 'incidents')}" width="100%" height="100%" />
 				<businessRules:BusinessRulesForm label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
+				<notification:MailNotificationScreen label="{resourceManager.getString('general', 'mail_notification')}"/>
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
 		</mx:Box>

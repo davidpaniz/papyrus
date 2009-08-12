@@ -13,12 +13,12 @@ package org.papyrus.model
 		{
 		}
 
-		public function asDetail():ArrayCollection
-		{
-			var detail:ArrayCollection = new ArrayCollection();
-			detail.addItem(TemplateValue.createTemplateValue("id", id.toString()));
-			detail.addItem(TemplateValue.createTemplateValue("description", description));
-			return detail;
-		}
+//		public function asDetail():ArrayCollection
+//		{
+//			var detail:ArrayCollection = new ArrayCollection();
+//			detail.addItem(TemplateValue.createTemplateValue("id", id.toString()));
+//			detail.addItem(TemplateValue.createTemplateValue("description", description));
+//			return detail;
+//		}
 	}
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+<ConditionComparableScreen xmlns="org.papyrus.components.containers.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
 	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.TemplateValue;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
 			import org.papyrus.model.Incident;
@@ -15,12 +17,20 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			private var _incident:Incident;
-			public var closeFunction:Function;
 			
 			public function set incident(incident:Incident):void
 			{
 				this._incident = incident
 				populateForm(incident);
+			}
+			
+			override public function asDetail():ArrayCollection
+			{
+				var result:ArrayCollection = new ArrayCollection();
+				result.addItem(TemplateValue.createTemplateValue("id", txtId.text));
+				result.addItem(TemplateValue.createTemplateValue("description", txtDs.text));
+				
+				return result;
 			}
 			
 			private function save():void
@@ -123,4 +133,4 @@
 		</mx:ControlBar>
 	</mx:Form>
 
-</mx:HBox>
+</ConditionComparableScreen>
