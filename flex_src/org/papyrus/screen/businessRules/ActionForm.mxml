@@ -46,6 +46,7 @@
 			private function openDetails():void
 			{
 				detailForm = cbType.detailForm();
+				detailForm.isTemplate = true;
 				detailForm.onCancel = closePopup;
 				detailForm.onOk = okForm;
 				detailForm.setStyle("backgroundAlpha", 0.9);
