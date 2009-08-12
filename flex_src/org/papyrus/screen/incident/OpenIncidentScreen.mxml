@@ -106,6 +106,24 @@
 				cbImpact.selectedIndex = 0;
 				cbUrgency.selectedIndex = 0;
 			}
+			
+			protected function ok():void
+			{
+				if(isTemplate) {
+					onOk();
+				} else {
+					save();
+				}
+			}
+			
+			protected function cancel(event:MouseEvent):void
+			{
+				if(isTemplate) {
+					onCancel();
+				} else {
+					hideForm(event);
+				}
+			}
 		]]>
 	</mx:Script>
 	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" >
@@ -127,9 +145,8 @@
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
-			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="hideForm(event)"/>
-			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
-				textAlign="center"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel(event)"/>
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="ok()" textAlign="center"/>
 		</mx:ControlBar>
 	</mx:Form>
 

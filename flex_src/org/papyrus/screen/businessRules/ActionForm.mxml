@@ -3,6 +3,7 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.components.containers.ConditionComparableScreen;
 	 			import org.papyrus.model.MailNotification;
 	 			import mx.managers.PopUpManager;
 	 			import org.papyrus.screen.incident.WorkOrderForm;
@@ -41,10 +42,10 @@
 			}
 			
 						
-			private var detailForm:WorkOrderForm;
+			private var detailForm:ConditionComparableScreen;
 			private function openDetails():void
 			{
-				detailForm = new WorkOrderForm();
+				detailForm = cbType.detailForm();
 				detailForm.onCancel = closePopup;
 				detailForm.onOk = okForm;
 				detailForm.setStyle("backgroundAlpha", 0.9);
