@@ -74,7 +74,7 @@
 			
 			<enum:ActionMethodComboBox id="cbMethod" selectedItem="{_action.method}"/>
 			<mx:Spacer />
-			<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{_action.type}"/>
+			<enum:ActionFormsComboBox id="cbType" selectedItem="{_action.type}"/>
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" />
 			<mx:Spacer />

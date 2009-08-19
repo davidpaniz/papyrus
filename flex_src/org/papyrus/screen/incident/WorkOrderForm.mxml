@@ -52,7 +52,7 @@
 	</mx:Script>
 	<mx:Form id="form" width="100%" height="100%" defaultButton="{btOk}" >
 		<mx:FormItem label="ID:" width="345" >
-			<mx:TextInput id="txtId" text="{_workOrder.id}"  editable="{!isTemplate}" enabled="{!isTemplate}" />
+			<mx:TextInput id="txtId" text="{_workOrder.id}"  editable="{isTemplate}" enabled="{isTemplate}" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'status')}:" width="345">
 			<mx:TextInput id="txtDescription" text="{_workOrder.description}" />
