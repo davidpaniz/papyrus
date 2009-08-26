@@ -65,4 +65,11 @@
 			<source>mailNotificationService</source>
 		</properties>
 	</destination>
+	
+	<destination id="companyService">
+		<properties>
+			<factory>spring</factory>
+			<source>companyService</source>
+		</properties>
+	</destination>
 </service>

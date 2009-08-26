@@ -42,6 +42,7 @@
 				<value>org.papyrus.domain.model.TemplateValue</value>
 				<value>org.papyrus.domain.model.MailNotification</value>
 				<value>org.papyrus.domain.model.Task</value>
+				<value>org.papyrus.domain.model.Company</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->
