@@ -72,4 +72,11 @@
 			<source>companyService</source>
 		</properties>
 	</destination>
+	
+	<destination id="clientService">
+		<properties>
+			<factory>spring</factory>
+			<source>clientService</source>
+		</properties>
+	</destination>
 </service>

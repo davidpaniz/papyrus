@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
-				labelField="name"
-				dataId="company" serviceMethod="{new CompanyService().listCompany}" entityClass="{Company}"
+				labelField="description"
+				dataId="client" serviceMethod="{new ClientService().listClient}" entityClass="{Client}"
 				isRequired="true"
 				>
 	<mx:Script>
 		<![CDATA[
-			import org.papyrus.model.Company;
-			import org.papyrus.services.CompanyService;
+			import org.papyrus.model.Client;
+			import org.papyrus.services.ClientService;
 						
 			public static function reset():void
 			{
-				observableMap.put("company", null );
-				refresh("company");
+				observableMap.put("client", null );
+				refresh("client");
 			}
 			
 			override protected function callService():void
 			{
-	 			new CompanyService().listCompany( handler );
+	 			new ClientService().listClient( handler );
 			}
 		]]>
 	</mx:Script>

@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  show="getList()">
+	 width="488" height="384"  show="getList()" xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.Company;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.UrgencyService;
-			import org.papyrus.model.Urgency;
+			import org.papyrus.services.ClientService;
+			import org.papyrus.model.Client;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			[Bindable]
-			private var listUrgencys:ArrayCollection;
-			private var urgency:Urgency;
+			private var listClients:ArrayCollection;
+			private var client:Client;
 			
 			private function save():void
 			{
-				this.urgency = new Urgency();
-				this.urgency.id   = new Number(txtId.text);
-				this.urgency.description   = txtDs.text;
-				new UrgencyService().saveUrgency(urgency, onResultSave);
+				this.client = new Client();
+				this.client.id   = new Number(txtId.text);
+				this.client.name   = txtName.text;
+				this.client.email   = txtEmail.text;
+				this.client.company = cbCompany.selectedItem as Company;
+				new ClientService().saveClient(client, onResultSave);
 			}
 			
-			private function onResultSave(urgency:Urgency):void
+			private function onResultSave(client:Client):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -32,14 +35,14 @@
 			private function remove():void
 			{
 				if (dg.selectedItem != null) {
-					urgency = dg.selectedItem as Urgency;
-					new UrgencyService().deleteUrgency(urgency, onResultRemove);
+					client = dg.selectedItem as Client;
+					new ClientService().deleteClient(client, onResultRemove);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
 			}
 			
-			private function onResultRemove(urgency:Urgency):void
+			private function onResultRemove(client:Client):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -48,12 +51,12 @@
 			private function getList():void
 			{
 				hideForm();
-				new UrgencyService().listUrgency(onResultGetList);
+				new ClientService().listClient(onResultGetList);
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void
 			{
-				listUrgencys = list;
+				listClients = list;
 			}
 			
 			private function setDefault():void
@@ -65,54 +68,65 @@
 			private function populateForm():void
 			{
 				if(dg.selectedItem != null) {
-					txtId.text = (dg.selectedItem as Urgency).id.toString();
-					txtDs.text = (dg.selectedItem as Urgency).description;
+					txtId.text = (dg.selectedItem as Client).id.toString();
+					txtName.text = (dg.selectedItem as Client).name;
+					txtEmail.text = (dg.selectedItem as Client).email;
+					cbCompany.selectedItem = (dg.selectedItem as Client).company;
 				}
 				showForm();
 			}
 			
 			private function showForm():void
 			{
-				urgencyForm.includeInLayout = true;
-				urgencyForm.visible = true;
-				txtDs.setFocus();
+				clientForm.includeInLayout = true;
+				clientForm.visible = true;
+				txtName.setFocus();
 			}
 			
 			private function hideForm():void
 			{
-				urgencyForm.includeInLayout = false;
-				urgencyForm.visible = false;
+				clientForm.includeInLayout = false;
+				clientForm.visible = false;
 			}
 			
 			private function cleanForm():void
 			{
 				txtId.text = "";
-				txtDs.text = "";
+				txtName.text = "";
+				txtEmail.text = "";
+				cbCompany.selectedIndex = 0; 
 			}
 		]]>
 	</mx:Script>
 	<mx:Resize id="resize" />
 	<mx:VBox width="100%" resizeEffect="{resize}">
-		<mx:Text text="{resourceManager.getString('urgency', 'urgency.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listUrgencys}" click="showForm();">
+		<mx:Text text="{resourceManager.getString('client', 'client.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listClients}" click="showForm();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
-				<mx:DataGridColumn headerText="Urgency" dataField="description"/>
+				<mx:DataGridColumn headerText="Client" dataField="name"/>
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
 		</mx:ControlBar>
 	</mx:VBox>
-	<mx:Form id="urgencyForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false" creationPolicy="all">
-		<mx:FormHeading label="{resourceManager.getString('general', 'urgency')}" width="100%"/>
+	<mx:Form id="clientForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false" creationPolicy="all">
+		<mx:FormHeading label="{resourceManager.getString('general', 'client')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput width="100%" id="txtId"
-				text="{Urgency(dg.selectedItem).id}" editable="false" enabled="false"/>
+				text="{Client(dg.selectedItem).id}" editable="false" enabled="false"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
-			<mx:TextInput width="100%" id="txtDs"
-				text="{Urgency(dg.selectedItem).description}"/>
+		<mx:FormItem label="{resourceManager.getString('client', 'name')}:" width="345">
+			<mx:TextInput width="100%" id="txtName"
+				text="{Client(dg.selectedItem).name}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('client', 'email')}:" width="345">
+			<mx:TextInput width="100%" id="txtEmail"
+				text="{Client(dg.selectedItem).email}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('client', 'company')}:" width="345">
+			<combobox:CompanyComboBox id="cbCompany" selectedItem="{Client(dg.selectedItem).company}" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

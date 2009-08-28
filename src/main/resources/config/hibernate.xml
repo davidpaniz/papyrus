@@ -43,6 +43,7 @@
 				<value>org.papyrus.domain.model.MailNotification</value>
 				<value>org.papyrus.domain.model.Task</value>
 				<value>org.papyrus.domain.model.Company</value>
+				<value>org.papyrus.domain.model.Client</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

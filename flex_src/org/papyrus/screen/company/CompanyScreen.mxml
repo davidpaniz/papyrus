@@ -20,6 +20,7 @@
 				this.company = new Company();
 				this.company.id   = new Number(txtId.text);
 				this.company.name   = txtName.text;
+				this.company.email   = txtEmail.text;
 				new CompanyService().saveCompany(company, onResultSave);
 			}
 			
@@ -67,6 +68,7 @@
 				if(dg.selectedItem != null) {
 					txtId.text = (dg.selectedItem as Company).id.toString();
 					txtName.text = (dg.selectedItem as Company).name;
+					txtEmail.text = (dg.selectedItem as Company).email;
 				}
 				showForm();
 			}
@@ -88,6 +90,7 @@
 			{
 				txtId.text = "";
 				txtName.text = "";
+				txtEmail.text = "";
 			}
 		]]>
 	</mx:Script>
@@ -113,6 +116,10 @@
 		<mx:FormItem label="{resourceManager.getString('company', 'name')}:" width="345">
 			<mx:TextInput width="100%" id="txtName"
 				text="{Company(dg.selectedItem).name}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('company', 'email')}:" width="345">
+			<mx:TextInput width="100%" id="txtEmail"
+				text="{Company(dg.selectedItem).email}"/>
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
