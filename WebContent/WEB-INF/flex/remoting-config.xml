@@ -79,4 +79,11 @@
 			<source>clientService</source>
 		</properties>
 	</destination>
+	
+	<destination id="categoryService">
+		<properties>
+			<factory>spring</factory>
+			<source>categoryService</source>
+		</properties>
+	</destination>
 </service>

@@ -44,6 +44,7 @@
 				<value>org.papyrus.domain.model.Task</value>
 				<value>org.papyrus.domain.model.Company</value>
 				<value>org.papyrus.domain.model.Client</value>
+				<value>org.papyrus.domain.model.Category</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"  show="getList()" xmlns:combobox="org.papyrus.components.combobox.*">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.services.Service;
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.services.CategoryService;
+			import org.papyrus.model.Category;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			[Bindable]
+			private var listCategories:ArrayCollection;
+			private var category:Category;
+			
+			private function save():void
+			{
+				this.category = new Category();
+				this.category.id   = new Number(txtId.text);
+				this.category.name   = txtName.text;
+				this.category.parent   = cbCategory.selectedItem as Category;
+				new CategoryService().saveCategory(category, onResultSave);
+			}
+			
+			private function onResultSave(category:Category):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				getList();
+			}
+			
+			private function remove():void
+			{
+				if (dg.selectedItem != null) {
+					category = dg.selectedItem as Category;
+					new CategoryService().deleteCategory(category, onResultRemove);
+				} else {
+					Alert.show(resourceManager.getString('general', 'save_successfully'));
+				}
+			}
+			
+			private function onResultRemove(category:Category):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				getList();
+			}
+			
+			private function getList():void
+			{
+				hideForm();
+				new CategoryService().listCategory(onResultGetList);
+			}
+			
+			private function onResultGetList(list:ArrayCollection):void
+			{
+				listCategories = list;
+			}
+			
+			private function setDefault():void
+			{
+				cleanForm();
+				showForm();
+			}
+			
+			private function populateForm():void
+			{
+				if(dg.selectedItem != null) {
+					txtId.text = (dg.selectedItem as Category).id.toString();
+					txtName.text = (dg.selectedItem as Category).name;
+					cbCategory.selectedItem = (dg.selectedItem as Category).parent;
+				}
+				showForm();
+			}
+			
+			private function showForm():void
+			{
+				categoryForm.includeInLayout = true;
+				categoryForm.visible = true;
+				txtName.setFocus();
+			}
+			
+			private function hideForm():void
+			{
+				categoryForm.includeInLayout = false;
+				categoryForm.visible = false;
+			}
+			
+			private function cleanForm():void
+			{
+				txtId.text = "";
+				txtName.text = "";
+				cbCategory.selectedIndex = 0;
+			}
+		]]>
+	</mx:Script>
+	<mx:Resize id="resize" />
+	<mx:VBox width="100%" resizeEffect="{resize}">
+		<mx:Text text="{resourceManager.getString('category', 'category.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listCategories}" click="showForm();">
+			<mx:columns>
+				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
+				<mx:DataGridColumn headerText="Category" dataField="name"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
+		</mx:ControlBar>
+	</mx:VBox>
+	<mx:Form id="categoryForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false" creationPolicy="all">
+		<mx:FormHeading label="{resourceManager.getString('general', 'category')}" width="100%"/>
+		<mx:FormItem label="ID:" width="127">
+			<mx:TextInput width="100%" id="txtId"
+				text="{Category(dg.selectedItem).id}" editable="false" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('category', 'name')}:" width="345">
+			<mx:TextInput width="100%" id="txtName"
+				text="{Category(dg.selectedItem).name}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('category', 'email')}:" width="345">
+			<combobox:CategoryComboBox id="cbCategory" isRequired="false"
+				selectedItem="{Category(dg.selectedItem).parent}" width="100%" />
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="hideForm()"/>
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
+				textAlign="center"/>
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>
