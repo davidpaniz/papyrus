@@ -9,6 +9,8 @@ package org.papyrus.model
 		public var password:String;
 		public var active:Boolean;
 		
+		public var role:String;
+		
 		public function User()
 		{
 		}

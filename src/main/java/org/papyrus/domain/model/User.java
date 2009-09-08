@@ -5,6 +5,8 @@ package org.papyrus.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,9 @@ public class User {
 	private String name;
 	private String password;
 	private boolean active;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	public long getId() {
 		return id;
@@ -66,6 +71,14 @@ public class User {
 
 	public boolean isActive() {
 		return active;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Role getRole() {
+		return role;
 	}
 
 }

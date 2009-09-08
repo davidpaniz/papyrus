@@ -14,7 +14,6 @@ import org.papyrus.testutil.TestCaseUtils;
  * @author davidpaniz
  * 
  */
-@SuppressWarnings("deprecation")
 public class SessionManagerTestCase {
 	private final Mockery mockery = TestCaseUtils.newMockery();
 	private final HttpSession session = mockery.mock(HttpSession.class);

@@ -86,4 +86,11 @@
 			<source>categoryService</source>
 		</properties>
 	</destination>
+	
+	<destination id="staffService">
+		<properties>
+			<factory>spring</factory>
+			<source>staffService</source>
+		</properties>
+	</destination>
 </service>

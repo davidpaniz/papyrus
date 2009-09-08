@@ -1,6 +1,7 @@
-#Fri Aug 28 22:51:19 BRT 2009
+#Mon Sep 07 17:23:54 BRT 2009
 eclipse.preferences.version=1
 encoding//flex_src/locale/pt_BR/businessRule.properties=UTF-8
+encoding//flex_src/locale/pt_BR/category.properties=UTF-8
 encoding//flex_src/locale/pt_BR/client.properties=UTF-8
 encoding//flex_src/locale/pt_BR/company.properties=UTF-8
 encoding//flex_src/locale/pt_BR/general.properties=UTF-8
@@ -8,4 +9,5 @@ encoding//flex_src/locale/pt_BR/impact.properties=UTF-8
 encoding//flex_src/locale/pt_BR/incident.properties=UTF-8
 encoding//flex_src/locale/pt_BR/notificationManager.properties=UTF-8
 encoding//flex_src/locale/pt_BR/priority.properties=UTF-8
+encoding//flex_src/locale/pt_BR/staff.properties=UTF-8
 encoding//flex_src/locale/pt_BR/urgency.properties=UTF-8

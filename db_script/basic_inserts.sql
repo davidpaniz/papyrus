@@ -1,1 +1,1 @@
-insert into `User` (email, password, active) values( 'a@a.com', '123', true);
+insert into `User` (email, password, active, role) values( 'a@a.com', '123', true, 'ADMIN');

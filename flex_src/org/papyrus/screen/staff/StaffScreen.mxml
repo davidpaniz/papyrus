@@ -6,27 +6,26 @@
 	 			import org.papyrus.model.Company;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.ClientService;
-			import org.papyrus.model.Client;
+			import org.papyrus.services.StaffService;
+			import org.papyrus.model.Staff;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			[Bindable]
-			private var listClients:ArrayCollection;
-			private var client:Client;
+			private var listStaff:ArrayCollection;
+			private var staff:Staff;
 			
 			private function save():void
 			{
-				this.client = new Client();
-				this.client.id   = new Number(txtId.text);
-				this.client.name   = txtName.text;
-				this.client.email   = txtEmail.text;
-				this.client.company = cbCompany.selectedItem as Company;
-				new ClientService().saveClient(client, onResultSave);
+				this.staff = new Staff();
+				this.staff.id   = new Number(txtId.text);
+				this.staff.name   = txtName.text;
+				this.staff.email   = txtEmail.text;
+				new StaffService().saveStaff(staff, onResultSave);
 			}
 			
-			private function onResultSave(client:Client):void
+			private function onResultSave(staff:Staff):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -35,14 +34,14 @@
 			private function remove():void
 			{
 				if (dg.selectedItem != null) {
-					client = dg.selectedItem as Client;
-					new ClientService().deleteClient(client, onResultRemove);
+					staff = dg.selectedItem as Staff;
+					new StaffService().deleteStaff(staff, onResultRemove);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
 			}
 			
-			private function onResultRemove(client:Client):void
+			private function onResultRemove(staff:Staff):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -51,12 +50,12 @@
 			private function getList():void
 			{
 				hideForm();
-				new ClientService().listClient(onResultGetList);
+				new StaffService().listStaff(onResultGetList);
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void
 			{
-				listClients = list;
+				listStaff = list;
 			}
 			
 			private function setDefault():void
@@ -68,25 +67,24 @@
 			private function populateForm():void
 			{
 				if(dg.selectedItem != null) {
-					txtId.text = (dg.selectedItem as Client).id.toString();
-					txtName.text = (dg.selectedItem as Client).name;
-					txtEmail.text = (dg.selectedItem as Client).email;
-					cbCompany.selectedItem = (dg.selectedItem as Client).company;
+					txtId.text = (dg.selectedItem as Staff).id.toString();
+					txtName.text = (dg.selectedItem as Staff).name;
+					txtEmail.text = (dg.selectedItem as Staff).email;
 				}
 				showForm();
 			}
 			
 			private function showForm():void
 			{
-				clientForm.includeInLayout = true;
-				clientForm.visible = true;
+				staffForm.includeInLayout = true;
+				staffForm.visible = true;
 				txtName.setFocus();
 			}
 			
 			private function hideForm():void
 			{
-				clientForm.includeInLayout = false;
-				clientForm.visible = false;
+				staffForm.includeInLayout = false;
+				staffForm.visible = false;
 			}
 			
 			private function cleanForm():void
@@ -94,39 +92,35 @@
 				txtId.text = "";
 				txtName.text = "";
 				txtEmail.text = "";
-				cbCompany.selectedIndex = 0; 
 			}
 		]]>
 	</mx:Script>
 	<mx:Resize id="resize" />
 	<mx:VBox width="100%" resizeEffect="{resize}">
-		<mx:Text text="{resourceManager.getString('client', 'client.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listClients}" click="showForm();">
+		<mx:Text text="{resourceManager.getString('staff', 'staff.managemant')}" />
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{listStaff}" click="showForm();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
-				<mx:DataGridColumn headerText="Client" dataField="name"/>
+				<mx:DataGridColumn headerText="Staff" dataField="name"/>
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'new')}" click="setDefault()"/>
 		</mx:ControlBar>
 	</mx:VBox>
-	<mx:Form id="clientForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false" creationPolicy="all">
-		<mx:FormHeading label="{resourceManager.getString('general', 'client')}" width="100%"/>
+	<mx:Form id="staffForm" width="100%" height="100%" defaultButton="{btSalvar}" includeInLayout="false" visible="false" creationPolicy="all">
+		<mx:FormHeading label="{resourceManager.getString('general', 'staff')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput width="100%" id="txtId"
-				text="{Client(dg.selectedItem).id}" editable="false" enabled="false"/>
+				text="{Staff(dg.selectedItem).id}" editable="false" enabled="false"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('client', 'name')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('staff', 'name')}:" width="345">
 			<mx:TextInput width="100%" id="txtName"
-				text="{Client(dg.selectedItem).name}"/>
+				text="{Staff(dg.selectedItem).name}"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('client', 'email')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('staff', 'email')}:" width="345">
 			<mx:TextInput width="100%" id="txtEmail"
-				text="{Client(dg.selectedItem).email}"/>
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('staff', 'company')}:" width="345">
-			<combobox:CompanyComboBox id="cbCompany" selectedItem="{Client(dg.selectedItem).company}" width="100%" />
+				text="{Staff(dg.selectedItem).email}"/>
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

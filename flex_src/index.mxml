@@ -5,7 +5,7 @@
 	xmlns:local="*" 
 	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
 	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*" xmlns:businessRules="org.papyrus.screen.businessRules.*"
-	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*" xmlns:company="org.papyrus.screen.company.*" xmlns:client="org.papyrus.screen.client.*" xmlns:category="org.papyrus.screen.category.*">
+	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*" xmlns:company="org.papyrus.screen.company.*" xmlns:client="org.papyrus.screen.client.*" xmlns:category="org.papyrus.screen.category.*" xmlns:staff="org.papyrus.screen.staff.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -17,10 +17,13 @@
 		[ResourceBundle("client")]
 		[ResourceBundle("category")]
 		[ResourceBundle("notificationManager")]
+		[ResourceBundle("staff")]
 	</mx:Metadata>
 
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.VScrollBar;
+			import org.papyrus.model.User;
 			import org.papyrus.model.Model;
 			import org.papyrus.components.notification.NotificatorManager;
 			import org.papyrus.services.LocaleService;
@@ -54,15 +57,17 @@
 				resourceManager.localeChain = [ locale, "en_US" ];
 			}
 	
-			private function loginHandler(result:Boolean):void
+			private function loginHandler(user:User):void
 			{
-				if( result == true )
+				if( user )
 				{
-					vsHome.visible = false;
-					vsHome.includeInLayout = false;
-					vs.includeInLayout = true;
-					vs.visible = true;
-					linkBar.dataProvider = vs;
+					if( user.role == "ADMIN" ){
+						vsMain.selectedChild = vsAdmin;
+					}else if( user.role == "STAFF" ){
+						vsMain.selectedChild = vsStaff;
+					}else{
+						vsMain.selectedChild = vsClient;
+					}
 				}
 				else
 				{
@@ -78,20 +83,20 @@
 		<mx:VBox width="23%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off"  >
 			<mx:HBox>
 				<mx:Text text="{resourceManager.getString('general', 'location')}:"/>
-				<mx:ComboBox id="localeComboBox" dataProvider="{locales}"
+				<mx:ComboBox id="localeComboBox" dataProvider="{locales}" 
 					labelField="description"
 					enabled="{Model.inst().user == null}"
 					change="localeChange(event)" />
 			</mx:HBox>
 			<mx:ApplicationControlBar width="100%">
-				<mx:LinkBar id="linkBar" direction="vertical" dataProvider="{vsHome}" width="100%"/>
+				<mx:LinkBar id="linkBar" direction="vertical" dataProvider="{vsMain.selectedChild}" width="100%"/>
 			</mx:ApplicationControlBar>
 		</mx:VBox>
-		<mx:Box width="100%" height="100%">
+		<mx:ViewStack id="vsMain" width="100%" height="100%">
 			<mx:ViewStack id="vsHome" width="100%" height="100%" creationPolicy="auto" >
 				<home:Login label="{resourceManager.getString('general', 'login')}" width="100%" loginHandler="loginHandler"/>
 			</mx:ViewStack>
-			<mx:ViewStack id="vs" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+			<mx:ViewStack id="vsAdmin" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
 				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 				<category:CategoryScreen label="{resourceManager.getString('general', 'category')}" width="100%" height="100%" />
 				<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
@@ -103,8 +108,18 @@
 				<client:ClientScreen label="{resourceManager.getString('general', 'client')}" width="100%" height="100%" />
 				<company:CompanyScreen label="{resourceManager.getString('general', 'company')}" width="100%" height="100%" />
 				<notification:MailNotificationScreen label="{resourceManager.getString('general', 'mail_notification')}"/>
+				<staff:StaffScreen label="{resourceManager.getString('general', 'staff')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
-		</mx:Box>
+			<mx:ViewStack id="vsClient" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
+				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
+			</mx:ViewStack>
+			<mx:ViewStack id="vsStaff" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
+			</mx:ViewStack>
+		</mx:ViewStack>
 	</mx:HDividedBox>
 </mx:Application>

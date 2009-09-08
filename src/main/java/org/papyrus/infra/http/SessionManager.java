@@ -5,39 +5,49 @@ import java.io.Serializable;
 import javax.servlet.http.HttpSession;
 
 import org.papyrus.domain.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class SessionManager implements Serializable {
 	private static final long serialVersionUID = 8221501580592231395L;
 
 	private final static String CURRENT_USER = "user";
-	private HttpSession session;
 
-	@Autowired
+	private HttpSession testSession;
+
 	public void setSession(HttpSession session) {
-		this.session = session;
+		this.testSession = session;
 	}
 
-	@Deprecated
 	public SessionManager() {
 	}
 
 	public boolean isNotLogged() {
+		HttpSession session = getSession();
 		try {
-			return this.session.getAttribute(CURRENT_USER) == null;
+			return session.getAttribute(CURRENT_USER) == null;
 		} catch (java.lang.IllegalStateException e) {
 			return true;
 		}
 	}
 
+	private HttpSession getSession() {
+		if (this.testSession != null) {
+			return this.testSession;
+		}
+		HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest()
+				.getSession(false);
+		return session;
+	}
+
 	public void addUser(User user) {
-		this.session.setAttribute(CURRENT_USER, user);
+		getSession().setAttribute(CURRENT_USER, user);
 	}
 
 	public void removeUser() {
 		try {
-			this.session.setAttribute(CURRENT_USER, null);
-			this.session.invalidate();
+			getSession().setAttribute(CURRENT_USER, null);
+			getSession().invalidate();
 		} catch (java.lang.IllegalStateException e) {
 			return;
 		}

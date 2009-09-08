@@ -30,15 +30,7 @@ package org.papyrus.services
 			var loggedUser:User = User( event.result );
 			Model.inst().user = loggedUser;
 			
-			if( loginCallback != null ){
-				if(loggedUser){
-					loginCallback( true );
-				}
-				else{
-					loginCallback( false );
-				}
-				
-			}
+			loginCallback( loggedUser );
 		}
 		public function loginFault( event:FaultEvent ):void
 		{
