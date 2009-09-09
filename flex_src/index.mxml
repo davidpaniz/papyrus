@@ -65,6 +65,8 @@
 						vsMain.selectedChild = vsAdmin;
 					}else if( user.role == "STAFF" ){
 						vsMain.selectedChild = vsStaff;
+					}else if( user.role == "MANAGER" ){
+						vsMain.selectedChild = vsManager;
 					}else{
 						vsMain.selectedChild = vsClient;
 					}
@@ -112,6 +114,11 @@
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
 			<mx:ViewStack id="vsClient" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+				<incident:ClientOpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
+				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
+			</mx:ViewStack>
+			<mx:ViewStack id="vsManager" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
 				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>

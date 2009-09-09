@@ -10,3 +10,6 @@ ApplicationControlBar {
 Label {
 	theme-color: #003366;
 }
+NotificationBase {
+	backgroundColor: #000000;
+}

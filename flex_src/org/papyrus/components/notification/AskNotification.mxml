@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotificationBase xmlns="org.papyrus.components.notification.*"
 				  xmlns:mx="http://www.adobe.com/2006/mxml"
-				  styleName="notificationAsk"
 				  modal="true">
+<!--				  styleName="notificationAsk"-->
 
 	<mx:Script>
 		<![CDATA[
@@ -35,8 +35,8 @@
 	<mx:Spacer height="100%"/>
 		
 	<mx:HBox width="100%" horizontalAlign="right">
-		<mx:Button label="Sim" click="confirm()"/>
-		<mx:Button label="Cancelar" click="close()"/>
+		<mx:Button label="{resourceManager.getString('general', 'ok')}" click="confirm()"/>
+		<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="close()"/>
 	</mx:HBox>
 
 </NotificationBase>
