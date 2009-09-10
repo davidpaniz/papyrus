@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TextInput xmlns:mx="http://www.adobe.com/2006/mxml"
-	initialize="init();"
 			>
 	  
 	  <mx:Script>
 	  	<![CDATA[
+	  		import mx.formatters.NumberFormatter;
 	  		import mx.formatters.DateFormatter;
 	  		import mx.validators.DateValidator;
 	  		import mx.validators.StringValidator;
 	  		import mx.collections.ArrayCollection;
 	  		import mx.controls.Alert;
 	  		
-	  		private var dateFormatter:DateFormatter = new DateFormatter();
-	  		
-	  		public function set date(date:Date):void {
-	  			this.text = dateFormatter.format(date);
+	  		public function set date(totalSecs:Number):void {
+	  			var hours:int = totalSecs/3600;
+	  			var min:int = (totalSecs%3600)/60;
+	  			var secs:int = ((totalSecs%3600)%60);
+	  			this.text = toDoubleNumbersString(hours) + ":" + toDoubleNumbersString(min) + ":" +  toDoubleNumbersString(secs);
 	  		}
 	  		
-	  		public function get date():Date {
-	  			var date:Date = new Date();
-	  			date.hours = new Number(text.substr(0,2));
-	  			date.minutes = new Number(text.substr(3,2));
-	  			date.seconds = new Number(text.substr(6,2));
-	  			return date;
+	  		private function toDoubleNumbersString(number:int):String {
+	  			var string:String = number.toString();
+	  			return string.length < 2 ? "0" + string: string;
 	  		}
 	  		
-		  	private function init():void {
-	  			dateFormatter.formatString = "JJ:NN:SS";
-		  	}
-		  	
+	  		public function get date():Number {
+	  			var hours:Number = new Number(text.substr(0,2));
+	  			var minutes:Number = new Number(text.substr(3,2));
+	  			var seconds:Number = new Number(text.substr(6,2));
+	  			return (hours * 3600) + (minutes * 60) + seconds;
+	  		}
+	  		
 		  	override protected function keyUpHandler(event:KeyboardEvent):void
 			{
 				var charCode:Number = event.charCode;

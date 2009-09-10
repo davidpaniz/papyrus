@@ -53,6 +53,9 @@ public class Incident implements ConditionComparable {
 	private Date dueDate;
 
 	@OneToMany(mappedBy = "incident")
+	private List<Detail> details;
+
+	@OneToMany(mappedBy = "incident")
 	private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
@@ -173,6 +176,14 @@ public class Incident implements ConditionComparable {
 
 	public void setTemplate(boolean template) {
 		this.template = template;
+	}
+
+	public void setDetails(List<Detail> details) {
+		this.details = details;
+	}
+
+	public List<Detail> getDetails() {
+		return details;
 	}
 
 }

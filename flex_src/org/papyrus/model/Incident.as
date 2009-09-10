@@ -17,6 +17,7 @@ package org.papyrus.model
 		public var dueDate:Date;
 		public var workOrders:ArrayCollection;
 		public var attachments:ArrayCollection;
+		public var details:ArrayCollection;
 		
 		public function Incident()
 		{

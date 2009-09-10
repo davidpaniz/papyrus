@@ -3,9 +3,9 @@
 	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import mx.managers.PopUpManager;
-	 			import org.papyrus.components.notification.AskNotification;
-	 			import org.papyrus.model.TemplateValue;
+ 			import mx.managers.PopUpManager;
+ 			import org.papyrus.components.notification.AskNotification;
+ 			import org.papyrus.model.TemplateValue;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
 			import org.papyrus.model.Incident;
@@ -17,6 +17,7 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			
 			private var _incident:Incident;
 			
 			public function set incident(incident:Incident):void

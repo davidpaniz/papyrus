@@ -5,7 +5,6 @@
 				  useHandCursor="true"
 				  mouseChildren="false"
 				  buttonMode="true"
-				  backgroundColor="0x000000"
 				  click="close()">
 	
 	<mx:HBox width="100%">

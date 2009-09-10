@@ -3,16 +3,12 @@
  */
 package org.papyrus.domain.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Entity that represents an Impact
@@ -27,17 +23,14 @@ public class Priority {
 	private long id;
 	private String description;
 
-	@Temporal(TemporalType.TIME)
-	private Date duration;
-
-	@Temporal(TemporalType.TIME)
-	private Date response;
-
 	@ManyToOne
 	private Urgency urgency;
 
 	@ManyToOne
 	private Impact impact;
+
+	private long duration;
+	private long response;
 
 	public long getId() {
 		return id;
@@ -71,19 +64,20 @@ public class Priority {
 		return urgency;
 	}
 
-	public void setDuration(Date duration) {
-		this.duration = duration;
-	}
-
-	public Date getDuration() {
+	public long getDuration() {
 		return duration;
 	}
 
-	public void setResponse(Date response) {
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+
+	public long getResponse() {
+		return response;
+	}
+
+	public void setResponse(long response) {
 		this.response = response;
 	}
 
-	public Date getResponse() {
-		return response;
-	}
 }

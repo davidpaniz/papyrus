@@ -8,8 +8,8 @@ package org.papyrus.model
 		public var description:String;
 		public var impact:Impact;
 		public var urgency:Urgency;
-		public var duration:Date;
-		public var response:Date;
+		public var duration:Number;
+		public var response:Number;
 		
 		
 	}

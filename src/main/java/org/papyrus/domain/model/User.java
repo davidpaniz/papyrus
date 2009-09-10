@@ -20,6 +20,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @SequenceGenerator(name = "User_Seq")
 public class User {
+	// FIXME Remember to create/delete users thru Client, Company and Staff
+
 	@Id
 	@GeneratedValue(generator = "User_Seq", strategy = GenerationType.AUTO)
 	private long id;
