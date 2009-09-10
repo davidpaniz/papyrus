@@ -29,3 +29,11 @@ INSERT INTO Priority(id, description, duration, response, urgency_id, impact_id)
 INSERT INTO Priority(id, description, duration, response, urgency_id, impact_id) values(8, 'High x Medium', 7200, 1200, 3, 2);
 --priori 1
 INSERT INTO Priority(id, description, duration, response, urgency_id, impact_id) values(9, 'High x High', 3600, 600, 3, 3);
+
+--Category
+INSERT INTO Category(id, name) values(1, 'Hardware');
+INSERT INTO Category(id, name) values(2, 'Software');
+INSERT INTO Category(id, name, parent_id) values(3, 'Hardware1', 1);
+INSERT INTO Category(id, name, parent_id) values(4, 'Hardware2', 1);
+INSERT INTO Category(id, name, parent_id) values(5, 'Software1', 2);
+INSERT INTO Category(id, name, parent_id) values(6, 'Software2', 2);
