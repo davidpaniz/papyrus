@@ -19,4 +19,6 @@ public interface CategoryService {
 	List<Category> listCategory() throws Exception;
 
 	List<Category> listParentCategories() throws Exception;
+
+	List<Category> listChildCategories() throws Exception;
 }

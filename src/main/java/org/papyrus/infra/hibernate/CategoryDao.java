@@ -35,6 +35,11 @@ public class CategoryDao implements CategoryRepository {
 		return list;
 	}
 
+	public List<Category> listChildCategories() {
+		List list = template.find("from Category where parent is not null");
+		return list;
+	}
+
 	public Category delete(Category category) {
 		template.delete(category);
 		return category;

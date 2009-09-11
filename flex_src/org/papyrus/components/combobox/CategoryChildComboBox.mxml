@@ -2,23 +2,33 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="name"
-				dataId="category" serviceMethod="{new CategoryService().listCategory}" entityClass="{Category}"
+				dataId="category" serviceMethod="{new CategoryService().listChildCategories}" entityClass="{Category}"
 				isRequired="true"
+				labelFunction="addParentName"
 				>
 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.Category;
 			import org.papyrus.services.CategoryService;
 						
-			public static function reset():void
-			{
+			public static function reset():void {
 				observableMap.put("category", null );
 				refresh("category");
 			}
 			
-			override protected function callService():void
-			{
+			override protected function callService():void {
 	 			new CategoryService().listParentCategories( handler );
+			}
+			
+			private function addParentName(item:Object):String {
+				var cat:Category = Category(item);
+				var name:String = "";
+				if(cat.parent != null){
+					name + cat.parent.name + " - ";
+				}
+				name + cat.name;
+				
+				return name;
 			}
 		]]>
 	</mx:Script>

@@ -34,6 +34,10 @@ public class CategoryServiceImp implements CategoryService {
 		return repository.listParentCategories();
 	}
 
+	public List<Category> listChildCategories() throws Exception {
+		return repository.listChildCategories();
+	}
+
 	public Category deleteCategory(Category category) throws Exception {
 		return repository.delete(category);
 	}

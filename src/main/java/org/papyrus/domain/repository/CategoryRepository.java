@@ -23,7 +23,7 @@ public interface CategoryRepository {
 	List<Category> list();
 
 	/**
-	 * @return the list of categories without parent
+	 * @return the list only categories WITHOUT parent
 	 */
 	List<Category> listParentCategories();
 
@@ -32,5 +32,10 @@ public interface CategoryRepository {
 	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Category delete(Category category);
+
+	/**
+	 * @return the list only categories WITH parent
+	 */
+	List<Category> listChildCategories();
 
 }

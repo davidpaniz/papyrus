@@ -4,7 +4,8 @@ package org.papyrus.services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import org.papyrus.components.combobox.CategoryComboBox;
+	import org.papyrus.components.combobox.CategoryChildComboBox;
+	import org.papyrus.components.combobox.CategoryRootComboBox;
 	import org.papyrus.components.notification.NotificatorManager;
 	import org.papyrus.model.Category;
 
@@ -41,6 +42,17 @@ package org.papyrus.services
 			listParentCallback( event.result as ArrayCollection);
 		}
 		
+		private var listChildCallback:Function;
+		public function listChildCategories( callback:Function ):void
+		{
+			listParentCallback = callback;
+			service.listChildCategories( );
+		}
+ 		public function listChildCategoriesResult( event:ResultEvent ):void
+		{
+			listChildCallback( event.result as ArrayCollection);
+		}
+		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
@@ -57,7 +69,7 @@ package org.papyrus.services
 			if(saveCallback != null)
 				saveCallback(event.result as Category);
 				
-			CategoryComboBox.reset();
+			updateCombobox();	
 		}
 		
 		public function saveCategoryFault( event:FaultEvent ):void
@@ -83,7 +95,12 @@ package org.papyrus.services
 			if(deleteCallback != null)
 				deleteCallback(event.result as Category);
 				
-			CategoryComboBox.reset();
+			updateCombobox();
+		}
+		
+		private function updateCombobox():void {
+			CategoryRootComboBox.reset();
+			CategoryChildComboBox.reset();
 		}
 	}
 }

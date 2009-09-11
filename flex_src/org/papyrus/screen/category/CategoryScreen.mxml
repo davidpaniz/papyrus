@@ -118,7 +118,7 @@
 				text="{Category(dg.selectedItem).name}"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('category', 'email')}:" width="345">
-			<combobox:CategoryComboBox id="cbCategory" isRequired="false"
+			<combobox:CategoryRootComboBox id="cbCategory" isRequired="false"
 				selectedItem="{Category(dg.selectedItem).parent}" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
