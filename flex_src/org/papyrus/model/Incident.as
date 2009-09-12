@@ -18,6 +18,7 @@ package org.papyrus.model
 		public var workOrders:ArrayCollection;
 		public var attachments:ArrayCollection;
 		public var details:ArrayCollection;
+		public var category:Category;
 		
 		public function Incident()
 		{

@@ -45,7 +45,7 @@ package org.papyrus.services
 		private var listChildCallback:Function;
 		public function listChildCategories( callback:Function ):void
 		{
-			listParentCallback = callback;
+			listChildCallback = callback;
 			service.listChildCategories( );
 		}
  		public function listChildCategoriesResult( event:ResultEvent ):void

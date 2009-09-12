@@ -37,6 +37,7 @@ public class CategoryDao implements CategoryRepository {
 
 	public List<Category> listChildCategories() {
 		List list = template.find("from Category where parent is not null");
+
 		return list;
 	}
 

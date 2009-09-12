@@ -60,6 +60,9 @@ public class Incident implements ConditionComparable {
 	@OneToMany
 	private List<Attachment> attachments;
 
+	@ManyToOne
+	private Category category;
+
 	private boolean template = false;
 
 	public String getClientName() {
@@ -184,6 +187,14 @@ public class Incident implements ConditionComparable {
 
 	public List<Detail> getDetails() {
 		return details;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Category getCategory() {
+		return category;
 	}
 
 }

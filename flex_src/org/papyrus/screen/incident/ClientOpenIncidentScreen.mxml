@@ -3,6 +3,7 @@
 	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.Category;
  			import mx.managers.PopUpManager;
  			import org.papyrus.components.notification.AskNotification;
  			import org.papyrus.model.TemplateValue;
@@ -31,9 +32,7 @@
 				var incident:Incident = new Incident();
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
-				incident.impact = cbImpact.selectedItem as Impact;
-				incident.urgency = cbUrgency.selectedItem as Urgency;
-				incident.status = cbStatus.selectedItem.toString();
+				incident.category = cbCategory.selectedItem as Category;
 				
 				new IncidentService().createIncident(incident, onResultSave);
 			}
@@ -57,8 +56,7 @@
 			
 			private function populateForm(incident:Incident):void
 			{
-				cbUrgency.selectedItem = incident.urgency;
-				cbImpact.selectedItem = incident.impact;
+				cbCategory.selectedItem = incident.category;
 				txtDs.text = incident.description;
 				txtId.text = incident.id.toString();
 			}
@@ -74,8 +72,7 @@
 			{
 				txtId.text = "";
 				txtDs.text = "";
-				cbImpact.selectedIndex = 0;
-				cbUrgency.selectedIndex = 0;
+				cbCategory.selectedIndex = 0;
 			}
 			
 			private function cancel(event:MouseEvent):void
@@ -92,14 +89,8 @@
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
-			<combobox:UrgencyComboBox width="100%" id="cbUrgency" />
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
-			<combobox:ImpactComboBox width="100%" id="cbImpact" />
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'status')}:" width="345">
-			<enum:IncidentStatusComboBox width="100%" id="cbStatus" />
+		<mx:FormItem label="{resourceManager.getString('general', 'category')}:" width="345">
+			<combobox:CategoryChildComboBox id="cbCategory" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
