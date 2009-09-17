@@ -3,7 +3,10 @@
 	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Category;
+	 			import org.papyrus.model.Client;
+	 			import org.papyrus.model.Detail;
+	 			import org.papyrus.model.Model;
+ 			import org.papyrus.model.Category;
  			import mx.managers.PopUpManager;
  			import org.papyrus.components.notification.AskNotification;
  			import org.papyrus.model.TemplateValue;
@@ -29,12 +32,30 @@
 			
 			private function save():void
 			{
+				if(isEditing()) {
+					edit();
+				}else{
+					create();
+				}
+			}
+			
+			private function create():void {
 				var incident:Incident = new Incident();
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
 				incident.category = cbCategory.selectedItem as Category;
+				incident.client = Model.inst().user as Client;
+				incident.status = cbStatus.selectedItem as String;
+				incident.details = new ArrayCollection();
+				var detail:Detail = new Detail();
+				detail.detail = txtcomment.text;
+				incident.details.addItem(detail);
 				
 				new IncidentService().createIncident(incident, onResultSave);
+			}
+			
+			private function edit():void {
+				Alert.show("TODO", "fazer update");
 			}
 			
 			private function onResultSave(incident:Incident):void
@@ -79,6 +100,10 @@
 			{
 				NotificatorManager.ask(resourceManager.getString('general', 'are_you_sure_clear_form'), cleanForm);
 			}
+			
+			private function isEditing():Boolean {
+				return _incident != null;
+			}
 		]]>
 	</mx:Script>
 	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" >
@@ -86,11 +111,20 @@
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput id="txtId" width="100%" editable="false" enabled="false"/>
 		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('incident', 'status')}:" width="345">
+			<enum:IncidentStatusComboBox id="cbStatus" width="100%" editable="false" enabled="false" />
+		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'category')}:" width="345">
-			<combobox:CategoryChildComboBox id="cbCategory" width="100%" />
+			<combobox:CategoryChildComboBox id="cbCategory" editable="{isEditing()}" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'staff')}:" width="345">
+			<combobox:StaffComboBox id="cbStaff" width="100%" editable="false"  enabled="false" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('incident', 'comment')}:" width="345">
+			<mx:TextArea id="txtcomment" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

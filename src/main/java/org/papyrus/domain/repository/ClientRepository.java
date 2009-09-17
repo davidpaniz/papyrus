@@ -1,8 +1,11 @@
 package org.papyrus.domain.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.papyrus.domain.model.Client;
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 
 /**
  * @author David Paniz
@@ -27,5 +30,7 @@ public interface ClientRepository {
 	 * @return the same object if deleted or null if some problems ocurrer
 	 */
 	Client delete(Client client);
+
+	List<Incident> listMyInicidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
 
 }

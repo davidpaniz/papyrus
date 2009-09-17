@@ -1,8 +1,14 @@
 package org.papyrus.infra.hibernate;
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.Client;
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,5 +40,21 @@ public class ClientDao implements ClientRepository {
 	public Client delete(Client client) {
 		template.delete(client);
 		return client;
+	}
+
+	public List<Incident> listMyInicidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) {
+		Criteria criteria = template.getSessionFactory()
+				.getCurrentSession()
+				.createCriteria(Incident.class)
+				.add(Restrictions.eq("status", incidentStatus));
+		if (inicialDate != null) {
+			criteria.add(Restrictions.ge("openedDate", inicialDate));
+		}
+		if (endDate != null) {
+			criteria.add(Restrictions.le("openedDate", endDate));
+		}
+
+		return criteria.setFetchMode("detail", FetchMode.JOIN)
+				.list();
 	}
 }

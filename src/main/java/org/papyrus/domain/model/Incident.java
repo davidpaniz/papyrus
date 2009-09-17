@@ -32,7 +32,11 @@ public class Incident implements ConditionComparable {
 	@Id
 	@GeneratedValue(generator = "Incident_Seq", strategy = GenerationType.AUTO)
 	private long id;
-	private String clientName;
+
+	@ManyToOne
+	private Client client;
+	@ManyToOne
+	private Staff responsable;
 
 	private String description;
 	private String resolution;
@@ -64,14 +68,6 @@ public class Incident implements ConditionComparable {
 	private Category category;
 
 	private boolean template = false;
-
-	public String getClientName() {
-		return clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
 
 	public String getDescription() {
 		return description;
@@ -195,6 +191,22 @@ public class Incident implements ConditionComparable {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setResponsable(Staff responsable) {
+		this.responsable = responsable;
+	}
+
+	public Staff getResponsable() {
+		return responsable;
 	}
 
 }

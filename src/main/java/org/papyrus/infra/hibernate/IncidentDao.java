@@ -33,6 +33,7 @@ public class IncidentDao implements IncidentRepository {
 		for (Incident incident : list) {
 			incident.setWorkOrders(null);
 			incident.setAttachments(null);
+			incident.setDetails(null);
 		}
 
 		return list;

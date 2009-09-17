@@ -6,7 +6,8 @@ package org.papyrus.model
 	public class Incident implements ConditionComparable
 	{
 		public var id:Number;
-		public var clientName:String;
+		public var client:Client;
+		public var responsable:Staff;
 		public var description:String;
 		public var resolution:String;
 		public var impact:Impact;

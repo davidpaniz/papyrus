@@ -1,6 +1,7 @@
 package org.papyrus.model
 {
 	[RemoteClass(alias="org.papyrus.domain.model.User")]
+	[Bindable]
 	public class User
 	{
 		public var id:Number;

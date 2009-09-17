@@ -2,10 +2,7 @@ package org.papyrus.model
 {
 	[RemoteClass(alias="org.papyrus.domain.model.Staff")]
 	[Bindable]
-	public class Staff
+	public class Staff extends User 
 	{
-		public var id:Number;
-		public var name:String;
-		public var email:String;
 	}
 }

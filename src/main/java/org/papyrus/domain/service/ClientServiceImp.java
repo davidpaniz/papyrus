@@ -3,9 +3,12 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.papyrus.domain.model.Client;
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +39,11 @@ public class ClientServiceImp implements ClientService {
 
 	public Client saveClient(Client client) throws Exception {
 		return repository.saveOrUpdate(client);
+	}
+
+	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception {
+		incidentStatus = incidentStatus == null ? IncidentStatus.OPENED : incidentStatus;
+		return repository.listMyInicidents(incidentStatus, inicialDate, endDate);
 	}
 }

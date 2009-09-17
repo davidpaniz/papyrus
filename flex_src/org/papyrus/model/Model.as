@@ -5,8 +5,7 @@ package org.papyrus.model
 	[Bindable]
 	public class Model
 	{
-		public var user                      : User;
-		//public var currentModule             : State = State.HOME;
+		public var user:User;
 		
 		private static var instance:Model = new Model();
 		private static var locked:Boolean = false;
