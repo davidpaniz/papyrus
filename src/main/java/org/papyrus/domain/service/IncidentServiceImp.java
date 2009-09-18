@@ -3,6 +3,7 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRuleType;
@@ -39,7 +40,13 @@ public class IncidentServiceImp implements IncidentService {
 
 	public Incident createIncident(Incident incident) throws Exception {
 		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
+		fillIncidentData(incident);
 		return repository.saveOrUpdate(incident);
+	}
+
+	private void fillIncidentData(Incident incident) {
+		// FIXME Fill data based on session user;
+		incident.setOpenedDate(new Date());
 	}
 
 	public Incident updateIncident(Incident incident) throws Exception {

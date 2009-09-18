@@ -43,7 +43,11 @@ public class ClientServiceImp implements ClientService {
 
 	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
-		incidentStatus = incidentStatus == null ? IncidentStatus.OPENED : incidentStatus;
-		return repository.listMyInicidents(incidentStatus, inicialDate, endDate);
+		List<Incident> inicidents = repository.listMyInicidents(incidentStatus, inicialDate, endDate);
+		for (Incident incident : inicidents) {
+			incident.setWorkOrders(null);
+			incident.setAttachments(null);
+		}
+		return inicidents;
 	}
 }

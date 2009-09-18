@@ -30,6 +30,17 @@ package org.papyrus.services
 			listCallback( event.result as ArrayCollection);
 		}
 		
+		private var listMyIncidentsCallback:Function;
+ 		public function listMyIncidents(status:String, initialDate:Date, endDate:Date, callback:Function ):void
+		{
+			listMyIncidentsCallback = callback;
+			service.listMyIncidents( status, initialDate, endDate );
+		}
+ 		public function listMyIncidentsResult( event:ResultEvent ):void
+		{
+			listMyIncidentsCallback( event.result as ArrayCollection);
+		}
+		
 		/*************************************
 		 * SAVE
 		 * ***********************************/

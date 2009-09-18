@@ -42,11 +42,13 @@ public class ClientDao implements ClientRepository {
 		return client;
 	}
 
-	public List<Incident> listMyInicidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) {
+	public List<Incident> listMyInicidents(IncidentStatus status, Date inicialDate, Date endDate) {
 		Criteria criteria = template.getSessionFactory()
 				.getCurrentSession()
-				.createCriteria(Incident.class)
-				.add(Restrictions.eq("status", incidentStatus));
+				.createCriteria(Incident.class);
+		if (status != null) {
+			criteria.add(Restrictions.eq("status", status));
+		}
 		if (inicialDate != null) {
 			criteria.add(Restrictions.ge("openedDate", inicialDate));
 		}
@@ -54,7 +56,7 @@ public class ClientDao implements ClientRepository {
 			criteria.add(Restrictions.le("openedDate", endDate));
 		}
 
-		return criteria.setFetchMode("detail", FetchMode.JOIN)
+		return criteria.setFetchMode("details", FetchMode.JOIN)
 				.list();
 	}
 }

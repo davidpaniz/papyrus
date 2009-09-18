@@ -6,11 +6,16 @@
 			import mx.messaging.AbstractConsumer;
 			import mx.collections.ArrayCollection;
 			
+			public var showAll:Boolean = false;
 			private var staticDataProvider:ArrayCollection = new ArrayCollection();
 			
 			private function init():void {
 				staticDataProvider.addItem("OPENED");
 				staticDataProvider.addItem("CLOSED");
+				
+				if(showAll){
+					staticDataProvider.addItem("ALL");
+				}
 				
 				dataProvider = staticDataProvider;
 			}
@@ -33,7 +38,7 @@
 					}
 					count++;
 				}
-	
+		
 				// It was not found
 				super.selectedIndex = 0;
 			}

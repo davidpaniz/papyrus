@@ -50,7 +50,7 @@ public class Incident implements ConditionComparable {
 	private IncidentStatus status;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date openedDate;
+	private Date openedDate = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date respondedDate;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -208,5 +208,4 @@ public class Incident implements ConditionComparable {
 	public Staff getResponsable() {
 		return responsable;
 	}
-
 }

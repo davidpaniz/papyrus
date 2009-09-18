@@ -98,7 +98,7 @@
 			<mx:ViewStack id="vsHome" width="100%" height="100%" creationPolicy="auto" >
 				<home:Login label="{resourceManager.getString('general', 'login')}" width="100%" loginHandler="loginHandler"/>
 			</mx:ViewStack>
-			<mx:ViewStack id="vsAdmin" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
+			<mx:ViewStack id="vsAdmin" width="100%" height="100%" creationPolicy="auto" >
 				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 				<category:CategoryScreen label="{resourceManager.getString('general', 'category')}" width="100%" height="100%" />
 				<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
@@ -115,6 +115,7 @@
 			</mx:ViewStack>
 			<mx:ViewStack id="vsClient" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
 				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+				<incident:ClientListIncident label="{resourceManager.getString('general', 'my_incidents')}" width="100%" height="100%" />
 				<incident:ClientIncidentForm label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
 				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 			</mx:ViewStack>
