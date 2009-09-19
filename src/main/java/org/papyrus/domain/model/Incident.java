@@ -6,6 +6,7 @@ package org.papyrus.domain.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -56,7 +57,7 @@ public class Incident implements ConditionComparable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dueDate;
 
-	@OneToMany(mappedBy = "incident")
+	@OneToMany(mappedBy = "incident", cascade = CascadeType.PERSIST)
 	private List<Detail> details;
 
 	@OneToMany(mappedBy = "incident")

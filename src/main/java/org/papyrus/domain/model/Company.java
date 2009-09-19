@@ -21,7 +21,6 @@ public class Company {
 	@GeneratedValue(generator = "Company_Seq", strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-	private String email;
 
 	public long getId() {
 		return id;
@@ -38,13 +37,4 @@ public class Company {
 	public String getName() {
 		return name;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
 }

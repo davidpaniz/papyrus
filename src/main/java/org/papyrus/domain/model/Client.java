@@ -12,13 +12,12 @@ import javax.persistence.ManyToOne;
  * @author davidpaniz
  */
 @Entity
-// @SequenceGenerator(name = "Client_Seq")
 public class Client extends User {
-	// @Id
-	// @GeneratedValue(generator = "Client_Seq", strategy = GenerationType.AUTO)
-	// private long id;
-	// private String name;
-	// private String email;
+
+	public Client() {
+		super();
+		setRole(Role.CLIENT);
+	}
 
 	@ManyToOne
 	private Company company;

@@ -7,7 +7,7 @@ import org.jmock.Mockery;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.papyrus.domain.model.User;
+import org.papyrus.domain.model.Client;
 import org.papyrus.testutil.TestCaseUtils;
 
 /**
@@ -29,7 +29,7 @@ public class SessionManagerTestCase {
 		mockery.checking(new Expectations() {
 			{
 				one(session).getAttribute("user");
-				will(returnValue(new User()));
+				will(returnValue(new Client()));
 			}
 		});
 

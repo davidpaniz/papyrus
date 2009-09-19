@@ -22,7 +22,9 @@ public class IncidentDao implements IncidentRepository {
 	}
 
 	public Incident saveOrUpdate(Incident incident) {
-		template.saveOrUpdate(incident);
+		template.getSessionFactory()
+				.getCurrentSession()
+				.persist(incident);
 		return incident;
 	}
 

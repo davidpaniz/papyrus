@@ -3,6 +3,7 @@ package org.papyrus.infra.hibernate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.User;
 import org.papyrus.testutil.AbstractDAOTestCase;
 
@@ -24,7 +25,7 @@ public class UserDaoTestCase extends AbstractDAOTestCase {
 	@Test
 	public void whenTryLoginWithWrongEmailShoulReturnNull() {
 		ObjectMother().createUser();
-		User user = new User();
+		User user = new Client();
 		user.setEmail("dsadsa@dsadas.com");
 		user.setPassword("123456");
 
@@ -34,7 +35,7 @@ public class UserDaoTestCase extends AbstractDAOTestCase {
 	@Test
 	public void whenTryLoginWithWrongPasswordShoulReturnNull() {
 		ObjectMother().createUser();
-		User user = new User();
+		User user = new Client();
 		user.setEmail("a@a.com");
 		user.setPassword("098876");
 

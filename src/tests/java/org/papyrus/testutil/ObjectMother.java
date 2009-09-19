@@ -3,6 +3,7 @@ package org.papyrus.testutil;
 import java.util.Arrays;
 
 import org.hibernate.Session;
+import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.WorkOrder;
@@ -20,7 +21,7 @@ public class ObjectMother {
 	}
 
 	public User createUser() {
-		User user = new User();
+		User user = new Client();
 		user.setEmail("a@a.com");
 		user.setPassword("123456");
 		user.setActive(true);
