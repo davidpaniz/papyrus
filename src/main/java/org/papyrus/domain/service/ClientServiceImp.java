@@ -10,6 +10,7 @@ import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.repository.ClientRepository;
+import org.papyrus.infra.http.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,10 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class ClientServiceImp implements ClientService {
 	private final ClientRepository repository;
+	private final SessionManager sessionManager;
 
 	@Autowired
-	public ClientServiceImp(ClientRepository repository) {
+	public ClientServiceImp(ClientRepository repository, SessionManager sessionManager) {
 		this.repository = repository;
+		this.sessionManager = sessionManager;
 	}
 
 	public List<Client> listClient() throws Exception {
@@ -43,7 +46,8 @@ public class ClientServiceImp implements ClientService {
 
 	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
-		List<Incident> inicidents = repository.listMyInicidents(incidentStatus, inicialDate, endDate);
+		List<Incident> inicidents = repository.listUserInicidents(sessionManager.getLoggedUser(), incidentStatus,
+				inicialDate, endDate);
 		for (Incident incident : inicidents) {
 			incident.setWorkOrders(null);
 			incident.setAttachments(null);

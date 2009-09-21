@@ -51,7 +51,7 @@
 				
 				private function formatDate(item:Object, column:Object):String {
 					var dateFormatter:DateFormatter = new DateFormatter();
-					dateFormatter.formatString = "DD/MM/YYYY";
+					dateFormatter.formatString = "DD/MM/YYYY HH:NN:SS";
 					return dateFormatter.format((item as Incident).openedDate);
 				}
 				

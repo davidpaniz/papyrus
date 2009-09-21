@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.IncidentStatus;
+import org.papyrus.domain.model.User;
 import org.papyrus.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +43,7 @@ public class ClientDao implements ClientRepository {
 		return client;
 	}
 
-	public List<Incident> listMyInicidents(IncidentStatus status, Date inicialDate, Date endDate) {
+	public List<Incident> listUserInicidents(User user, IncidentStatus status, Date inicialDate, Date endDate) {
 		Criteria criteria = template.getSessionFactory()
 				.getCurrentSession()
 				.createCriteria(Incident.class);
@@ -55,6 +56,8 @@ public class ClientDao implements ClientRepository {
 		if (endDate != null) {
 			criteria.add(Restrictions.le("openedDate", endDate));
 		}
+
+		criteria.add(Restrictions.eq("client", user));
 
 		return criteria.setFetchMode("details", FetchMode.JOIN)
 				.list();

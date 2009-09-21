@@ -52,4 +52,8 @@ public class SessionManager implements Serializable {
 			return;
 		}
 	}
+
+	public User getLoggedUser() {
+		return (User) getSession().getAttribute(CURRENT_USER);
+	}
 }
