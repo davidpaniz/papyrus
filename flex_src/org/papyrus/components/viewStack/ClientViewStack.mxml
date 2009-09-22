@@ -5,15 +5,21 @@
 	>
 	<mx:Script>
 		<![CDATA[
+			import org.papyrus.model.Incident;
 			import org.papyrus.services.ClientService;
 			
 			private function incidentListSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
 				new ClientService().listMyIncidents(status, initialDate, endDate, handler);				
 			}
+			
+			private function openIncident(incident:Incident):void {
+				selectedChild = incidentForm;
+				incidentForm.incident = incident;
+			}
 		]]>
 	</mx:Script>
 	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="incidentListSearch" />
-	<incident:ClientIncidentForm label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="incidentListSearch" openIncidentFunction="openIncident" />
+	<incident:BasicIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 </mx:ViewStack>

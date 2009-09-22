@@ -17,6 +17,7 @@
 				private var incidentList:ArrayCollection = new ArrayCollection();
 				
 				public var searchFunction:Function;
+				public var openIncidentFunction:Function;
 				
 				private function loadData():void {
 					search("", oneMonthAgo(), new Date());
@@ -62,6 +63,10 @@
 				private function statusLabelFunction(item:Object, column:Object):String {
 					return resourceManager.getString('incident', (item as Incident).status);
 				}
+				
+				private function doubleClickHandler():void {
+					openIncidentFunction(dg.selectedItem as Incident);
+				}
 		]]>
 	</mx:Script>
 
@@ -71,7 +76,7 @@
 			<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>
 			<mx:HSlider id="slider" />
 		</mx:ControlBar>
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" >
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="doubleClickHandler()">
 			<mx:columns>
 				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'openedDate')}" dataField="openedDate" labelFunction="formatDate" sortDescending="true"/>
 				<mx:DataGridColumn headerText="{resourceManager.getString('general', 'incident')}" dataField="description" />
