@@ -3,8 +3,11 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.Staff;
 
 /**
@@ -18,4 +21,5 @@ public interface StaffService {
 
 	List<Staff> listStaff() throws Exception;
 
+	List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) throws Exception;
 }

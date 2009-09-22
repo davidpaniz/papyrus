@@ -1,7 +1,13 @@
 package org.papyrus.infra.hibernate;
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.Staff;
 import org.papyrus.domain.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +44,23 @@ public class StaffDao implements StaffRepository {
 	public Staff delete(Staff staff) {
 		template.delete(staff);
 		return staff;
+	}
+
+	public List<Incident> listAllIncidents(IncidentStatus status, Date inicialDate, Date endDate) {
+		Criteria criteria = template.getSessionFactory()
+				.getCurrentSession()
+				.createCriteria(Incident.class);
+		if (status != null) {
+			criteria.add(Restrictions.eq("status", status));
+		}
+		if (inicialDate != null) {
+			criteria.add(Restrictions.ge("openedDate", inicialDate));
+		}
+		if (endDate != null) {
+			criteria.add(Restrictions.le("openedDate", endDate));
+		}
+
+		return criteria.setFetchMode("details", FetchMode.JOIN)
+				.list();
 	}
 }

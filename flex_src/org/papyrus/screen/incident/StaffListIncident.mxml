@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:enum="org.papyrus.components.combobox.enum.*" show="loadData();">
+	 	<mx:Script>
+		<![CDATA[
+	 			import org.papyrus.services.StaffService;
+	 			import mx.events.CollectionEvent;
+	 			import mx.events.CloseEvent;
+	 			import mx.controls.Alert;
+	 			import mx.formatters.DateFormatter;
+	 			import org.papyrus.model.Incident;
+	 			import org.papyrus.services.ClientService;
+	 			import mx.collections.ArrayCollection;
+	 			
+	 			[Bindable]
+				private var incidentList:ArrayCollection = new ArrayCollection();
+				
+				private function loadData():void {
+					search("", oneMonthAgo(), new Date());
+				}
+				
+				private function oneMonthAgo():Date {
+					var date:Date = new Date();
+					date.month = date.month - 1;
+					return date;
+				}
+				
+				private function search(status:String, initialDate:Date, endDate:Date):void {
+					if (status.length <= 0) {
+						status = null;
+					}
+					new StaffService().listAllIncidents(status, initialDate, endDate, searchHandler);
+				}
+				
+				private function searchHandler(incidents:ArrayCollection):void {
+					incidentList = incidents;
+					incidentList.filterFunction = filterHandler;
+				}
+				
+				private function filterHandler(item:Object):Boolean {
+					var incident:Incident = item as Incident;
+					if(cbStatus.selectedItem != "ALL") {
+						return incident.status == cbStatus.selectedItem;
+					}
+					
+					return true;
+				}
+				
+				private function updateFilter():void {
+					incidentList.refresh();
+				}
+				
+				private function formatDate(item:Object, column:Object):String {
+					var dateFormatter:DateFormatter = new DateFormatter();
+					dateFormatter.formatString = "DD/MM/YYYY HH:NN:SS";
+					return dateFormatter.format((item as Incident).openedDate);
+				}
+				
+				private function statusLabelFunction(item:Object, column:Object):String {
+					return resourceManager.getString('incident', (item as Incident).status);
+				}
+		]]>
+	</mx:Script>
+
+	<mx:VBox width="100%" >
+		<mx:Text text="{resourceManager.getString('incident', 'incident.my_incidents')}" />
+		<mx:ControlBar horizontalAlign="center">
+			<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>
+		</mx:ControlBar>
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" >
+			<mx:columns>
+				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'openedDate')}" dataField="openedDate" labelFunction="formatDate" sortDescending="true"/>
+				<mx:DataGridColumn headerText="{resourceManager.getString('general', 'incident')}" dataField="description" />
+				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'status')}" dataField="status" labelFunction="statusLabelFunction"/>
+			</mx:columns>
+		</mx:DataGrid>
+	</mx:VBox>
+</mx:HBox>
