@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class StaffServiceImp implements StaffService {
 	private final StaffRepository repository;
+
 	private final SessionManager sessionManager;
 
 	@Autowired
@@ -47,6 +48,17 @@ public class StaffServiceImp implements StaffService {
 	public List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
 		List<Incident> inicidents = repository.listAllIncidents(incidentStatus, inicialDate, endDate);
+		for (Incident incident : inicidents) {
+			incident.setWorkOrders(null);
+			incident.setAttachments(null);
+		}
+		return inicidents;
+	}
+
+	public List<Incident> listIncidentsAsseinedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception {
+		List<Incident> inicidents = repository.listIncidentsAsseinedTo(sessionManager.getLoggedUser(), incidentStatus,
+				inicialDate, endDate);
 		for (Incident incident : inicidents) {
 			incident.setWorkOrders(null);
 			incident.setAttachments(null);

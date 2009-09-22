@@ -6,6 +6,7 @@ import java.util.List;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.Staff;
+import org.papyrus.domain.model.User;
 
 /**
  * @author David Paniz
@@ -30,6 +31,8 @@ public interface StaffRepository {
 	 */
 	Staff delete(Staff staff);
 
-	List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
+	List<Incident> listAllIncidents(IncidentStatus status, Date inicialDate, Date endDate);
+
+	List<Incident> listIncidentsAsseinedTo(User user, IncidentStatus status, Date inicialDate, Date endDate);
 
 }
