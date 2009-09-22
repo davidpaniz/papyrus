@@ -55,9 +55,9 @@ public class StaffServiceImp implements StaffService {
 		return inicidents;
 	}
 
-	public List<Incident> listIncidentsAsseinedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+	public List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
-		List<Incident> inicidents = repository.listIncidentsAsseinedTo(sessionManager.getLoggedUser(), incidentStatus,
+		List<Incident> inicidents = repository.listIncidentsAssignedTo(sessionManager.getLoggedUser(), incidentStatus,
 				inicialDate, endDate);
 		for (Incident incident : inicidents) {
 			incident.setWorkOrders(null);

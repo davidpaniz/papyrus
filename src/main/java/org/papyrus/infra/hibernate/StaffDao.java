@@ -65,7 +65,7 @@ public class StaffDao implements StaffRepository {
 				.list();
 	}
 
-	public List<Incident> listIncidentsAsseinedTo(User user, IncidentStatus status, Date inicialDate, Date endDate) {
+	public List<Incident> listIncidentsAssignedTo(User user, IncidentStatus status, Date inicialDate, Date endDate) {
 		Criteria criteria = template.getSessionFactory()
 				.getCurrentSession()
 				.createCriteria(Incident.class);

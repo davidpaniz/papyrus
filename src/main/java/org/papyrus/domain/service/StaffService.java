@@ -22,4 +22,7 @@ public interface StaffService {
 	List<Staff> listStaff() throws Exception;
 
 	List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) throws Exception;
+
+	List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception;
 }

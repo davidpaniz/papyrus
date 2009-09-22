@@ -8,8 +8,12 @@
 			import org.papyrus.model.Incident;
 			import org.papyrus.services.StaffService;
 			
-			private function incidentListSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
+			private function listAllIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
 				new StaffService().listAllIncidents(status, initialDate, endDate, handler);				
+			}
+			
+			private function listMyIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
+				new StaffService().listIncidentsAssignedToMe(status, initialDate, endDate, handler);				
 			}
 			
 			private function openIncident(incident:Incident):void {
@@ -20,7 +24,8 @@
 	</mx:Script>	 
 	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 	<incident:BasicIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
-	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="incidentListSearch" openIncidentFunction="openIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="listAllIncidentsSearch" openIncidentFunction="openIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="listMyIncidentsSearch" openIncidentFunction="openIncident" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>	
 </mx:ViewStack>
 

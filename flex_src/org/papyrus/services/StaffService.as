@@ -41,6 +41,17 @@ package org.papyrus.services
 			listAllIncidentsCallback( event.result as ArrayCollection);
 		}
 		
+		private var listIncidentsAssignedToMeCallback:Function;
+ 		public function listIncidentsAssignedToMe(status:String, initialDate:Date, endDate:Date, callback:Function ):void
+		{
+			listIncidentsAssignedToMeCallback = callback;
+			service.listIncidentsAssignedToMe(status, initialDate, endDate );
+		}
+ 		public function listIncidentsAssignedToMeResult( event:ResultEvent ):void
+		{
+			listIncidentsAssignedToMeCallback( event.result as ArrayCollection);
+		}
+		
 		/*************************************
 		 * SAVE
 		 * ***********************************/

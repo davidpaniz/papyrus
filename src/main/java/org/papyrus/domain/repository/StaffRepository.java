@@ -33,6 +33,6 @@ public interface StaffRepository {
 
 	List<Incident> listAllIncidents(IncidentStatus status, Date inicialDate, Date endDate);
 
-	List<Incident> listIncidentsAsseinedTo(User user, IncidentStatus status, Date inicialDate, Date endDate);
+	List<Incident> listIncidentsAssignedTo(User user, IncidentStatus status, Date inicialDate, Date endDate);
 
 }
