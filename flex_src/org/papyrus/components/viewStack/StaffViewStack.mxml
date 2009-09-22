@@ -3,6 +3,18 @@
 	 width="100%" height="100%" 
 	 creationPolicy="auto" 
 	 >
+	<mx:Script>
+		<![CDATA[
+		import org.papyrus.services.StaffService;
+			private function incidentListSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
+				new StaffService().listAllIncidents(status, initialDate, endDate, handler);				
+			}
+		]]>
+	</mx:Script>	 
 	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="incidentListSearch" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>	
 </mx:ViewStack>
+
+
+

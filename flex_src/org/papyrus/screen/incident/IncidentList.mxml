@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:enum="org.papyrus.components.combobox.enum.*" show="loadData();">
+	 xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:enum="org.papyrus.components.combobox.enum.*" 
+	 width="100%" height="100%" show="loadData();"
+	 >
 	 	<mx:Script>
 		<![CDATA[
 	 			import mx.events.CollectionEvent;
@@ -13,6 +15,8 @@
 	 			
 	 			[Bindable]
 				private var incidentList:ArrayCollection = new ArrayCollection();
+				
+				public var searchFunction:Function;
 				
 				private function loadData():void {
 					search("", oneMonthAgo(), new Date());
@@ -28,7 +32,7 @@
 					if (status.length <= 0) {
 						status = null;
 					}
-					new ClientService().listMyIncidents(status, initialDate, endDate, searchHandler);
+					searchFunction(status, initialDate, endDate, searchHandler);
 				}
 				
 				private function searchHandler(incidents:ArrayCollection):void {
