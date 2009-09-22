@@ -5,7 +5,7 @@
 	xmlns:local="*" 
 	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
 	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*" xmlns:businessRules="org.papyrus.screen.businessRules.*"
-	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*" xmlns:company="org.papyrus.screen.company.*" xmlns:client="org.papyrus.screen.client.*" xmlns:category="org.papyrus.screen.category.*" xmlns:staff="org.papyrus.screen.staff.*">
+	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*" xmlns:company="org.papyrus.screen.company.*" xmlns:client="org.papyrus.screen.client.*" xmlns:category="org.papyrus.screen.category.*" xmlns:staff="org.papyrus.screen.staff.*" xmlns:viewStack="org.papyrus.components.viewStack.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -98,37 +98,10 @@
 			<mx:ViewStack id="vsHome" width="100%" height="100%" creationPolicy="auto" >
 				<home:Login label="{resourceManager.getString('general', 'login')}" width="100%" loginHandler="loginHandler"/>
 			</mx:ViewStack>
-			<mx:ViewStack id="vsAdmin" width="100%" height="100%" creationPolicy="auto" >
-				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-				<category:CategoryScreen label="{resourceManager.getString('general', 'category')}" width="100%" height="100%" />
-				<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
-				<impact:ImpactScreen label="{resourceManager.getString('general', 'impact')}" width="100%" height="100%" />
-				<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
-				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
-				<incident:IncidentsScreen label="{resourceManager.getString('general', 'incidents')}" width="100%" height="100%" />
-				<businessRules:BusinessRulesForm label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
-				<client:ClientScreen label="{resourceManager.getString('general', 'client')}" width="100%" height="100%" />
-				<company:CompanyScreen label="{resourceManager.getString('general', 'company')}" width="100%" height="100%" />
-				<notification:MailNotificationScreen label="{resourceManager.getString('general', 'mail_notification')}"/>
-				<staff:StaffScreen label="{resourceManager.getString('general', 'staff')}" width="100%" height="100%" />
-				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
-			</mx:ViewStack>
-			<mx:ViewStack id="vsClient" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
-				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-				<incident:ClientListIncident label="{resourceManager.getString('general', 'my_incidents')}" width="100%" height="100%" />
-				<incident:ClientIncidentForm label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
-				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
-			</mx:ViewStack>
-			<mx:ViewStack id="vsManager" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
-				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-				<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
-				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
-			</mx:ViewStack>
-			<mx:ViewStack id="vsStaff" width="100%" height="100%" creationPolicy="auto" includeInLayout="false" visible="false">
-				<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-				<incident:StaffListIncident label="{resourceManager.getString('general', 'incidents')}" width="100%" height="100%" />
-				<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
-			</mx:ViewStack>
+			<viewStack:AdminViewStack id="vsAdmin" />
+			<viewStack:ClientViewStack id="vsClient" />
+			<viewStack:ManagerViewStack id="vsManager" />
+			<viewStack:StaffViewStack id="vsStaff" />
 		</mx:ViewStack>
 	</mx:HDividedBox>
 </mx:Application>

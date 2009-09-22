@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:home="org.papyrus.screen.home.*" xmlns:incident="org.papyrus.screen.incident.*"
+	xmlns:category="org.papyrus.screen.category.*" xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:businessRules="org.papyrus.screen.businessRules.*" xmlns:client="org.papyrus.screen.client.*" xmlns:company="org.papyrus.screen.company.*" xmlns:notification="org.papyrus.screen.notification.*" xmlns:staff="org.papyrus.screen.staff.*"
+	 width="100%" height="100%" 
+	 creationPolicy="auto" 
+	>
+		<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
+		<category:CategoryScreen label="{resourceManager.getString('general', 'category')}" width="100%" height="100%" />
+		<urgency:UrgencyScreen label="{resourceManager.getString('general', 'urgency')}" width="100%" height="100%" />
+		<impact:ImpactScreen label="{resourceManager.getString('general', 'impact')}" width="100%" height="100%" />
+		<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
+		<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
+		<incident:IncidentsScreen label="{resourceManager.getString('general', 'incidents')}" width="100%" height="100%" />
+		<businessRules:BusinessRulesForm label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
+		<client:ClientScreen label="{resourceManager.getString('general', 'client')}" width="100%" height="100%" />
+		<company:CompanyScreen label="{resourceManager.getString('general', 'company')}" width="100%" height="100%" />
+		<notification:MailNotificationScreen label="{resourceManager.getString('general', 'mail_notification')}"/>
+		<staff:StaffScreen label="{resourceManager.getString('general', 'staff')}" width="100%" height="100%" />
+		<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
+</mx:ViewStack>
