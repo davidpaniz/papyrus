@@ -2,13 +2,13 @@
 insert into Company (id, name) values(1, 'Paniz Consultoria em Informática');
 
 ##User
-insert into `User` (id, email, password, active, role) values(1, 'a@a.com', '123', true, 'ADMIN');
+insert into `User` (id, email, name, password, active, role) values(1, 'a@a.com', 'ADMIN', '123', true, 'ADMIN');
 insert into Staff (id) values (1);
-insert into `User` (id, email, password, active, role) values(2, 's@a.com', '123', true, 'STAFF');
+insert into `User` (id, email, name, password, active, role) values(2, 's@a.com', 'STAFF', '123', true, 'STAFF');
 insert into Staff (id) values (2);
-insert into `User` (id, email, password, active, role) values(3, 'm@a.com', '123', true, 'MANAGER');
+insert into `User` (id, email, name, password, active, role) values(3, 'm@a.com', 'MANAGER', '123', true, 'MANAGER');
 insert into Staff (id) values (3);
-insert into `User` (id, email, password, active, role) values(4, 'c@a.com', '123', true, 'CLIENT');
+insert into `User` (id, email, name, password, active, role) values(4, 'c@a.com', 'CLIENT', '123', true, 'CLIENT');
 insert into Client (id, company_id) values (4, 1);
 
 ##Urgency

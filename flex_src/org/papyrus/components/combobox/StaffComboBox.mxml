@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
-				labelField="description"
+				labelField="name"
 				dataId="staff" serviceMethod="{new StaffService().listStaff}" entityClass="{Staff}"
 				isRequired="true"
 				>

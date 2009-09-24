@@ -2,7 +2,7 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
 	 xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:enum="org.papyrus.components.combobox.enum.*" 
 	 width="100%" height="100%" show="loadData();"
-	 >
+	 xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
 	 			import mx.events.CollectionEvent;
@@ -74,7 +74,10 @@
 		<mx:Text text="{resourceManager.getString('incident', 'incident.my_incidents')}" />
 		<mx:ControlBar horizontalAlign="center">
 			<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>
-			<mx:HSlider id="slider" />
+			<!--<mx:HSlider id="slider" />-->
+		</mx:ControlBar>
+		<mx:ControlBar id="staffActions" horizontalAlign="center">
+			<combobox:StaffComboBox isRequired="false" promptItem="{resourceManager.getString('incident', 'assign_to')}"/>
 		</mx:ControlBar>
 		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="doubleClickHandler()">
 			<mx:columns>
