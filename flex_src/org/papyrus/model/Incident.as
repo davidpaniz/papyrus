@@ -2,6 +2,7 @@ package org.papyrus.model
 {
 	import mx.collections.ArrayCollection;
 	
+	[Bindable]
 	[RemoteClass(alias="org.papyrus.domain.model.Incident")]
 	public class Incident implements ConditionComparable
 	{
@@ -16,9 +17,9 @@ package org.papyrus.model
 		public var openedDate:Date;
 		public var respondedDate:Date;
 		public var dueDate:Date;
-		public var workOrders:ArrayCollection;
-		public var attachments:ArrayCollection;
-		public var details:ArrayCollection;
+		public var workOrders:ArrayCollection = new ArrayCollection();
+		public var attachments:ArrayCollection = new ArrayCollection();
+		public var details:ArrayCollection = new ArrayCollection();
 		public var category:Category;
 		
 		public function Incident()

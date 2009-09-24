@@ -6,14 +6,14 @@
 			import mx.messaging.AbstractConsumer;
 			import mx.collections.ArrayCollection;
 			
-			private var staticDataProvider:ArrayCollection = new ArrayCollection();
+			private var staticValues:ArrayCollection = new ArrayCollection();
 			
 			private function init():void {
-				staticDataProvider.addItem("CREATE");
-				staticDataProvider.addItem("UPDATE");
-				staticDataProvider.addItem("DELETE");
+				staticValues.addItem("CREATE");
+				staticValues.addItem("UPDATE");
+				staticValues.addItem("DELETE");
 				
-				dataProvider = staticDataProvider;
+				dataProvider = staticValues;
 			}
 			
 			private function showI18NLabel(item:Object):String {
@@ -24,7 +24,7 @@
 			{
 				super.selectedItem = 1;
 				var count:int = 0;
-				for each( var obj:Object in staticDataProvider )
+				for each( var obj:Object in staticValues )
 				{
 					if( obj && obj == param )
 					{

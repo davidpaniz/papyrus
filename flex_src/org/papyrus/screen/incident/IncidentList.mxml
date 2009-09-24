@@ -76,9 +76,6 @@
 			<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>
 			<!--<mx:HSlider id="slider" />-->
 		</mx:ControlBar>
-		<mx:ControlBar id="staffActions" horizontalAlign="center">
-			<combobox:StaffComboBox isRequired="false" promptItem="{resourceManager.getString('incident', 'assign_to')}"/>
-		</mx:ControlBar>
 		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="doubleClickHandler()">
 			<mx:columns>
 				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'openedDate')}" dataField="openedDate" labelFunction="formatDate" sortDescending="true"/>

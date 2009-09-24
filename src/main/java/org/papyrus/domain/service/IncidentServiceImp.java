@@ -25,7 +25,7 @@ public class IncidentServiceImp implements IncidentService {
 	private final BusinessRuleService businessRuleService;
 
 	@Autowired
-	public IncidentServiceImp(IncidentRepository repository, BusinessRuleService businessRuleService) {
+	public IncidentServiceImp(BusinessRuleService businessRuleService, IncidentRepository repository) {
 		this.repository = repository;
 		this.businessRuleService = businessRuleService;
 	}
@@ -41,7 +41,8 @@ public class IncidentServiceImp implements IncidentService {
 	public Incident createIncident(Incident incident) throws Exception {
 		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
 		fillIncidentData(incident);
-		return repository.saveOrUpdate(incident);
+		repository.saveOrUpdate(incident);
+		return incident;
 	}
 
 	private void fillIncidentData(Incident incident) {

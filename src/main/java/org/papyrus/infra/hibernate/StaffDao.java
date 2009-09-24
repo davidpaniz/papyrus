@@ -1,15 +1,8 @@
 package org.papyrus.infra.hibernate;
 
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.Restrictions;
-import org.papyrus.domain.model.Incident;
-import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.Staff;
-import org.papyrus.domain.model.User;
 import org.papyrus.domain.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,41 +40,4 @@ public class StaffDao implements StaffRepository {
 		return staff;
 	}
 
-	public List<Incident> listAllIncidents(IncidentStatus status, Date inicialDate, Date endDate) {
-		Criteria criteria = template.getSessionFactory()
-				.getCurrentSession()
-				.createCriteria(Incident.class);
-		if (status != null) {
-			criteria.add(Restrictions.eq("status", status));
-		}
-		if (inicialDate != null) {
-			criteria.add(Restrictions.ge("openedDate", inicialDate));
-		}
-		if (endDate != null) {
-			criteria.add(Restrictions.le("openedDate", endDate));
-		}
-
-		return criteria.setFetchMode("details", FetchMode.JOIN)
-				.list();
-	}
-
-	public List<Incident> listIncidentsAssignedTo(User user, IncidentStatus status, Date inicialDate, Date endDate) {
-		Criteria criteria = template.getSessionFactory()
-				.getCurrentSession()
-				.createCriteria(Incident.class);
-		if (status != null) {
-			criteria.add(Restrictions.eq("status", status));
-		}
-		if (inicialDate != null) {
-			criteria.add(Restrictions.ge("openedDate", inicialDate));
-		}
-		if (endDate != null) {
-			criteria.add(Restrictions.le("openedDate", endDate));
-		}
-
-		criteria.add(Restrictions.le("responsable", user));
-
-		return criteria.setFetchMode("details", FetchMode.JOIN)
-				.list();
-	}
 }

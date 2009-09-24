@@ -10,13 +10,13 @@
 			import mx.messaging.AbstractConsumer;
 			import mx.collections.ArrayCollection;
 			
-			private var staticDataProvider:ArrayCollection = new ArrayCollection();
+			private var staticValues:ArrayCollection = new ArrayCollection();
 			
 			private function init():void {
-				staticDataProvider.addItem("WORK_ORDER");
-				staticDataProvider.addItem("MAIL_NOTIFICATION");
+				staticValues.addItem("WORK_ORDER");
+				staticValues.addItem("MAIL_NOTIFICATION");
 				
-				dataProvider = staticDataProvider;
+				dataProvider = staticValues;
 			}
 			
 			private function showI18NLabel(item:Object):String {
@@ -27,7 +27,7 @@
 			{
 				super.selectedItem = 1;
 				var count:int = 0;
-				for each( var obj:Object in staticDataProvider )
+				for each( var obj:Object in staticValues )
 				{
 					if( obj && obj == param )
 					{

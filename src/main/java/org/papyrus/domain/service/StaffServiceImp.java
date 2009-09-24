@@ -9,6 +9,7 @@ import java.util.List;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.Staff;
+import org.papyrus.domain.repository.IncidentRepository;
 import org.papyrus.domain.repository.StaffRepository;
 import org.papyrus.infra.http.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,14 @@ public class StaffServiceImp implements StaffService {
 
 	private final SessionManager sessionManager;
 
+	private final IncidentRepository incidentRepository;
+
 	@Autowired
-	public StaffServiceImp(StaffRepository repository, SessionManager sessionManager) {
+	public StaffServiceImp(SessionManager sessionManager, StaffRepository repository,
+			IncidentRepository incidentRepository) {
 		this.repository = repository;
 		this.sessionManager = sessionManager;
+		this.incidentRepository = incidentRepository;
 	}
 
 	public List<Staff> listStaff() throws Exception {
@@ -47,7 +52,7 @@ public class StaffServiceImp implements StaffService {
 
 	public List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
-		List<Incident> inicidents = repository.listAllIncidents(incidentStatus, inicialDate, endDate);
+		List<Incident> inicidents = incidentRepository.listAllIncidents(incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
 			incident.setWorkOrders(null);
 			incident.setAttachments(null);
@@ -57,8 +62,8 @@ public class StaffServiceImp implements StaffService {
 
 	public List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
 			throws Exception {
-		List<Incident> inicidents = repository.listIncidentsAssignedTo(sessionManager.getLoggedUser(), incidentStatus,
-				inicialDate, endDate);
+		List<Incident> inicidents = incidentRepository.listIncidentsAssignedTo(sessionManager.getLoggedUser(),
+				incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
 			incident.setWorkOrders(null);
 			incident.setAttachments(null);
