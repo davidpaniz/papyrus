@@ -44,8 +44,8 @@ create table Attachment (id bigint not null auto_increment, primary key (id)) EN
 create table BusinessRule (id bigint not null auto_increment, description varchar(255), enabled bit not null, name varchar(255), onCreate bit not null, onDelete bit not null, onUpdate bit not null, type varchar(255), primary key (id)) ENGINE=InnoDB;
 create table Category (id bigint not null auto_increment, name varchar(255), parent_id bigint, primary key (id)) ENGINE=InnoDB;
 create table Client (id bigint not null, company_id bigint, primary key (id)) ENGINE=InnoDB;
-create table Company (id bigint not null auto_increment, email varchar(255), name varchar(255), primary key (id)) ENGINE=InnoDB;
-create table Detail (id bigint not null auto_increment, date datetime, detail varchar(255), incident_id bigint, user_id bigint, primary key (id)) ENGINE=InnoDB;
+create table Company (id bigint not null auto_increment, name varchar(255), primary key (id)) ENGINE=InnoDB;
+create table Detail (id bigint not null auto_increment, date datetime, message varchar(255), incident_id bigint, user_id bigint, primary key (id)) ENGINE=InnoDB;
 create table Impact (id bigint not null auto_increment, description varchar(255), primary key (id)) ENGINE=InnoDB;
 create table Incident (id bigint not null auto_increment, description varchar(255), dueDate datetime, openedDate datetime, resolution varchar(255), respondedDate datetime, status varchar(255), template bit not null, category_id bigint, client_id bigint, impact_id bigint, responsable_id bigint, urgency_id bigint, primary key (id)) ENGINE=InnoDB;
 create table Incident_Attachment (Incident_id bigint not null, attachments_id bigint not null, unique (attachments_id)) ENGINE=InnoDB;

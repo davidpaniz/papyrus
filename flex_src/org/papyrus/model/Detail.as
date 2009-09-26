@@ -11,6 +11,6 @@ package org.papyrus.model
 		public var user:User;
 		public var incident:Incident;
 		public var date:Date;
-		public var detail:String;
+		public var message:String;
 	}
 }

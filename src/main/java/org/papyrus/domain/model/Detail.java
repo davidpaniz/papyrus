@@ -30,7 +30,7 @@ public class Detail {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar date;
 
-	private String detail;
+	private String message;
 
 	public long getId() {
 		return id;
@@ -56,20 +56,20 @@ public class Detail {
 		this.incident = incident;
 	}
 
-	public String getDetail() {
-		return detail;
-	}
-
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
 	public Calendar getDate() {
 		return date;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

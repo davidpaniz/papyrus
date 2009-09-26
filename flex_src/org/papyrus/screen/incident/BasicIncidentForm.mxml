@@ -2,7 +2,7 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
 		xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*"
 		 width="100%" height="100%" 
-		 >
+		 xmlns:incident="org.papyrus.screen.incident.*">
 	 	<mx:Script>
 		<![CDATA[
  			import org.papyrus.model.Client;
@@ -43,15 +43,15 @@
 			}
 			
 			private function create():void {
-				var incident:Incident = new Incident();
+				var incident:Incident = _incident ? _incident : new Incident();
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
 				incident.category = cbCategory.selectedItem as Category;
 				incident.client = Model.inst().user as Client;
 				incident.status = cbStatus.selectedItem as String;
-				incident.details = new ArrayCollection();
+				incident.details ||= new ArrayCollection();
 				var detail:Detail = new Detail();
-				detail.detail = txtcomment.text;
+				detail.message = txtComment.text;
 				detail.user = Model.inst().user;
 				incident.details.addItem(detail);
 				
@@ -100,6 +100,7 @@
 				txtDs.text = "";
 				cbCategory.selectedIndex = 0;
 				cbStaff.selectedIndex = 0;
+				txtComment.text = "";
 			}
 			
 			private function cancel(event:MouseEvent):void
@@ -130,11 +131,11 @@
 			<combobox:StaffComboBox id="cbStaff" text="{_incident.responsable}" width="100%" editable="false"  enabled="false" />
 		</mx:FormItem>
 		<mx:Repeater id="rpDetail" dataProvider="{_incident.details}" >
-			<mx:Text text="{(rpDetail.currentItem as Detail).date}:" />			
-			<mx:Text text="{(rpDetail.currentItem as Detail).detail}" />			
+			<incident:DetailBox detail="{(rpDetail.currentItem as Detail)}" />			
 		</mx:Repeater> 
 		<mx:FormItem label="{resourceManager.getString('incident', 'comment')}:" width="345">
-			<mx:TextArea id="txtcomment" width="100%" />
+			
+			<mx:TextArea id="txtComment" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
