@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:ComboBox xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()" labelFunction="showI18NLabel">
+<EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	creationComplete="init()" labelFunction="showI18NLabel" 
+	i18nName="incident">
 	<mx:Script >
 		<![CDATA[
-			import mx.events.ListEvent;
-			import mx.messaging.AbstractConsumer;
-			import mx.collections.ArrayCollection;
-			
 			public var showAll:Boolean = false;
-			private var staticDataProvider:ArrayCollection = new ArrayCollection();
 			
 			private function init():void {
 				staticDataProvider.addItem("OPENED");
@@ -20,31 +18,7 @@
 				dataProvider = staticDataProvider;
 			}
 			
-			private function showI18NLabel(item:Object):String {
-				return resourceManager.getString('incident', item.toString());
-			}
-			
-			override public function set selectedItem( param:Object ):void
-			{
-				super.selectedItem = 1;
-				var count:int = 0;
-				for each( var obj:Object in staticDataProvider )
-				{
-					if( obj && obj == param )
-					{
-						selectedIndex = count;
-						dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
-						return;
-					}
-					count++;
-				}
-		
-				// It was not found
-				super.selectedIndex = 0;
-			}
-			
 		]]>
 	</mx:Script>
 		
-	
-</mx:ComboBox>
+</EnumComboBox>
