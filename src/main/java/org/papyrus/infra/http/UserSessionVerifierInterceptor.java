@@ -24,7 +24,6 @@ public class UserSessionVerifierInterceptor {
 				.getClass();
 		Signature signature = pjp.getSignature();
 
-		// && signature.getModifiers() == Modifier.PUBLIC
 		if (sessionManager.isNotLogged()) {
 			log.warn(String.format("Problema na sessão do usuário acessando o metodo %s do service %s",
 					signature.getName(), type));

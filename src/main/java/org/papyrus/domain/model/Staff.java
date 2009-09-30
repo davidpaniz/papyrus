@@ -11,7 +11,6 @@ import javax.persistence.Entity;
  * @author davidpaniz
  */
 @Entity
-// @Inheritance(strategy = InheritanceType.JOINED)
 public class Staff extends User {
 
 }

@@ -33,13 +33,6 @@ public class Action {
 
 	@Enumerated(EnumType.STRING)
 	private BusinessRuleType type;
-	//
-	// @Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER)
-	// @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-	// @MetaValue(value = "INCIDENT", targetEntity = Incident.class),
-	// @MetaValue(value = "WORK_ORDER", targetEntity = WorkOrder.class) })
-	// @JoinColumn(name = "detail_id")
-	// private ConditionComparable detail;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<TemplateValue> detail;

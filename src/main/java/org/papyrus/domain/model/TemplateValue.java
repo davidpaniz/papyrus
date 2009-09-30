@@ -16,10 +16,6 @@ public class TemplateValue {
 	private String field;
 	private String value;
 
-	//
-	// @ManyToOne
-	// private Action action;
-
 	public long getId() {
 		return id;
 	}
