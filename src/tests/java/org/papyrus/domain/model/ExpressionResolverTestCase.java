@@ -50,4 +50,12 @@ public class ExpressionResolverTestCase {
 				"Client: David Paniz opened incident: Testing",
 				new ExpressionResolver(incident, null).valueOf("Client: #{client.name} opened incident: #{description}"));
 	}
+
+	@Test
+	public void testWithEnum() {
+		Incident incident = new Incident();
+		incident.setStatus(IncidentStatus.OPENED);
+
+		Assert.assertEquals("OPENED", new ExpressionResolver(incident, null).valueOf("#{status}"));
+	}
 }

@@ -18,7 +18,16 @@ public class ExpressionResolver {
 		this.newValue = newValue;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object valueOf(String expression) {
+		Object evaluatedExpression = evaluateExpression(expression);
+		if (evaluatedExpression instanceof Enum) {
+			return ((Enum) evaluatedExpression).name();
+		}
+		return evaluatedExpression;
+	}
+
+	private Object evaluateExpression(String expression) {
 		if (hasTextInExpression(expression)) {
 			return findExpressionInText(expression);
 		}
