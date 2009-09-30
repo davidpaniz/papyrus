@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
+import org.papyrus.domain.model.ConditionComparable;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,5 +64,9 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 
 	public <T> T load(Class<T> type, Serializable id) {
 		return (T) template.get(type, id);
+	}
+
+	public void unlock(ConditionComparable conditionComparable) {
+		template.evict(conditionComparable);
 	}
 }

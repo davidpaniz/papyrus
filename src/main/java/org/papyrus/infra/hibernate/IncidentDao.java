@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -30,7 +31,7 @@ public class IncidentDao implements IncidentRepository {
 	}
 
 	public Incident saveOrUpdate(Incident incident) {
-		getSession().persist(incident);
+		getSession().saveOrUpdate(incident);
 		saveDetails(incident);
 		return incident;
 	}
@@ -46,7 +47,7 @@ public class IncidentDao implements IncidentRepository {
 			if (detail.getId() == 0) {
 				detail.setDate(Calendar.getInstance());
 				detail.setIncident(incident);
-				getSession().persist(detail);
+				getSession().saveOrUpdate(detail);
 			}
 		}
 	}
@@ -103,7 +104,8 @@ public class IncidentDao implements IncidentRepository {
 		if (endDate != null) {
 			criteria.add(Restrictions.le("openedDate", endDate));
 		}
-		// criteria.setFetchMode("details", FetchMode.JOIN);
+		criteria.setFetchMode("details", FetchMode.JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria;
 	}
 

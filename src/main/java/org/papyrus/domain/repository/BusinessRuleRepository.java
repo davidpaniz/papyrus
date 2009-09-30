@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
+import org.papyrus.domain.model.ConditionComparable;
 
 /**
  * @author David Paniz
@@ -36,4 +37,6 @@ public interface BusinessRuleRepository {
 	List<BusinessRule> findDeleteRules(BusinessRuleType type);
 
 	<T> T load(Class<T> type, Serializable id);
+
+	void unlock(ConditionComparable conditionComparable);
 }

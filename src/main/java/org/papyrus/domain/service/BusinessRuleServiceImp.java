@@ -80,6 +80,8 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 				}
 			}
 		}
+
+		repository.unlock(oldValue);
 	}
 
 	public BusinessRule deleteBusinessRule(BusinessRule businessRule) {
