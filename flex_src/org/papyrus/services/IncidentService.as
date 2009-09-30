@@ -46,13 +46,19 @@ package org.papyrus.services
 				createCallback(event.result as Incident);
 		}
 		
-		public function createIncidentFault( event:FaultEvent ):void
+		private var updateCallback:Function;
+		public function updateIncident( incident:Incident, callbackFunction:Function ):void
 		{
-			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
-				NotificatorManager.error("Já existe uma palavra com essa descrição");
+			updateCallback = callbackFunction;
+			service.updateIncident( incident );
 		}
-
-
+		
+		public function updateIncidentResult( event:ResultEvent ):void
+		{
+			if(updateCallback != null)
+				updateCallback(event.result as Incident);
+		}
+		
 		/*************************************
 		 * DELETE 
 		 * ***********************************/

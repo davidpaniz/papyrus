@@ -30,7 +30,6 @@
 			public function set incident(incident:Incident):void
 			{
 				this._incident = incident
-//				populateForm(incident);
 			}
 			
 			private function save():void
@@ -59,7 +58,18 @@
 			}
 			
 			private function edit():void {
-				Alert.show("TODO", "fazer update");
+				var incident:Incident = _incident ? _incident : new Incident();
+				incident.id = new Number(txtId.text);
+				incident.description   = txtDs.text;
+				incident.category = cbCategory.selectedItem as Category;
+				incident.status = cbStatus.selectedItem as String;
+				incident.details ||= new ArrayCollection();
+				var detail:Detail = new Detail();
+				detail.message = txtComment.text;
+				detail.user = Model.inst().user;
+				incident.details.addItem(detail);
+				
+				new IncidentService().updateIncident(incident, onResultSave);
 			}
 			
 			private function onResultSave(incident:Incident):void
@@ -78,15 +88,7 @@
 				cleanForm();
 				showForm();
 			}
-//			
-//			private function populateForm(incident:Incident):void
-//			{
-//				cbCategory.selectedItem = incident.category;
-//				cbStaff.selectedItem = incident.responsable;
-//				txtDs.text = incident.description;
-//				txtId.text = incident.id.toString();
-//			}
-			
+
 			private function showForm():void
 			{
 				incidentForm.includeInLayout = true;

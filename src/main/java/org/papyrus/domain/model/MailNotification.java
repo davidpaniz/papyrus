@@ -67,6 +67,8 @@ public class MailNotification implements MimeMessagePreparator, ConditionCompara
 	}
 
 	public void execute(MailService mailService, ConditionComparableRepository conditionComparableRepository) {
+		conditionComparableRepository.saveTemplate(this);
+		conditionComparableRepository.activeTemplate(this);
 		mailService.sendMail(this);
 	}
 

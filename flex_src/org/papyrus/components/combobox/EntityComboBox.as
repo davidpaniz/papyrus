@@ -7,6 +7,7 @@ package org.papyrus.components.combobox
 		override public function set selectedItem( entity:Object ):void
 		{
 			super.selectedItem = 1;
+			
 			var count:int = 0;
 			for each( var obj:Object in collection )
 			{
