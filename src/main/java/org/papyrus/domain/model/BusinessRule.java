@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
-import org.papyrus.domain.exception.BusinessRuleException;
-
 @Entity
 @SequenceGenerator(name = "Business_Rule_Seq")
 public class BusinessRule {
@@ -119,8 +117,7 @@ public class BusinessRule {
 		return type;
 	}
 
-	public boolean shouldExecute(ConditionComparable oldValue, ConditionComparable newValue)
-			throws BusinessRuleException {
+	public boolean shouldExecute(ConditionComparable oldValue, ConditionComparable newValue) {
 		boolean result = false;
 		// TODO refactoring plz. Documentation too!
 		Condition before = null;

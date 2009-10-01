@@ -2,11 +2,10 @@ package org.papyrus.domain.model;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.papyrus.domain.exception.BusinessRuleException;
 
 public class ConditionTestCase {
 	@Test
-	public void testShouldReturnTrueWhenExpressionsAreEqualsAndOperatiorIsEQ() throws BusinessRuleException {
+	public void testShouldReturnTrueWhenExpressionsAreEqualsAndOperatiorIsEQ() {
 		Incident oldValue = new Incident();
 		oldValue.setDescription("a");
 		Incident newValue = new Incident();
@@ -22,7 +21,7 @@ public class ConditionTestCase {
 	}
 
 	@Test
-	public void testShouldReturnFalseWhenExpressionsAreEqualsAndOperatiorIsNEQ() throws BusinessRuleException {
+	public void testShouldReturnFalseWhenExpressionsAreEqualsAndOperatiorIsNEQ() {
 		Incident oldValue = new Incident();
 		oldValue.setDescription("a");
 		Incident newValue = new Incident();
@@ -38,7 +37,7 @@ public class ConditionTestCase {
 	}
 
 	@Test
-	public void testShouldReturnFalseWhenExpressionsAreDifferentAndOperatiorIsEQ() throws BusinessRuleException {
+	public void testShouldReturnFalseWhenExpressionsAreDifferentAndOperatiorIsEQ() {
 		Incident oldValue = new Incident();
 		oldValue.setDescription("a");
 		Incident newValue = new Incident();
@@ -54,7 +53,7 @@ public class ConditionTestCase {
 	}
 
 	@Test
-	public void testShouldReturnTrueWhenExpressionsAreDifferentAndOperatiorIsNEQ() throws BusinessRuleException {
+	public void testShouldReturnTrueWhenExpressionsAreDifferentAndOperatiorIsNEQ() {
 		Incident oldValue = new Incident();
 		oldValue.setDescription("a");
 		Incident newValue = new Incident();
@@ -70,8 +69,7 @@ public class ConditionTestCase {
 	}
 
 	@Test
-	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReference()
-			throws BusinessRuleException {
+	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReference() {
 		Incident newValue = new Incident();
 		newValue.setDescription("a");
 
@@ -85,8 +83,7 @@ public class ConditionTestCase {
 	}
 
 	@Test
-	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReferenceReturnigFalse()
-			throws BusinessRuleException {
+	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReferenceReturnigFalse() {
 		Incident newValue = new Incident();
 		newValue.setDescription("a");
 
@@ -99,16 +96,4 @@ public class ConditionTestCase {
 		Assert.assertFalse(test);
 	}
 
-	@Test(expected = BusinessRuleException.class)
-	public void testShouldThrowsExceptionWhenExpressionHaveUndefinedField() throws BusinessRuleException {
-		Incident newValue = new Incident();
-		newValue.setDescription("a");
-
-		Condition c = new Condition();
-		c.setExpression1("${testing}");
-		c.setExpression2("b");
-		c.setComparisonOperator(ConditionComparisonOperator.GT);
-
-		c.test(null, newValue);
-	}
 }

@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.papyrus.domain.exception.BusinessRuleException;
-
 @Entity
 @Table(name = "conditions")
 @SequenceGenerator(name = "Condition_Seq")
@@ -50,7 +48,7 @@ public class Condition {
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean test(ConditionComparable oldValue, ConditionComparable newValue) throws BusinessRuleException {
+	public boolean test(ConditionComparable oldValue, ConditionComparable newValue) {
 		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
 		Object firstParam = resolver.valueOf(expression1);
 		Object secondParam = resolver.valueOf(expression2);

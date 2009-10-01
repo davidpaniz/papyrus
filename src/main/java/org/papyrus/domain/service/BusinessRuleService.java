@@ -1,20 +1,16 @@
 package org.papyrus.domain.service;
 
-import org.papyrus.domain.exception.BusinessRuleException;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.ConditionComparable;
 import org.papyrus.domain.model.BusinessRuleType;
+import org.papyrus.domain.model.ConditionComparable;
 
 public interface BusinessRuleService {
 
-	void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException;
+	void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable);
 
-	void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException;
+	void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable);
 
-	void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException;
+	void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable);
 
 	BusinessRule deleteBusinessRule(BusinessRule businessRule);
 

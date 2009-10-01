@@ -6,7 +6,6 @@ package org.papyrus.domain.service;
 import java.util.Calendar;
 import java.util.List;
 
-import org.papyrus.domain.exception.BusinessRuleException;
 import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
@@ -47,27 +46,23 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		this.taskRepository = taskRepository;
 	}
 
-	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException {
+	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
 		List<BusinessRule> rules = repository.findCreateRules(type);
 		execute(type, conditionComparable, rules);
 
 	}
 
-	public void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException {
+	public void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
 		List<BusinessRule> rules = repository.findUpdateRules(type);
 		execute(type, conditionComparable, rules);
 	}
 
-	public void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable)
-			throws BusinessRuleException {
+	public void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
 		List<BusinessRule> rules = repository.findDeleteRules(type);
 		execute(type, conditionComparable, rules);
 	}
 
-	private void execute(BusinessRuleType type, ConditionComparable conditionComparable, List<BusinessRule> rules)
-			throws BusinessRuleException {
+	private void execute(BusinessRuleType type, ConditionComparable conditionComparable, List<BusinessRule> rules) {
 		ConditionComparable oldValue = repository.load(type.getType(), conditionComparable.getId());
 		for (BusinessRule businessRule : rules) {
 			if (businessRule.shouldExecute(oldValue, conditionComparable)) {
