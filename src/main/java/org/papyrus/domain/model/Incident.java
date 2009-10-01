@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.joda.time.DateTime;
 import org.papyrus.domain.repository.ConditionComparableRepository;
 import org.papyrus.domain.service.MailService;
 
@@ -42,15 +43,15 @@ public class Incident implements ConditionComparable {
 	private String resolution;
 
 	@ManyToOne
-	private Impact impact;
-	@ManyToOne
-	private Urgency urgency;
+	private Priority priority;
 
 	@Enumerated(EnumType.STRING)
 	private IncidentStatus status;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date openedDate = new Date();
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date respondedDate;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -83,22 +84,6 @@ public class Incident implements ConditionComparable {
 
 	public void setResolution(String resolution) {
 		this.resolution = resolution;
-	}
-
-	public Impact getImpact() {
-		return impact;
-	}
-
-	public void setImpact(Impact impact) {
-		this.impact = impact;
-	}
-
-	public Urgency getUrgency() {
-		return urgency;
-	}
-
-	public void setUrgency(Urgency urgency) {
-		this.urgency = urgency;
 	}
 
 	public IncidentStatus getStatus() {
@@ -207,5 +192,27 @@ public class Incident implements ConditionComparable {
 
 	public Staff getResponsable() {
 		return responsable;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public Priority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
+
+	public void calculateDueDate() {
+		this.dueDate = new DateTime(this.openedDate).plusSeconds(this.priority.getDuration())
+				.toDate();
+
 	}
 }

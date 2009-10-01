@@ -5,5 +5,6 @@ package org.papyrus.model
 	public class Client extends User
 	{
 		public var company:Company;
+		public var priority:Priority;
 	}
 }

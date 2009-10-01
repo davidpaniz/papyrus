@@ -11,8 +11,7 @@ package org.papyrus.model
 		public var responsable:Staff;
 		public var description:String;
 		public var resolution:String;
-		public var impact:Impact;
-		public var urgency:Urgency;
+		public var priority:Priority;
 		public var status:String;
 		public var openedDate:Date;
 		public var respondedDate:Date;

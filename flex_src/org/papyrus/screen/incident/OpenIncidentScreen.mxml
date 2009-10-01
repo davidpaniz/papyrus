@@ -4,6 +4,7 @@
 	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.Priority;
 	 			import org.papyrus.model.TemplateValue;
 			import org.papyrus.model.Impact;
 			import org.papyrus.model.Urgency;
@@ -38,8 +39,7 @@
 				var incident:Incident = new Incident();
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
-				incident.impact = cbImpact.selectedItem as Impact;
-				incident.urgency = cbUrgency.selectedItem as Urgency;
+				incident.priority = cbPriority.selectedItem as Priority;
 				incident.status = cbStatus.selectedItem.toString();
 				
 				new IncidentService().createIncident(incident, onResultSave);
@@ -76,8 +76,7 @@
 			
 			private function populateForm(incident:Incident):void
 			{
-				cbUrgency.selectedItem = incident.urgency;
-				cbImpact.selectedItem = incident.impact;
+				cbPriority.selectedItem = incident.priority;
 				txtDs.text = incident.description;
 				txtId.text = incident.id.toString();
 			}
@@ -103,8 +102,7 @@
 			{
 				txtId.text = "";
 				txtDs.text = "";
-				cbImpact.selectedIndex = 0;
-				cbUrgency.selectedIndex = 0;
+				cbPriority.selectedIndex = 0;
 			}
 			
 			protected function ok():void
@@ -134,11 +132,8 @@
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" width="100%" />
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'urgency')}:" width="345">
-			<combobox:UrgencyComboBox width="100%" id="cbUrgency" />
-		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('general', 'impact')}:" width="345">
-			<combobox:ImpactComboBox width="100%" id="cbImpact" />
+		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
+			<combobox:PriorityComboBox width="100%" id="cbPriority" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'status')}:" width="345">
 			<enum:IncidentStatusComboBox width="100%" id="cbStatus" />

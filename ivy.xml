@@ -16,6 +16,8 @@
 		<dependency org="org.slf4j" name="nlog4j" rev="1.2.25" conf="*->*,!sources,!javadoc" ></dependency>
 		<dependency org="org.objenesis" name="objenesis" rev="1.1" conf="*->*,!sources,!javadoc" ></dependency>
 		<dependency org="net.vidageek" name="mirror" rev="1.5.1" conf="*->*,!sources,!javadoc" ></dependency>
+		<dependency org="joda-time" name="joda-time" rev="1.6" conf="*->*,!sources,!javadoc" ></dependency>
+
 		<exclude org="aopalliance" />
 		<exclude org="asm" artifact="asm-tree" />
 		<exclude org="asm" artifact="asm-attrs" />

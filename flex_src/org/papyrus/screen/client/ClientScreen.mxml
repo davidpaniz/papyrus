@@ -3,6 +3,7 @@
 	 width="488" height="384"  show="getList()" xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
+	 			import org.papyrus.model.Priority;
 	 			import org.papyrus.model.Company;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
@@ -23,6 +24,7 @@
 				this.client.name   = txtName.text;
 				this.client.email   = txtEmail.text;
 				this.client.company = cbCompany.selectedItem as Company;
+				this.client.priority = cbPriority.selectedItem as Priority;
 				new ClientService().saveClient(client, onResultSave);
 			}
 			
@@ -72,6 +74,7 @@
 					txtName.text = (dg.selectedItem as Client).name;
 					txtEmail.text = (dg.selectedItem as Client).email;
 					cbCompany.selectedItem = (dg.selectedItem as Client).company;
+					cbPriority.selectedItem = (dg.selectedItem as Client).priority;
 				}
 				showForm();
 			}
@@ -95,6 +98,7 @@
 				txtName.text = "";
 				txtEmail.text = "";
 				cbCompany.selectedIndex = 0; 
+				cbPriority.selectedIndex = 0; 
 			}
 		]]>
 	</mx:Script>
@@ -125,8 +129,11 @@
 			<mx:TextInput width="100%" id="txtEmail"
 				text="{Client(dg.selectedItem).email}"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('staff', 'company')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('client', 'company')}:" width="345">
 			<combobox:CompanyComboBox id="cbCompany" selectedItem="{Client(dg.selectedItem).company}" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
+			<combobox:PriorityComboBox id="cbPriority" selectedItem="{Client(dg.selectedItem).priority}" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

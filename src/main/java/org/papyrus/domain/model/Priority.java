@@ -29,8 +29,8 @@ public class Priority {
 	@ManyToOne
 	private Impact impact;
 
-	private long duration;
-	private long response;
+	private int duration;
+	private int response;
 
 	public long getId() {
 		return id;
@@ -64,20 +64,19 @@ public class Priority {
 		return urgency;
 	}
 
-	public long getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(long duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
-	public long getResponse() {
+	public int getResponse() {
 		return response;
 	}
 
-	public void setResponse(long response) {
+	public void setResponse(int response) {
 		this.response = response;
 	}
-
 }

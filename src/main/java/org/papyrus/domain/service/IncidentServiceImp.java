@@ -40,14 +40,16 @@ public class IncidentServiceImp implements IncidentService {
 
 	public Incident createIncident(Incident incident) throws Exception {
 		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
-		fillIncidentData(incident);
+		fillIncidentDataOnCreate(incident);
 		repository.saveOrUpdate(incident);
 		return incident;
 	}
 
-	private void fillIncidentData(Incident incident) {
-		// FIXME Fill data based on session user;
+	private void fillIncidentDataOnCreate(Incident incident) {
 		incident.setOpenedDate(new Date());
+		incident.setPriority(incident.getClient()
+				.getPriority());
+		incident.calculateDueDate();
 	}
 
 	public Incident updateIncident(Incident incident) throws Exception {

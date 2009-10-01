@@ -31,6 +31,7 @@ public class IncidentDao implements IncidentRepository {
 	}
 
 	public Incident saveOrUpdate(Incident incident) {
+		incident.setUpdatedAt(new Date());
 		getSession().saveOrUpdate(incident);
 		saveDetails(incident);
 		return incident;
