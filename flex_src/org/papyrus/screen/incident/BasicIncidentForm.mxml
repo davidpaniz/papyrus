@@ -55,7 +55,7 @@
 				detail.user = Model.inst().user;
 				incident.details.addItem(detail);
 				
-				new IncidentService().createIncident(incident, onResultSave);
+				new IncidentService(onResultSave).createIncident(incident);
 			}
 			
 			private function edit():void {
@@ -70,7 +70,7 @@
 				detail.user = Model.inst().user;
 				incident.details.addItem(detail);
 				
-				new IncidentService().updateIncident(incident, onResultSave);
+				new IncidentService(onResultSave).updateIncident(incident);
 			}
 			
 			private function onResultSave(incident:Incident):void

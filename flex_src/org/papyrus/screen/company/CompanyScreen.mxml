@@ -21,7 +21,7 @@
 				this.company.id   = new Number(txtId.text);
 				this.company.name   = txtName.text;
 				this.company.email   = txtEmail.text;
-				new CompanyService().saveCompany(company, onResultSave);
+				new CompanyService(onResultSave).saveCompany(company);
 			}
 			
 			private function onResultSave(company:Company):void
@@ -34,7 +34,7 @@
 			{
 				if (dg.selectedItem != null) {
 					company = dg.selectedItem as Company;
-					new CompanyService().deleteCompany(company, onResultRemove);
+					new CompanyService(onResultRemove).deleteCompany(company);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
@@ -49,7 +49,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new CompanyService().listCompany(onResultGetList);
+				new CompanyService(onResultGetList).listCompany();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

@@ -20,7 +20,7 @@
 				this.urgency = new Urgency();
 				this.urgency.id   = new Number(txtId.text);
 				this.urgency.description   = txtDs.text;
-				new UrgencyService().saveUrgency(urgency, onResultSave);
+				new UrgencyService(onResultSave).saveUrgency(urgency);
 			}
 			
 			private function onResultSave(urgency:Urgency):void
@@ -33,7 +33,7 @@
 			{
 				if (dg.selectedItem != null) {
 					urgency = dg.selectedItem as Urgency;
-					new UrgencyService().deleteUrgency(urgency, onResultRemove);
+					new UrgencyService(onResultRemove).deleteUrgency(urgency);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
@@ -48,7 +48,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new UrgencyService().listUrgency(onResultGetList);
+				new UrgencyService(onResultGetList).listUrgency();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

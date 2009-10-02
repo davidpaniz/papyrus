@@ -2,7 +2,7 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="name"
-				dataId="child_category" serviceMethod="{new CategoryService().listChildCategories}" entityClass="{Category}"
+				dataId="child_category" serviceMethod="{new CategoryService(handler).listChildCategories}" entityClass="{Category}"
 				isRequired="true"
 				labelFunction="addParentName"
 				>
@@ -18,7 +18,7 @@
 			}
 			
 			override protected function callService():void {
-	 			new CategoryService().listChildCategories( handler );
+	 			new CategoryService(handler).listChildCategories();
 			}
 			
 			private function addParentName(item:Object):String {

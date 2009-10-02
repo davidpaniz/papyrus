@@ -22,7 +22,7 @@
 				this.staff.id   = new Number(txtId.text);
 				this.staff.name   = txtName.text;
 				this.staff.email   = txtEmail.text;
-				new StaffService().saveStaff(staff, onResultSave);
+				new StaffService(onResultSave).saveStaff(staff);
 			}
 			
 			private function onResultSave(staff:Staff):void
@@ -35,7 +35,7 @@
 			{
 				if (dg.selectedItem != null) {
 					staff = dg.selectedItem as Staff;
-					new StaffService().deleteStaff(staff, onResultRemove);
+					new StaffService(onResultRemove).deleteStaff(staff);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
@@ -50,7 +50,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new StaffService().listStaff(onResultGetList);
+				new StaffService(onResultGetList).listStaff();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

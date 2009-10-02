@@ -2,7 +2,7 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="description"
-				dataId="priority" serviceMethod="{new PriorityService().listPriority}" entityClass="{Priority}"
+				dataId="priority" serviceMethod="{new PriorityService(handler).listPriority}" entityClass="{Priority}"
 				isRequired="true"
 				>
 	<mx:Script>
@@ -18,7 +18,7 @@
 			
 			override protected function callService():void
 			{
-	 			new PriorityService().listPriority( handler );
+	 			new PriorityService(handler).listPriority();
 			}
 		]]>
 	</mx:Script>

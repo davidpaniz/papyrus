@@ -10,67 +10,53 @@ package org.papyrus.services
 
 	public class ImpactService extends Service
 	{
-		public function ImpactService()
+		public function ImpactService(callBackFunction:Function)
 		{
-			super( "impactService" );
+			super( "impactService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listImpact( callback:Function ):void
+ 		public function listImpact():void
 		{
-			listCallback = callback;
-			service.listImpact( );
+			service.listImpact();
 		}
  		public function listImpactResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveImpact( impact:Impact, callbackFunction:Function ):void
+		public function saveImpact( impact:Impact ):void
 		{
-			this.saveCallback = callbackFunction;
 			service.saveImpact( impact );
 		}
 		
 		public function saveImpactResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Impact);
+			callBackFunction(event.result as Impact);
 				
 			ImpactComboBox.reset();
 		}
 		
-		public function saveImpactFault( event:FaultEvent ):void
-		{
-			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
-				NotificatorManager.error("Já existe uma palavra com essa descrição");
-		}
-
 
 		/*************************************
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteImpact( impact:Impact, callbackFunction:Function ):void
+		public function deleteImpact( impact:Impact ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteImpact( impact );
 		}
 
 		public function deleteImpactResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Impact);
+			callBackFunction(event.result as Impact);
 				
 			ImpactComboBox.reset();
 		}

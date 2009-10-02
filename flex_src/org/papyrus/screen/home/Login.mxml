@@ -35,7 +35,7 @@
 				user.password = password.text;
 				user.email = email.text;
 				
-				new UserService().login(user, remember.selected, loginHandler);
+				new UserService(loginHandler).login(user, remember.selected);
 			}
 			
 			public function adjustControls():void

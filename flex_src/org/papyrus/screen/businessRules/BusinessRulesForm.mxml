@@ -28,7 +28,7 @@
 				param.type = (cbType.selectedItem as String);
 				param.conditions = conditionForm.conditions;
 				param.actions = actionForm.actions;
-				new BusinessRuleService().saveBusinessRule(param, onResultSave);
+				new BusinessRuleService(onResultSave).saveBusinessRule(param);
 			}
 			
 			private function onResultSave(businessRule:BusinessRule):void

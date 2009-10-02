@@ -22,7 +22,7 @@
 				this.impact = new Impact();
 				this.impact.id   = new Number(txtId.text);
 				this.impact.description   = txtDs.text;
-				new ImpactService().saveImpact(impact, onResultSave);
+				new ImpactService(onResultSave).saveImpact(impact);
 			}
 			
 			private function onResultSave(impact:Impact):void
@@ -35,7 +35,7 @@
 			{
 				if (dg.selectedItem != null) {
 					impact = dg.selectedItem as Impact;
-					new ImpactService().deleteImpact(impact, onResultRemove);
+					new ImpactService(onResultRemove).deleteImpact(impact);
 				} else {
 					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
 				}
@@ -50,7 +50,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new ImpactService().listImpact(onResultGetList);
+				new ImpactService(onResultGetList).listImpact();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

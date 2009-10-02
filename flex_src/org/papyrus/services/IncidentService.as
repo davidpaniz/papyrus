@@ -9,71 +9,60 @@ package org.papyrus.services
 
 	public class IncidentService extends Service
 	{
-		public function IncidentService()
+		public function IncidentService(callback:Function)
 		{
-			super( "incidentService" );
+			super( "incidentService", callback );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listIncident( callback:Function ):void
+ 		public function listIncident():void
 		{
-			listCallback = callback;
 			service.listIncident( );
 		}
  		public function listIncidentResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var createCallback:Function;
-		public function createIncident( incident:Incident, callbackFunction:Function ):void
+		public function createIncident( incident:Incident ):void
 		{
-			this.createCallback = callbackFunction;
 			service.createIncident( incident );
 		}
 		
 		public function createIncidentResult( event:ResultEvent ):void
 		{
-			if(createCallback != null)
-				createCallback(event.result as Incident);
+			callBackFunction(event.result as Incident);
 		}
 		
-		private var updateCallback:Function;
-		public function updateIncident( incident:Incident, callbackFunction:Function ):void
+		public function updateIncident( incident:Incident ):void
 		{
-			updateCallback = callbackFunction;
 			service.updateIncident( incident );
 		}
 		
 		public function updateIncidentResult( event:ResultEvent ):void
 		{
-			if(updateCallback != null)
-				updateCallback(event.result as Incident);
+			callBackFunction(event.result as Incident);
 		}
 		
 		/*************************************
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteIncident( incident:Incident, callbackFunction:Function ):void
+		public function deleteIncident( incident:Incident ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteIncident( incident );
 		}
 
 		public function deleteIncidentResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Incident);
+			callBackFunction(event.result as Incident);
 		}
 	}
 }

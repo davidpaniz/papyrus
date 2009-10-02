@@ -10,67 +10,52 @@ package org.papyrus.services
 
 	public class CompanyService extends Service
 	{
-		public function CompanyService()
+		public function CompanyService(callBackFunction:Function)
 		{
-			super( "companyService" );
+			super( "companyService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listCompany( callback:Function ):void
+ 		public function listCompany( ):void
 		{
-			listCallback = callback;
 			service.listCompany( );
 		}
  		public function listCompanyResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveCompany( company:Company, callbackFunction:Function ):void
+		public function saveCompany( company:Company ):void
 		{
-			this.saveCallback = callbackFunction;
 			service.saveCompany( company );
 		}
 		
 		public function saveCompanyResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Company);
+			callBackFunction(event.result as Company);
 				
 			CompanyComboBox.reset();
 		}
 		
-		public function saveCompanyFault( event:FaultEvent ):void
-		{
-			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
-				NotificatorManager.error("Já existe uma palavra com essa descrição");
-		}
-
-
 		/*************************************
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteCompany( company:Company, callbackFunction:Function ):void
+		public function deleteCompany( company:Company ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteCompany( company );
 		}
 
 		public function deleteCompanyResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Company);
+			callBackFunction(event.result as Company);
 				
 			CompanyComboBox.reset();
 		}

@@ -2,7 +2,7 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="name"
-				dataId="category" serviceMethod="{new CategoryService().listParentCategories}" entityClass="{Category}"
+				dataId="category" serviceMethod="{new CategoryService(handler).listParentCategories}" entityClass="{Category}"
 				isRequired="true"
 				>
 	<mx:Script>
@@ -16,7 +16,7 @@
 			}
 			
 			override protected function callService():void {
-	 			new CategoryService().listParentCategories( handler );
+	 			new CategoryService(handler).listParentCategories();
 			}
 		]]>
 	</mx:Script>

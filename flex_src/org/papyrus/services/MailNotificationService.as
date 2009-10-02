@@ -9,65 +9,50 @@ package org.papyrus.services
 
 	public class MailNotificationService extends Service
 	{
-		public function MailNotificationService()
+		public function MailNotificationService(callBackFunction:Function)
 		{
-			super( "mailNotificationService" );
+			super( "mailNotificationService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listMailNotification( callback:Function ):void
+ 		public function listMailNotification():void
 		{
-			listCallback = callback;
-			service.listMailNotification( );
+			service.listMailNotification();
 		}
  		public function listMailNotificationResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var createCallback:Function;
-		public function createMailNotification( mailNotification:MailNotification, callbackFunction:Function ):void
+		public function createMailNotification( mailNotification:MailNotification ):void
 		{
-			this.createCallback = callbackFunction;
 			service.createMailNotification( mailNotification );
 		}
 		
 		public function createMailNotificationResult( event:ResultEvent ):void
 		{
-			if(createCallback != null)
-				createCallback(event.result as MailNotification);
+			callBackFunction(event.result as MailNotification);
 		}
 		
-		public function createMailNotificationFault( event:FaultEvent ):void
-		{
-			if(event.fault.faultString.indexOf("DataAlreadyExistsException"))
-				NotificatorManager.error("Já existe uma palavra com essa descrição");
-		}
-
-
 		/*************************************
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteMailNotification( mailNotification:MailNotification, callbackFunction:Function ):void
+		public function deleteMailNotification( mailNotification:MailNotification ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteMailNotification( mailNotification );
 		}
 
 		public function deleteMailNotificationResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as MailNotification);
+			callBackFunction(event.result as MailNotification);
 		}
 	}
 }

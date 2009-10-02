@@ -3,7 +3,6 @@ package org.papyrus.services
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	
-	import mx.controls.Alert;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -12,15 +11,13 @@ package org.papyrus.services
 
 	public class UserService extends Service
 	{
-		public function UserService()
+		public function UserService(callback:Function)
 		{
-			super( "userService" );
+			super( "userService", callback );
 		}
 		
-		private var loginCallback:Function;
-		public function login( user:User, remember:Boolean, callback:Function = null ):void
+		public function login( user:User, remember:Boolean):void
 		{
-			this.loginCallback = callback;
 			service.login( user );
 
 			saveSharedObject( remember ? user.email : "" );
@@ -30,12 +27,11 @@ package org.papyrus.services
 			var loggedUser:User = User( event.result );
 			Model.inst().user = loggedUser;
 			
-			loginCallback( loggedUser );
+			callBackFunction( loggedUser );
 		}
 		public function loginFault( event:FaultEvent ):void
 		{
-			if( loginCallback != null )
-				loginCallback( false );
+			callBackFunction( false );
 		}
 
 		public function logoutUser():void

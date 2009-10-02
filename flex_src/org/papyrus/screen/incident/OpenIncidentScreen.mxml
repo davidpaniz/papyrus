@@ -42,7 +42,7 @@
 				incident.priority = cbPriority.selectedItem as Priority;
 				incident.status = cbStatus.selectedItem.toString();
 				
-				new IncidentService().createIncident(incident, onResultSave);
+				new IncidentService(onResultSave).createIncident(incident);
 			}
 			
 			private function onResultSave(incident:Incident):void
@@ -56,7 +56,7 @@
 			
 			private function remove():void
 			{
-				new IncidentService().deleteIncident(_incident, onResultRemove);
+				new IncidentService(onResultRemove).deleteIncident(_incident);
 			}
 			
 			private function onResultRemove(incident:Incident):void

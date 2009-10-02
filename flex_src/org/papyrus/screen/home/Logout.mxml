@@ -11,7 +11,7 @@
 
 			private function logout():void
 			{
-				new UserService().logoutUser();
+				new UserService(null).logoutUser();
 			}
 			
 		]]>

@@ -45,7 +45,7 @@
 				mailNotification.body = txtBody.text;
 				mailNotification.subject = txtTitle.text;
 				
-				new MailNotificationService().createMailNotification(mailNotification, onResultSave);
+				new MailNotificationService(onResultSave).createMailNotification(mailNotification);
 			}
 			
 			private function onResultSave(mailNotification:MailNotification):void
@@ -59,7 +59,7 @@
 			
 			private function remove():void
 			{
-				new MailNotificationService().deleteMailNotification(_mailNotification, onResultRemove);
+				new MailNotificationService(onResultRemove).deleteMailNotification(_mailNotification);
 			}
 			
 			private function onResultRemove(mailNotification:MailNotification):void

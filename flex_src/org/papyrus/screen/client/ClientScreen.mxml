@@ -25,7 +25,7 @@
 				this.client.email   = txtEmail.text;
 				this.client.company = cbCompany.selectedItem as Company;
 				this.client.priority = cbPriority.selectedItem as Priority;
-				new ClientService().saveClient(client, onResultSave);
+				new ClientService(onResultSave).saveClient(client);
 			}
 			
 			private function onResultSave(client:Client):void
@@ -38,7 +38,7 @@
 			{
 				if (dg.selectedItem != null) {
 					client = dg.selectedItem as Client;
-					new ClientService().deleteClient(client, onResultRemove);
+					new ClientService(onResultRemove).deleteClient(client);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
@@ -53,7 +53,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new ClientService().listClient(onResultGetList);
+				new ClientService(onResultGetList).listClient();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

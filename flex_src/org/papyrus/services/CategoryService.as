@@ -11,63 +11,54 @@ package org.papyrus.services
 
 	public class CategoryService extends Service
 	{
-		public function CategoryService()
+		public function CategoryService(callBackFunction:Function)
 		{
-			super( "categoryService" );
+			super( "categoryService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listCategory( callback:Function ):void
+ 		public function listCategory():void
 		{
-			listCallback = callback;
-			service.listCategory( );
+			service.listCategory();
 		}
  		public function listCategoryResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
-		private var listParentCallback:Function;
-		public function listParentCategories( callback:Function ):void
+		public function listParentCategories():void
 		{
-			listParentCallback = callback;
-			service.listParentCategories( );
+			service.listParentCategories();
 		}
  		public function listParentCategoriesResult( event:ResultEvent ):void
 		{
-			listParentCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
-		private var listChildCallback:Function;
-		public function listChildCategories( callback:Function ):void
+		public function listChildCategories():void
 		{
-			listChildCallback = callback;
-			service.listChildCategories( );
+			service.listChildCategories();
 		}
  		public function listChildCategoriesResult( event:ResultEvent ):void
 		{
-			listChildCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveCategory( category:Category, callbackFunction:Function ):void
+		public function saveCategory( category:Category ):void
 		{
-			this.saveCallback = callbackFunction;
 			service.saveCategory( category );
 		}
 		
 		public function saveCategoryResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Category);
+			callBackFunction(event.result as Category);
 				
 			updateCombobox();	
 		}
@@ -83,17 +74,14 @@ package org.papyrus.services
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteCategory( category:Category, callbackFunction:Function ):void
+		public function deleteCategory( category:Category ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteCategory( category );
 		}
 
 		public function deleteCategoryResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Category);
+			callBackFunction(event.result as Category);
 				
 			updateCombobox();
 		}

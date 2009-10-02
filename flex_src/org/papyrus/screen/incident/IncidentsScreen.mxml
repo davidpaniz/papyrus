@@ -28,7 +28,7 @@
 			{
 				if (dg.selectedItem != null) {
 					incident = dg.selectedItem as Incident;
-					new IncidentService().deleteIncident(incident, onResultRemove);
+					new IncidentService(onResultRemove).deleteIncident(incident);
 				} else {
 					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
 				}
@@ -42,7 +42,7 @@
 			
 			private function getList():void
 			{
-				new IncidentService().listIncident(onResultGetList);
+				new IncidentService(onResultGetList).listIncident();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

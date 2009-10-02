@@ -21,7 +21,7 @@
 				this.category.id   = new Number(txtId.text);
 				this.category.name   = txtName.text;
 				this.category.parent   = cbCategory.selectedItem as Category;
-				new CategoryService().saveCategory(category, onResultSave);
+				new CategoryService(onResultSave).saveCategory(category);
 			}
 			
 			private function onResultSave(category:Category):void
@@ -34,7 +34,7 @@
 			{
 				if (dg.selectedItem != null) {
 					category = dg.selectedItem as Category;
-					new CategoryService().deleteCategory(category, onResultRemove);
+					new CategoryService(onResultRemove).deleteCategory(category);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
@@ -49,7 +49,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new CategoryService().listCategory(onResultGetList);
+				new CategoryService(onResultGetList).listCategory();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

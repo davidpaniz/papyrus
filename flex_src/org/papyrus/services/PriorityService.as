@@ -1,7 +1,6 @@
 package org.papyrus.services
 {
 	import mx.collections.ArrayCollection;
-	import mx.controls.Alert;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -10,41 +9,36 @@ package org.papyrus.services
 
 	public class PriorityService extends Service
 	{
-		public function PriorityService()
+		public function PriorityService(callBackFunction:Function)
 		{
-			super( "priorityService" );
+			super( "priorityService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listPriority( callback:Function ):void
+ 		public function listPriority():void
 		{
-			listCallback = callback;
 			service.listPriority( );
 		}
  		public function listPriorityResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function savePriority( priority:Priority, callbackFunction:Function ):void
+		public function savePriority( priority:Priority ):void
 		{
-			this.saveCallback = callbackFunction;
 			service.savePriority( priority );
 		}
 		
 		public function savePriorityResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Priority);
+			callBackFunction(event.result as Priority);
 		}
 		
 		public function savePriorityFault( event:FaultEvent ):void
@@ -58,22 +52,14 @@ package org.papyrus.services
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deletePriority( priority:Priority, callbackFunction:Function ):void
+		public function deletePriority( priority:Priority ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deletePriority( priority );
 		}
 
 		public function deletePriorityResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Priority);
+			callBackFunction(event.result as Priority);
 		}
-		
-		/*************************************
-		 * 
-		 * ***********************************/
-
 	}
 }

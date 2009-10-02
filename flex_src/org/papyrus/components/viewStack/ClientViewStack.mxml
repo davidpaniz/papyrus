@@ -9,7 +9,7 @@
 			import org.papyrus.services.ClientService;
 			
 			private function incidentListSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
-				new ClientService().listMyIncidents(status, initialDate, endDate, handler);				
+				new ClientService(handler).listMyIncidents(status, initialDate, endDate);				
 			}
 			
 			private function openIncident(incident:Incident):void {

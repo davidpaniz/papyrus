@@ -2,7 +2,7 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="description"
-				dataId="impact" serviceMethod="{new ImpactService().listImpact}" entityClass="{Impact}"
+				dataId="impact" serviceMethod="{new ImpactService(handler).listImpact}" entityClass="{Impact}"
 				isRequired="true"
 				>
 	<mx:Script>
@@ -18,7 +18,7 @@
 			
 			override protected function callService():void
 			{
-	 			new ImpactService().listImpact( handler );
+	 			new ImpactService(handler).listImpact();
 			}
 		]]>
 	</mx:Script>

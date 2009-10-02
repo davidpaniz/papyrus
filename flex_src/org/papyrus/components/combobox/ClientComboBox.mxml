@@ -2,7 +2,7 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="description"
-				dataId="client" serviceMethod="{new ClientService().listClient}" entityClass="{Client}"
+				dataId="client" serviceMethod="{new ClientService(handler).listClient}" entityClass="{Client}"
 				isRequired="true"
 				>
 	<mx:Script>
@@ -18,7 +18,7 @@
 			
 			override protected function callService():void
 			{
-	 			new ClientService().listClient( handler );
+	 			new ClientService(handler).listClient();
 			}
 		]]>
 	</mx:Script>

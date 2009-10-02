@@ -21,6 +21,7 @@ package org.papyrus.services
 		private static const SUFIX_RESULT:String = "Result";
 		private static const SUFIX_FAULT:String = "Fault";
 
+		protected var callBackFunction:Function;
 		protected var service:RemoteObject;
 		protected var services:Object /*map de RemoteObject*/;
 
@@ -33,7 +34,7 @@ package org.papyrus.services
 		}
 
 
-		function Service( source:String = null, sources:ArrayCollection = null )
+		function Service( source:String, callBackFunction:Function, sources:ArrayCollection = null )
 		{
 			if( source != null )
 			{
@@ -45,6 +46,8 @@ package org.papyrus.services
 				for each( var source:String in sources )
 					services[ source ] = createRemoteObject( source );
 			}
+			
+			this.callBackFunction = callBackFunction;
 		}
 		private function createRemoteObject( source:String ):RemoteObject
 		{
@@ -71,7 +74,7 @@ package org.papyrus.services
 		{
 			if( event.fault.faultString.indexOf( "org.papyrus.domain.exception.UserNotLoggedIn" ) == 0 )
 			{
-					NotificatorManager. notificationWithFunction( "session_expired", new UserService().logoutUser );
+					NotificatorManager. notificationWithFunction( "session_expired", new UserService(null).logoutUser );
 			} 
 			else
 				resultOrFault( event, defaultFaultHandler, SUFIX_FAULT );

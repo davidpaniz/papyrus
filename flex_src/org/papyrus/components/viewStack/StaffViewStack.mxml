@@ -9,11 +9,11 @@
 			import org.papyrus.services.StaffService;
 			
 			private function listAllIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
-				new StaffService().listAllIncidents(status, initialDate, endDate, handler);				
+				new StaffService(handler).listAllIncidents(status, initialDate, endDate);				
 			}
 			
 			private function listMyIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
-				new StaffService().listIncidentsAssignedToMe(status, initialDate, endDate, handler);				
+				new StaffService(handler).listIncidentsAssignedToMe(status, initialDate, endDate);				
 			}
 			
 			private function openIncident(incident:Incident):void {

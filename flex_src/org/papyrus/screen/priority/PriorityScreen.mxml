@@ -27,7 +27,7 @@
 				this.priority.impact = cbImpact.selectedItem as Impact;
 				this.priority.duration = txtDuration.date;
 				this.priority.response = txtResponse.date;
-				new PriorityService().savePriority(priority, onResultSave);
+				new PriorityService(onResultSave).savePriority(priority);
 			}
 			
 			private function onResultSave(priority:Priority):void
@@ -40,7 +40,7 @@
 			{
 				if (dg.selectedItem != null) {
 					priority = dg.selectedItem as Priority;
-					new PriorityService().deletePriority(priority, onResultRemove);
+					new PriorityService(onResultRemove).deletePriority(priority);
 				} else {
 					Alert.show(resourceManager.getString('general', 'select_datagrid_item'));
 				}
@@ -55,7 +55,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new PriorityService().listPriority(onResultGetList);
+				new PriorityService(onResultGetList).listPriority();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void

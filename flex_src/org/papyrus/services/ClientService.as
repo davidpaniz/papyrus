@@ -10,53 +10,45 @@ package org.papyrus.services
 
 	public class ClientService extends Service
 	{
-		public function ClientService()
+		public function ClientService(callBackFunction:Function)
 		{
-			super( "clientService" );
+			super( "clientService", callBackFunction );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listClient( callback:Function ):void
+ 		public function listClient():void
 		{
-			listCallback = callback;
 			service.listClient( );
 		}
  		public function listClientResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
-		private var listMyIncidentsCallback:Function;
- 		public function listMyIncidents(status:String, initialDate:Date, endDate:Date, callback:Function ):void
+ 		public function listMyIncidents(status:String, initialDate:Date, endDate:Date):void
 		{
-			listMyIncidentsCallback = callback;
 			service.listMyIncidents( status, initialDate, endDate );
 		}
  		public function listMyIncidentsResult( event:ResultEvent ):void
 		{
-			listMyIncidentsCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveClient( client:Client, callbackFunction:Function ):void
+		public function saveClient( client:Client):void
 		{
-			this.saveCallback = callbackFunction;
 			service.saveClient( client );
 		}
 		
 		public function saveClientResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Client);
-				
+			callBackFunction(event.result as Client);
 			ClientComboBox.reset();
 		}
 		
@@ -71,17 +63,14 @@ package org.papyrus.services
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteClient( client:Client, callbackFunction:Function ):void
+		public function deleteClient( client:Client):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteClient( client );
 		}
 
 		public function deleteClientResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Client);
+			callBackFunction(event.result as Client);
 				
 			ClientComboBox.reset();
 		}

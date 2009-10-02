@@ -10,63 +10,54 @@ package org.papyrus.services
 
 	public class StaffService extends Service
 	{
-		public function StaffService()
+		public function StaffService(callback:Function)
 		{
-			super( "staffService" );
+			super( "staffService", callback );
 		}
 		
 		/*************************************
 		 * GET
 		 * ***********************************/
 		
-		private var listCallback:Function;
- 		public function listStaff( callback:Function ):void
+ 		public function listStaff():void
 		{
-			listCallback = callback;
-			service.listStaff( );
+			service.listStaff();
 		}
  		public function listStaffResult( event:ResultEvent ):void
 		{
-			listCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
-		private var listAllIncidentsCallback:Function;
- 		public function listAllIncidents(status:String, initialDate:Date, endDate:Date, callback:Function ):void
+ 		public function listAllIncidents(status:String, initialDate:Date, endDate:Date):void
 		{
-			listAllIncidentsCallback = callback;
 			service.listAllIncidents(status, initialDate, endDate );
 		}
  		public function listAllIncidentsResult( event:ResultEvent ):void
 		{
-			listAllIncidentsCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
-		private var listIncidentsAssignedToMeCallback:Function;
- 		public function listIncidentsAssignedToMe(status:String, initialDate:Date, endDate:Date, callback:Function ):void
+ 		public function listIncidentsAssignedToMe(status:String, initialDate:Date, endDate:Date):void
 		{
-			listIncidentsAssignedToMeCallback = callback;
 			service.listIncidentsAssignedToMe(status, initialDate, endDate );
 		}
  		public function listIncidentsAssignedToMeResult( event:ResultEvent ):void
 		{
-			listIncidentsAssignedToMeCallback( event.result as ArrayCollection);
+			callBackFunction( event.result as ArrayCollection);
 		}
 		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
 		
-		private var saveCallback:Function;
-		public function saveStaff( staff:Staff, callbackFunction:Function ):void
+		public function saveStaff( staff:Staff):void
 		{
-			this.saveCallback = callbackFunction;
 			service.saveStaff( staff );
 		}
 		
 		public function saveStaffResult( event:ResultEvent ):void
 		{
-			if(saveCallback != null)
-				saveCallback(event.result as Staff);
+			callBackFunction(event.result as Staff);
 				
 			StaffComboBox.reset();
 		}
@@ -82,17 +73,14 @@ package org.papyrus.services
 		 * DELETE 
 		 * ***********************************/
 		
-		private var deleteCallback:Function;
-		public function deleteStaff( staff:Staff, callbackFunction:Function ):void
+		public function deleteStaff( staff:Staff ):void
 		{
-			this.deleteCallback = callbackFunction;
 			service.deleteStaff( staff );
 		}
 
 		public function deleteStaffResult( event:ResultEvent ):void
 		{
-			if(deleteCallback != null)
-				deleteCallback(event.result as Staff);
+			callBackFunction(event.result as Staff);
 				
 			StaffComboBox.reset();
 		}
