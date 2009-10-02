@@ -11,7 +11,7 @@
 		<priority:PriorityScreen label="{resourceManager.getString('general', 'priority')}" width="100%" height="100%" />
 		<incident:OpenIncidentScreen label="{resourceManager.getString('general', 'open_incident')}" width="100%" height="100%" />
 		<incident:IncidentsScreen label="{resourceManager.getString('general', 'incidents')}" width="100%" height="100%" />
-		<businessRules:BusinessRulesForm label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
+		<businessRules:BusinessRulesList label="{resourceManager.getString('general', 'business_rule')}" width="100%" height="100%" />
 		<client:ClientScreen label="{resourceManager.getString('general', 'client')}" width="100%" height="100%" />
 		<company:CompanyScreen label="{resourceManager.getString('general', 'company')}" width="100%" height="100%" />
 		<notification:MailNotificationScreen label="{resourceManager.getString('general', 'mail_notification')}"/>

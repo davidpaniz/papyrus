@@ -96,4 +96,8 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 
 		return persistedBusinessRule;
 	}
+
+	public List<BusinessRule> listBusinessRule() {
+		return repository.list();
+	}
 }

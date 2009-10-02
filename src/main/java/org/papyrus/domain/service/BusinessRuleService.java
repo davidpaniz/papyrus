@@ -1,5 +1,7 @@
 package org.papyrus.domain.service;
 
+import java.util.List;
+
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.ConditionComparable;
@@ -15,5 +17,7 @@ public interface BusinessRuleService {
 	BusinessRule deleteBusinessRule(BusinessRule businessRule);
 
 	BusinessRule saveBusinessRule(BusinessRule businessRule);
+
+	List<BusinessRule> listBusinessRule();
 
 }

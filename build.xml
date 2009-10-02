@@ -162,17 +162,11 @@
 
 		<cobertura-instrument todir="${instrumentation.dir}">
 			<fileset dir="${tmp.classes.dir}" >
-				<include name="**/*.class" /> 
-				<exclude name="**/support/spring/*" />
-				<exclude name="**/support/vraptor/*" />
-				<exclude name="**/util/Config.class" />
-				<exclude name="**/util/ConfigKeys.class" />
-				<exclude name="**/util/mail/EmailSenderTask.class" />
-				<exclude name="**/util/mail/IdentifiableMimeMessage.class" />
-				<exclude name="**/util/mail/SpammerTaskExecutor.class" />
-				<exclude name="**/support/hibernate/HibernateSchemaExport.class" />
-				<exclude name="**/support/hibernate/OpenSessionInViewFilter.class" />
-				<exclude name="**/AfiliadosServlet.class" />
+				<include name="**/*.class" />
+				<exclude name="**/util/*.class" />
+				<exclude name="**/infra/schedule/*.class" />
+				<exclude name="**/infra/http/*.class" />
+				<exclude name="**/infra/flex/*.class" />
 			</fileset>
 		</cobertura-instrument>
 
@@ -180,10 +174,9 @@
 		<junit fork="yes" printsummary="true" forkmode="once" showoutput="true" failureproperty="failed-test">
 			<sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser" />
 
-			<classpath>
-				<pathelement path="${instrumentation.dir}" />
-				<pathelement path="${tmp.test-classes.dir}" />
-			</classpath>
+			<classpath location="${instrumentation.dir}" />
+			<classpath location="${tmp.test-classes.dir}" />
+			
 			<classpath refid="tests.classpath" />
 			<classpath refid="artifacts.classpath" />
 
@@ -210,20 +203,13 @@
 	</target>
 
 	<target name="cobertura-report" description="--> generate project's artifacts">
-		<cobertura-report format="html" destdir="${artifacts.dir}/cobertura">
+		<cobertura-report format="html" destdir="${artifacts.dir}/cobertura" >
 			<fileset dir="${src.dir}">
 				<include name="**/*.java" />
-				<exclude name="**/*Test.java" />
-				<exclude name="**/support/spring/*" />
-				<exclude name="**/support/vraptor/*" />
-				<exclude name="**/util/Config.java" />
-				<exclude name="**/util/ConfigKeys.java" />
-				<exclude name="**/util/mail/EmailSenderTask.java" />
-				<exclude name="**/util/mail/IdentifiableMimeMessage.java" />
-				<exclude name="**/util/mail/SpammerTaskExecutor.java" />
-				<exclude name="**/support/hibernate/HibernateSchemaExport.java" />
-				<exclude name="**/support/hibernate/OpenSessionInViewFilter.java" />
-				<exclude name="**/AfiliadosServlet.java" />
+				<exclude name="**/util/*.java" />
+				<exclude name="**/infra/schedule/*.java" />
+				<exclude name="**/infra/http/*.java" />
+				<exclude name="**/infra/flex/*.java" />
 			</fileset>
 		</cobertura-report>
 	</target>

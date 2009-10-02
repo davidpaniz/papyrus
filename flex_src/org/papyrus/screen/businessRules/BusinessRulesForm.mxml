@@ -3,7 +3,7 @@
 	 width="488" height="100%"  xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Action;
+ 			import org.papyrus.model.Action;
 			import org.papyrus.model.BusinessRule;
 			import org.papyrus.services.Service;
 			import org.papyrus.components.notification.NotificatorManager;
