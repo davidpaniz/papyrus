@@ -15,6 +15,9 @@
 			[Bindable]
 			private var businessRule:BusinessRule;
 			
+			public var cancelHandler:Function;
+			public var saveHandler:Function;
+			
 			private function save():void
 			{
 				var param:BusinessRule = new BusinessRule();
@@ -34,6 +37,11 @@
 			private function onResultSave(businessRule:BusinessRule):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				saveHandler();	
+			}
+			
+			private function onCancel():void {
+				cancelHandler();
 			}
 			
 		]]>
@@ -76,7 +84,7 @@
 			<businessRules:ActionsSubForm id="actionForm" label="{resourceManager.getString('businessRule', 'actions')}" height="100%" width="100%"/>
 		</mx:TabNavigator>
 		<mx:ControlBar horizontalAlign="center">
-			<mx:Button label="{resourceManager.getString('general', 'cancel')}" />
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="onCancel()" />
 			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()"
 				textAlign="center"/>
 		</mx:ControlBar>

@@ -51,18 +51,31 @@
 					businessRuleList.refresh();
 				}
 				
-				private function doubleClickHandler():void {
-					openBusinessRuleFunction(dg.selectedItem as BusinessRule);
+				private function disable():void {
+					Alert.show("TODO", "TODO" );
+				}
+				
+				private function backToList():void {
+					selectedChild = list;
+				}
+				
+				private function editBusinessRule():void {
+					Alert.show("TODO", "TODO" );
+				}
+				
+				private function showForm():void {
+					selectedChild = form;
 				}
 		]]>
 	</mx:Script>
 
-	<mx:VBox width="100%" height="100%" >
+	<mx:VBox id="list" width="100%" >
 		<mx:Text text="{resourceManager.getString('businessRule', 'businessRule.my_businessRules')}" />
 		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="showForm()"/>
 			<!--<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>-->
 		</mx:ControlBar>
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{businessRuleList}" doubleClickEnabled="true" doubleClick="doubleClickHandler()">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{businessRuleList}" click="editBusinessRule();">
 			<mx:columns>
 				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'name')}" dataField="name" />
 				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'description')}" dataField="description" />
@@ -70,5 +83,5 @@
 			</mx:columns>
 		</mx:DataGrid>
 	</mx:VBox>
-	<businessRules:BusinessRulesForm width="100%" height="100%" />
+	<businessRules:BusinessRulesForm id="form" width="100%" height="100%" saveHandler="backToList" cancelHandler="backToList" />
 </mx:ViewStack>
