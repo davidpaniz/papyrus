@@ -143,4 +143,20 @@ public class BusinessRule {
 		// FIXME should implement method
 		return Calendar.getInstance();
 	}
+
+	public BusinessRule copy() {
+		BusinessRule businessRule = new BusinessRule();
+		businessRule.actions = this.actions;
+		businessRule.conditions = this.conditions;
+		businessRule.description = this.description;
+		businessRule.enabled = this.enabled;
+		businessRule.id = this.id;
+		businessRule.name = this.name;
+		businessRule.onCreate = this.onCreate;
+		businessRule.onDelete = this.onDelete;
+		businessRule.onUpdate = this.onUpdate;
+		businessRule.type = this.type;
+
+		return businessRule;
+	}
 }

@@ -100,4 +100,9 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	public List<BusinessRule> listBusinessRule() {
 		return repository.list();
 	}
+
+	public BusinessRule loadBusinessRule(Long id) {
+		BusinessRule load = repository.load(id);
+		return load.copy();
+	}
 }

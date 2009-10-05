@@ -13,7 +13,11 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			[Bindable]
-			private var businessRule:BusinessRule;
+			private var _businessRule:BusinessRule;
+			
+			public function set businessRule(businessRule:BusinessRule):void {
+				_businessRule = businessRule;
+			}
 			
 			public var cancelHandler:Function;
 			public var saveHandler:Function;
@@ -52,32 +56,32 @@
 		<mx:TabNavigator width="100%" height="100%">
 			<mx:VBox id="businessRuleForm" width="100%" height="100%" defaultButton="{btSalvar}" label="{resourceManager.getString('businessRule', 'business_rule')}"  paddingRight="10" paddingBottom="20">
 				<mx:HBox width="100%" >
-					<mx:TextInput id="txtId" text="{businessRule.id}" editable="false" enabled="false" width="100%" visible="false" includeInLayout="false" />
+					<mx:TextInput id="txtId" text="{_businessRule.id}" editable="false" enabled="false" width="100%" visible="false" includeInLayout="false" />
 					<mx:Label text="{resourceManager.getString('businessRule', 'name')}:" />
-					<mx:TextInput id="txtName" text="{businessRule.name}" width="100%" />
+					<mx:TextInput id="txtName" text="{_businessRule.name}" width="100%" />
 				</mx:HBox>
 				<mx:HBox width="100%" >
 					<mx:Label text="{resourceManager.getString('general', 'enabled')}:"  />
-					<mx:CheckBox id="checkEnabled" selected="{businessRule.enabled}" />
+					<mx:CheckBox id="checkEnabled" selected="{_businessRule.enabled}" />
 				</mx:HBox>
 				<mx:HBox width="100%" height="100%" paddingRight="10" paddingBottom="20">
 					<mx:Label text="{resourceManager.getString('businessRule', 'description')}:" />
-					<mx:TextArea id="txtDescription" text="{businessRule.description}" width="100%" height="100%" />
+					<mx:TextArea id="txtDescription" text="{_businessRule.description}" width="100%" height="100%" />
 				</mx:HBox>
 			</mx:VBox>
 			<mx:VBox label="{resourceManager.getString('businessRule', 'conditions')}" height="100%" width="100%" >
 				<mx:HBox width="100%" >
 					<mx:Label text="{resourceManager.getString('businessRule', 'when_a')}" />
-					<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{businessRule.type}"/>
+					<enum:ConditionCompariblesComboBox id="cbType" selectedItem="{_businessRule.type}"/>
 					
 					<mx:Label text="{resourceManager.getString('businessRule', 'created')}:" />
-					<mx:CheckBox id="checkCreate" selected="{businessRule.onCreate}" />
+					<mx:CheckBox id="checkCreate" selected="{_businessRule.onCreate}" />
 					
 					<mx:Label text="{resourceManager.getString('businessRule', 'updated')}:" />
-					<mx:CheckBox id="checkUpdate" selected="{businessRule.onUpdate}" />
+					<mx:CheckBox id="checkUpdate" selected="{_businessRule.onUpdate}" />
 					
 					<mx:Label text="{resourceManager.getString('businessRule', 'deleted')}:" />
-					<mx:CheckBox id="checkDelete" selected="{businessRule.onDelete}" />
+					<mx:CheckBox id="checkDelete" selected="{_businessRule.onDelete}" />
 				</mx:HBox>			
 				<businessRules:ConditionsSubForm id="conditionForm"  height="100%" width="100%"/>
 			</mx:VBox> 

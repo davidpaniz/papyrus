@@ -18,6 +18,8 @@ public interface BusinessRuleService {
 
 	BusinessRule saveBusinessRule(BusinessRule businessRule);
 
+	BusinessRule loadBusinessRule(Long id);
+
 	List<BusinessRule> listBusinessRule();
 
 }

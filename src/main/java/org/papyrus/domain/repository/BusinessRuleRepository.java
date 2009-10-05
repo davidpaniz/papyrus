@@ -39,4 +39,6 @@ public interface BusinessRuleRepository {
 	<T> T load(Class<T> type, Serializable id);
 
 	void unlock(ConditionComparable conditionComparable);
+
+	BusinessRule load(Long id);
 }

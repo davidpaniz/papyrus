@@ -4,7 +4,6 @@ package org.papyrus.services
 	import mx.rpc.events.ResultEvent;
 	
 	import org.papyrus.model.BusinessRule;
-	import org.papyrus.model.Condition;
 
 	public class BusinessRuleService extends Service
 	{
@@ -24,6 +23,15 @@ package org.papyrus.services
  		public function listBusinessRuleResult( event:ResultEvent ):void
 		{
 			callBackFunction( event.result as ArrayCollection);
+		}
+		
+ 		public function loadBusinessRule(businessRule:BusinessRule):void
+		{
+			service.loadBusinessRule( businessRule.id );
+		}
+ 		public function loadBusinessRuleResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as BusinessRule );
 		}
 		
 		/*************************************

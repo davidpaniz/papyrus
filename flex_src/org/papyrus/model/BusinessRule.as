@@ -20,9 +20,5 @@ package org.papyrus.model
 		public var onDelete:Boolean;
 		
 		public var type:String
-		
-		public function BusinessRule() {
-			
-		}
 	}
 }

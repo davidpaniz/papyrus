@@ -1,0 +1,8 @@
+papyrus
+
+
+Combo de opções cadastro de regra de negocio adicionar maior igual, menor igual, null.
+
+Na tela de incidents utilizar a busca avançada e permitir salvar as buscas.
+
+Adicionar no "Quando um" os itens: Categoria, Urgenia, Impacto, Prioridade, Cliente, Empresa, Responsavel

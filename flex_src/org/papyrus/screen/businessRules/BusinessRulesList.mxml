@@ -60,28 +60,40 @@
 				}
 				
 				private function editBusinessRule():void {
-					Alert.show("TODO", "TODO" );
+					new BusinessRuleService(showForm).loadBusinessRule(dg.selectedItem as BusinessRule);
 				}
 				
-				private function showForm():void {
+				private function showForm(businessRule:BusinessRule):void {
 					selectedChild = form;
+					form.businessRule = businessRule;
+				}
+				
+				private function saveCallBack():void {
+					loadData();
+					backToList();	
 				}
 		]]>
 	</mx:Script>
 
 	<mx:VBox id="list" width="100%" >
 		<mx:Text text="{resourceManager.getString('businessRule', 'businessRule.my_businessRules')}" />
-		<mx:ControlBar horizontalAlign="center">
-			<mx:Button label="{resourceManager.getString('general', 'new')}" click="showForm()"/>
-			<!--<enum:IncidentStatusComboBox id="cbStatus" showAll="true" change="updateFilter();"/>-->
-		</mx:ControlBar>
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{businessRuleList}" click="editBusinessRule();">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{businessRuleList}" >
 			<mx:columns>
 				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'name')}" dataField="name" />
 				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'description')}" dataField="description" />
-				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'enabled')}" dataField="enabled" />
+				<mx:DataGridColumn headerText="{resourceManager.getString('businessRule', 'enabled')}" dataField="enabled" >
+					<mx:itemRenderer>
+	                    <mx:Component>
+	                         <mx:CheckBox selected="{data.enabled}" enabled="false" />            
+	                    </mx:Component>                        
+					</mx:itemRenderer>
+				</mx:DataGridColumn>
 			</mx:columns>
 		</mx:DataGrid>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'new')}" click="showForm(null)"/>
+			<mx:Button label="{resourceManager.getString('general', 'edit')}" click="editBusinessRule();"/>
+		</mx:ControlBar>
 	</mx:VBox>
-	<businessRules:BusinessRulesForm id="form" width="100%" height="100%" saveHandler="backToList" cancelHandler="backToList" />
+	<businessRules:BusinessRulesForm id="form" width="100%" height="100%" saveHandler="saveCallBack" cancelHandler="backToList" />
 </mx:ViewStack>
