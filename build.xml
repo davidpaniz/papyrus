@@ -12,11 +12,7 @@
 
 	<property file="build.properties" />
 
-	<property name="localhost" value="localhost"/>
-
 	<property name="war.file" value="${war.filename}.war" />
-
-	<property name="selenium.hub" value="${localhost}"/>
 
 	<path id="libs.classpath" path=".">
 		<fileset dir="${libs.dir}">
@@ -67,30 +63,6 @@
 		</fileset>
 	</path>
 
-	<path id="integration-test.classpath">
-		<path refid="libs.classpath" />
-		<path refid="tests.classpath" />
-		<pathelement path="${tmp.test-classes.dir}" />
-		<fileset dir="${artifacts.lib.dir}/selenium" includes="*.jar" />
-	</path>
-
-
-	<path id="hub.classpath">
-		<fileset dir="${artifacts.lib.dir}/selenium">
-			<include name="selenium-grid-hub-standalone-*.jar" />
-		</fileset>
-	</path>
-
-	<path id="remote-control.classpath">
-		<fileset dir="${artifacts.lib.dir}/selenium">
-			<include name="selenium-server-*.jar" />
-		</fileset>
-		<!-- Selenium Server must be first in classpath -->
-		<fileset dir="${artifacts.lib.dir}/selenium">
-			<include name="selenium-grid-remote-control-standalone-*.jar" />
-		</fileset>
-	</path>
-
 	<taskdef classpathref="artifacts.classpath" resource="tasks.properties" />
 
 	<target name="clean" description="--> delete build artifacts">
@@ -119,13 +91,12 @@
 		<mkdir dir="${instrumentation.dir}" />
 	</target>
 
-	<target name="compile" depends="clean, prepare, flexCompile" description="--> compiles the classes">
+	<target name="compile" depends="clean, prepare" description="--> compiles the classes">
 		<javac destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
 
 		<javac destdir="${tmp.test-classes.dir}" srcdir="${test-src.dir}" classpathref="tests.classpath" debug="true" encoding="UTF-8">
 			<classpath>
 				<fileset dir="${artifacts.lib.dir}/jetty" includes="*.jar" />
-				<fileset dir="${artifacts.lib.dir}/selenium" includes="*.jar" />
 				<fileset dir="${artifacts.lib.dir}/jmock" includes="*.jar" />
 			</classpath>
 		</javac>
@@ -259,109 +230,5 @@
 		</war>
 	</target>
 
-	<!-- Testes de integração -->
-	<!--target name="integration-tests" depends="war-test, start-hsqldb, start-jettys" description="-> runs integration tests">
-		<echo message="Running integration tests..." />
-		<junit fork="off" showoutput="true" failureproperty="failed-integration-test" >
-			<sysproperty key="server.host" value="${localhost}" />
-			<sysproperty key="server.port" value="8580" />
-			<sysproperty key="server.timeout" value="7500" />
-			<sysproperty key="database.port" value="9500" />
-			<sysproperty key="server.context" value="/afiliados" />
-			<sysproperty key="pool.size" value="1" />
-			<classpath refid="integration-test.classpath" />
-			<formatter type="xml" />
-			<batchtest fork="on" todir="${artifacts.dir}/reports">
-				<fileset dir="${tmp.test-classes.dir}">
-					<include name="**/integracao/**/*Test.class" />
-					<include name="**/integracao/**/*TestCase.class" />
-					<exclude name="**/SeleniumTestCase.class" />
-				</fileset>
-			</batchtest>
-		</junit>
-		<antcall target="test-report" />
-	</target -->
-
 	<target name="tests" depends="clean, resolve-dependence, test" description="-> run All tests"/>
-		
-	<!-- hsqldb -->
-	<macrodef name="hsqldb" description="-->starts a hsqldb">
-		<attribute name="dbport"/>
-		<sequential>
-			<echo message="Starting HSQLDB on port @{dbport}" />
-			<java classpath="${common.dir}/hsqldb-1.8.0.7.jar" classname="org.hsqldb.Server">
-				<arg line="-database.0 mem:ig-afiliados" />
-				<arg line="-dbname.0 ig-afiliados" />
-				<arg line="-port @{dbport}" />
-			</java>
-		</sequential>
-	</macrodef>
-
-	<target name="start-hsqldb" description="-->starts a hsqldb">
-		<hsqldb dbport="9500"/>
-	</target>
-
-	<target name="hsqldb" depends="start-hsqldb">
-		<input message="Press Enter to quit..."/>
-	</target>
-
-	<!-- jetty -->
-	<macrodef name="jetty">
-		<attribute name="port" default="8580" />
-		<attribute name="databasePort" default="9500" />
-		<sequential>
-			<taskdef name="jetty-start" classname="br.com.caelum.tasks.JettyStartTask">
-				<classpath>
-					<fileset dir="${artifacts.lib.dir}/jetty" includes="*.jar" />
-					<fileset dir="${artifacts.lib.dir}/caelum" includes="*.jar" />
-					<pathelement path="${tmp.test-classes.dir}" />
-					<path refid="servlet-api.classpath" />
-				</classpath>
-			</taskdef>
-			<jetty-start waitForShutdown="false" port="@{port}" databasePort="@{databasePort}">
-				<context war="${artifacts.dir}/${war.file}" classes="${tmp.classes.dir}" base="${webapp.dir}" lib="${libs.dir}" context="/afiliados" />
-			</jetty-start>
-		</sequential>
-	</macrodef>
-
-	<target name="start-jettys" description="--> runs all jettys instances">
-		<jetty port="8580" databasePort="9500" />	
-		<echo message="Jettys started" />
-	</target>
-
-	<!-- Selenium remote-control -->
-	<macrodef name="remote-control">
-		<attribute name="port" />
-		<sequential>
-			<echo message="Starting remote control on port @{port}, ${localhost}" />
-			<fail unless="localhost" message="IP da propria maquina nao foi setado corretamente: -Dlocalhost=????" />
-			<java classpathref="remote-control.classpath" classname="com.thoughtworks.selenium.grid.remotecontrol.SelfRegisteringRemoteControlLauncher" fork="true" spawn="true">
-				<arg value="-port" />
-				<arg value="@{port}" />
-				<arg value="-host" />
-				<arg value="${localhost}" />
-				<arg value="-hubURL" />
-				<arg value="http://${selenium.hub}:4444" />
-				<arg value="-env" />
-				<arg value="*firefox" />
-				<arg line="${seleniumArgs}" />
-			</java>
-		</sequential>
-	</macrodef>
-
-	<target name="launch-hub" description="Launch Selenium Hub">
-		<parallel>
-			<!-- forever -->
-			<java classname="com.thoughtworks.selenium.grid.hub.HubServer" classpathref="hub.classpath" />
-			<sequential>
-				<sleep seconds="5"/>
-				<property name="seleniumArgs" value="" />
-				<remote-control port="5555" />
-			</sequential>
-		</parallel>
-	</target>
-
-	<target name="selenium" depends="launch-hub">
-		<input message="Started selenium... press enter to stop" />
-	</target>
 </project>
