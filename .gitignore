@@ -12,4 +12,4 @@ html-template
 cobertura.ser
 WebContent/AC_OETags.js
 WebContent/index.html
-src/production/resources
+src/production/resources/*.properties

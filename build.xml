@@ -102,10 +102,9 @@
 		</javac>
 	</target>
 	
-	
-	<property name="argument1" value="-debug=false -warnings=false -optimize=true -benchmark=true -default-size 1024 768 -services '${webapp.dir}/WEB-INF/flex/services-config.xml'" />
-	<property name="argument2" value="-compiler.context-root ${context.root}" />
-	<property name="argument3" value="-library-path+='${flex.libs.dir}' -source-path=${flex.src.dir}/locale/{locale}" />
+	<property name="argument1" value="-locale en_US pt_BR -services '${webapp.dir}/WEB-INF/flex/services-config.xml' " />
+	<property name="argument2" value="-compiler.context-root ${context.root} -library-path+='${flex.libs.dir}' -source-path=${flex.src.dir}/locale/{locale} " />
+	<property name="argument3" value="-debug=false -warnings=false -optimize=true -benchmark=true -default-size 1024 768 " />
 	
 	<target name="flexCompile">
 		
@@ -117,6 +116,8 @@
 		
 	</target>
 
+	<target name="fullCompile" depends="compile, flexCompile"></target>
+	
 	<target name="test" depends="compile" description="-> run the tests">
 		<copy todir="${tmp.test-classes.dir}" overwrite="true">
 			<fileset dir="${tests.resources.dir}" />
@@ -200,25 +201,17 @@
     	</delete>
 	</target>
 	<!-- -->
-	<target name="war-test" depends="compile" description="--> generate project's war">
+	<target name="war" depends="fullCompile" description="--> generate project's war">
 		<delete file="${artifacts.dir}/${war.file}" />
 		
 		<delete dir="${webapp.dir}/WEB-INF/classes" />
 		
 		<copy todir="${tmp.classes.dir}"  overwrite="true"> 
-			<fileset dir="${resources.dir}" >
- 				<exclude name="hibernate.cfg.xml" />
- 				<exclude name="hibernate.properties" />
-				<exclude name="developer-custom.properties" />
-				<exclude name="*.sql" />
-			</fileset>
+			<fileset dir="${resources.dir}" includes="**/*" />
 		</copy>
 	
-		<copy todir="${tmp.test-classes.dir}" overwrite="true">
-			<fileset dir="${tests.resources.dir}/integration/" />
-		</copy>
 		<copy todir="${tmp.classes.dir}" overwrite="true">
-			<fileset dir="${tests.resources.dir}/integration/" />
+			<fileset dir="${production.resources.dir}" />
 		</copy>
 		
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
