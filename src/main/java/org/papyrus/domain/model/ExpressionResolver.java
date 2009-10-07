@@ -55,8 +55,8 @@ public class ExpressionResolver {
 	}
 
 	private boolean hasTextInExpression(String expression) {
-		// LineStart(# or $){ anything }LineEnd
-		if (expression.matches("^(#|\\$)\\{.*\\}$")) {
+		// LineStart(# or $){ anything different of ('{') than }LineEnd
+		if (expression.matches("^(#|\\$)\\{(^\\{)*\\}$")) {
 			return false;
 		} else {
 			return true;

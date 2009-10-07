@@ -6,3 +6,8 @@ Combo de op√ß√µes cadastro de regra de negocio adicionar maior igual, menor igua
 Na tela de incidents utilizar a busca avan√ßada e permitir salvar as buscas.
 
 Adicionar no "Quando um" os itens: Categoria, Urgenia, Impacto, Prioridade, Cliente, Empresa, Responsavel
+
+
+Ao salvar incidente repousar o form com as alterações.
+
+Ao salvar Client não perder a senha do mesmo

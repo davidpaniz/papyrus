@@ -77,6 +77,7 @@
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				cleanForm();
+				this._incident = incident;
 			}
 			
 			private function setDefault():void

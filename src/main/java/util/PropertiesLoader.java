@@ -8,12 +8,10 @@ import java.util.Properties;
 public class PropertiesLoader {
 	private final String parentFile;
 
-	public PropertiesLoader(String parentFile) {
-		this.parentFile = parentFile;
-	}
-
 	public PropertiesLoader() {
-		this("WebContent/WEB-INF/classes");
+		parentFile = PropertiesLoader.class.getClassLoader()
+				.getResource("")
+				.getFile();
 	}
 
 	public Properties loadProperties() throws IOException {

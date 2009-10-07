@@ -58,4 +58,30 @@ public class ExpressionResolverTestCase {
 
 		Assert.assertEquals("OPENED", new ExpressionResolver(incident, null).valueOf("#{status}"));
 	}
+
+	@Test
+	public void testWithNewValue() {
+		Incident incident = new Incident();
+		incident.setDescription("bla");
+
+		Assert.assertEquals("bla", new ExpressionResolver(null, incident).valueOf("${description}"));
+	}
+
+	@Test
+	public void testWithOldAndNewValues() {
+		Incident incident = new Incident();
+		incident.setDescription("bla");
+
+		Assert.assertEquals("bla = bla",
+				new ExpressionResolver(incident, incident).valueOf("${description} = #{description}"));
+	}
+
+	@Test
+	public void testWithOldAndNewValuesInAnotherOrder() {
+		Incident incident = new Incident();
+		incident.setDescription("bla");
+
+		Assert.assertEquals("bla = bla",
+				new ExpressionResolver(incident, incident).valueOf("#{description} = ${description}"));
+	}
 }

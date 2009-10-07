@@ -73,7 +73,6 @@ public class JDBCLoader {
 
 	public static void main(String... args) throws IOException, SQLException {
 		Properties props = new PropertiesLoader().loadProperties();
-
 		Connection connection = DriverManager.getConnection(props.getProperty("connection.url"),
 				props.getProperty("connection.username"), props.getProperty("connection.password"));
 
