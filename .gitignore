@@ -13,3 +13,4 @@ cobertura.ser
 WebContent/AC_OETags.js
 WebContent/index.html
 src/production/resources/*.properties
+jetty/webapps/
