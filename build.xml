@@ -227,7 +227,6 @@
 	</target>
 	
 	<target name="build-release" depends="fullCompile" description="--> generate project's war">
-		<delete dir="${tmp.classes.dir}" includes="*.properties" />
 		
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
 			<fileset dir="${webapp.dir}" excludes="WEB-INF/web.xml" />
@@ -251,6 +250,7 @@
             </manifest>
         </jar>
 		
+		<delete dir="${jetty.webapps}/papyrus/WEB-INF/classes/" includes="*.properties" />
 		
 		<zip zipfile="${artifacts.dir}/papyrus.zip" basedir="${jetty.home}" includes="**/*" />
 		

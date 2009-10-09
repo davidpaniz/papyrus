@@ -49,6 +49,6 @@ public class Setup {
 	}
 
 	public static void main(String... args) throws IOException {
-		new Setup(new PropertiesLoader("./webapps/papyrus")).createFiles();
+		new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createFiles();
 	}
 }
