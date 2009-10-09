@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+   		<property name="driverClassName">
+			<value>${connection.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${connection.url}</value>
+		</property>
+		<property name="username">
+			<value>${connection.username}</value>
+		</property>
+		<property name="password">
+			<value>${connection.password}</value>
+		</property>
+    </bean>
+    
+    <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>org.papyrus.domain.model.User</value>
+				<value>org.papyrus.domain.model.Urgency</value>
+				<value>org.papyrus.domain.model.Impact</value>
+				<value>org.papyrus.domain.model.Priority</value>
+				<value>org.papyrus.domain.model.Incident</value>
+				<value>org.papyrus.domain.model.WorkOrder</value>
+				<value>org.papyrus.domain.model.Attachment</value>
+				<value>org.papyrus.domain.model.BusinessRule</value>
+				<value>org.papyrus.domain.model.Condition</value>
+				<value>org.papyrus.domain.model.Action</value>
+				<value>org.papyrus.domain.model.TemplateValue</value>
+				<value>org.papyrus.domain.model.MailNotification</value>
+				<value>org.papyrus.domain.model.Task</value>
+				<value>org.papyrus.domain.model.Company</value>
+				<value>org.papyrus.domain.model.Client</value>
+				<value>org.papyrus.domain.model.Category</value>
+				<value>org.papyrus.domain.model.Staff</value>
+				<value>org.papyrus.domain.model.Detail</value>
+			</list>
+		</property>
+		<!-- Configuracoes do Hibernate -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					${connection.dialect}
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean
+						class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
+				</entry>
+			</map>
+		</property>
+<!--	   <property name="namingStrategy" ref="namingStrategy" />-->
+	</bean>
+	
+<!--	<bean id="namingStrategy" class="org.papyrus.infra.hibernate.PrefixedImprovedNamingStrategy">-->
+<!--		<constructor-arg>-->
+<!--			<value>${prefix_table_name}</value>-->
+<!--		</constructor-arg>-->
+<!--	</bean>-->
+<!--	-->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+		<property name="sessionFactory"> 
+			<ref bean="sessionFactory" /> 
+		</property> 
+	</bean>
+		
+   <!--
+		Transaction Manager
+	-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+</beans>

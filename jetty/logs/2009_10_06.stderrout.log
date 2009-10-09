@@ -1,0 +1,18 @@
+2009-10-06 18:16:53.899::INFO:  jetty-6.1.20
+2009-10-06 18:16:53.953::INFO:  Deploy /Users/davidpaniz/Desktop/jetty-6.1.20/contexts/javadoc.xml -> org.mortbay.jetty.handler.ContextHandler@ac44b88{/javadoc,file:/Users/davidpaniz/Desktop/jetty-6.1.20/javadoc/}
+2009-10-06 18:16:54.001::INFO:  Deploy /Users/davidpaniz/Desktop/jetty-6.1.20/contexts/test.xml -> org.mortbay.jetty.webapp.WebAppContext@3af42ad0{/,/Users/davidpaniz/Desktop/jetty-6.1.20/webapps/test}
+2009-10-06 18:16:54.052::INFO:  Deploy /Users/davidpaniz/Desktop/jetty-6.1.20/contexts/test-jndi.xml -> org.mortbay.jetty.webapp.WebAppContext@1505bd58{/test-jndi,/Users/davidpaniz/Desktop/jetty-6.1.20/contexts/test-jndi.d}
+2009-10-06 18:16:54.679:/:INFO:  Transparent AsyncProxyServlet @ /google to http://www.google.com
+2009-10-06 18:16:54.740::INFO:  No Transaction manager found - if your webapp requires one, please configure one.
+2009-10-06 18:16:54.918::INFO:  Extract file:/Users/davidpaniz/Desktop/jetty-6.1.20/webapps/cometd.war to /tmp/Jetty_0_0_0_0_8080_cometd.war__cometd__.t2qfkl/webapp
+2009-10-06 18:16:57.311::WARN:  Unknown realm: Test JAAS Realm
+2009-10-06 18:16:57.437::INFO:  Opened /Users/davidpaniz/Desktop/jetty-6.1.20/logs/2009_10_06.request.log
+2009-10-06 18:16:57.469::INFO:  Started SelectChannelConnector@0.0.0.0:8080
+2009-10-06 19:26:20.667::INFO:  Shutdown hook executing
+2009-10-06 19:26:20.759::INFO:  Graceful shutdown SelectChannelConnector@0.0.0.0:8080
+2009-10-06 19:26:21.028::INFO:  Graceful shutdown org.mortbay.jetty.handler.ContextHandler@ac44b88{/javadoc,file:/Users/davidpaniz/Desktop/jetty-6.1.20/javadoc/}
+2009-10-06 19:26:21.028::INFO:  Graceful shutdown org.mortbay.jetty.webapp.WebAppContext@3af42ad0{/,/Users/davidpaniz/Desktop/jetty-6.1.20/webapps/test}
+2009-10-06 19:26:21.030::INFO:  Graceful shutdown org.mortbay.jetty.webapp.WebAppContext@1505bd58{/test-jndi,/Users/davidpaniz/Desktop/jetty-6.1.20/contexts/test-jndi.d}
+2009-10-06 19:26:21.030::INFO:  Graceful shutdown org.mortbay.jetty.webapp.WebAppContext@fe8c585{/cometd,file:/Users/davidpaniz/Desktop/jetty-6.1.20/webapps/cometd.war}
+2009-10-06 19:26:21.030::INFO:  Graceful shutdown org.mortbay.jetty.webapp.WebAppContext@7affa6eb{/test-jaas,file:/Users/davidpaniz/Desktop/jetty-6.1.20/webapps/test-jaas/}
+2009-10-06 19:26:23.494::INFO:  Shutdown hook complete
