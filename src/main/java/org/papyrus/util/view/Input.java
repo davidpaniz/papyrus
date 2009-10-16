@@ -1,4 +1,4 @@
-package org.papyrus.view;
+package org.papyrus.util.view;
 
 import java.awt.Component;
 import java.awt.GridLayout;

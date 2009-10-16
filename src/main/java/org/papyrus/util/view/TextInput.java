@@ -1,4 +1,4 @@
-package org.papyrus.view;
+package org.papyrus.util.view;
 
 import javax.swing.JTextField;
 

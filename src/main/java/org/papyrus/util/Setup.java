@@ -10,10 +10,11 @@ import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.papyrus.view.Input;
-import org.papyrus.view.TextInput;
+import org.papyrus.util.view.Input;
+import org.papyrus.util.view.TextInput;
 
 public class Setup {
 	private JFrame window;
@@ -29,22 +30,21 @@ public class Setup {
 
 		map = new HashMap<String, Input[]>();
 
-		map.put("base-config.properties", new Input[] { new TextInput("scheduler.delay", "Delay para executar robo"),
-				new TextInput("scheduler.period", "Milisegundos entre cada execução do robo") });
+		map.put("base-config.properties", new Input[] { new TextInput("scheduler.delay", "Delay to start scheduler"),
+				new TextInput("scheduler.period", "period os scheduler (in milisec)") });
 
 		map.put("base-database.properties", new Input[] {
-				new TextInput("connection.driverClassName", "Classes do driver"),
-				new TextInput("connection.url", "url de conexão"), new TextInput("connection.dialect", "Dialect") });
+				new TextInput("connection.driverClassName", "JDBC Driver class name"),
+				new TextInput("connection.url", "JDBC Connection URL"),
+				new TextInput("connection.dialect", "Hibernate Dialect") });
 
-		map.put("user-database.properties", new Input[] {
-				new TextInput("connection.username", "Usuário do banco de dados"),
-				new TextInput("connection.password", "senha do banco de dados") });
+		map.put("user-database.properties", new Input[] { new TextInput("connection.username", "Database username"),
+				new TextInput("connection.password", "Database password") });
 
-		map.put("mail.properties", new Input[] { new TextInput("mail.smtp.host", "Host de smtp"),
-				new TextInput("mail.smtp.port", "Porta de smtp"),
-				new TextInput("mail.smtp.username", "usuario de smtp"),
-				new TextInput("mail.smtp.password", "senha de smtp"), new TextInput("mail.smtp.auth", "requer auth"),
-				new TextInput("mail.smtp.starttls", "starttls") });
+		map.put("mail.properties", new Input[] { new TextInput("mail.smtp.host", "SMTP Host"),
+				new TextInput("mail.smtp.port", "SMTP port"), new TextInput("mail.smtp.username", "SMTP user"),
+				new TextInput("mail.smtp.password", "SMTP password"), new TextInput("mail.smtp.auth", "SMTP auth"),
+				new TextInput("mail.smtp.starttls", "SMTP starttls") });
 	}
 
 	public void createFiles() throws IOException {
@@ -94,8 +94,14 @@ public class Setup {
 		JButton finishButton = new JButton("Finish");
 		finishButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("bla");
+			public void actionPerformed(ActionEvent event) {
+				try {
+					createFiles();
+					JOptionPane.showConfirmDialog(null, "Setup is done!", "Ok", -1);
+					System.exit(0);
+				} catch (Throwable e) {
+					JOptionPane.showConfirmDialog(null, e.getMessage(), "Fail", -1);
+				}
 			}
 		});
 		mainPanel.add(finishButton);
