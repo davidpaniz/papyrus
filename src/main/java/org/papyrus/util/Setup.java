@@ -1,6 +1,5 @@
 package org.papyrus.util;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -8,12 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.papyrus.util.view.CheckInput;
+import org.papyrus.util.view.DatabaseComboInput;
+import org.papyrus.util.view.DatabaseComboOption;
 import org.papyrus.util.view.Input;
+import org.papyrus.util.view.MySqlComboOption;
+import org.papyrus.util.view.PostgreComboOption;
 import org.papyrus.util.view.TextInput;
 
 public class Setup {
@@ -33,18 +38,16 @@ public class Setup {
 		map.put("base-config.properties", new Input[] { new TextInput("scheduler.delay", "Delay to start scheduler"),
 				new TextInput("scheduler.period", "period os scheduler (in milisec)") });
 
-		map.put("base-database.properties", new Input[] {
-				new TextInput("connection.driverClassName", "JDBC Driver class name"),
-				new TextInput("connection.url", "JDBC Connection URL"),
-				new TextInput("connection.dialect", "Hibernate Dialect") });
+		map.put("base-database.properties", new Input[] { new DatabaseComboInput(new DatabaseComboOption[] {
+				new MySqlComboOption(), new PostgreComboOption() }) });
 
 		map.put("user-database.properties", new Input[] { new TextInput("connection.username", "Database username"),
 				new TextInput("connection.password", "Database password") });
 
 		map.put("mail.properties", new Input[] { new TextInput("mail.smtp.host", "SMTP Host"),
 				new TextInput("mail.smtp.port", "SMTP port"), new TextInput("mail.smtp.username", "SMTP user"),
-				new TextInput("mail.smtp.password", "SMTP password"), new TextInput("mail.smtp.auth", "SMTP auth"),
-				new TextInput("mail.smtp.starttls", "SMTP starttls") });
+				new TextInput("mail.smtp.password", "SMTP password"), new CheckInput("mail.smtp.auth", "SMTP auth"),
+				new CheckInput("mail.smtp.starttls", "SMTP starttls") });
 	}
 
 	public void createFiles() throws IOException {
@@ -56,7 +59,7 @@ public class Setup {
 	private void createFile(String fileName, Input[] inputs) throws IOException {
 		Properties properties = new Properties();
 		for (Input input : inputs) {
-			properties.setProperty(input.getField(), input.getValue());
+			properties.putAll(input.getValue());
 		}
 		propertiesLoader.writePropertie(properties, fileName);
 	}
@@ -86,7 +89,7 @@ public class Setup {
 
 	private void showWindow() {
 		window.pack();
-		window.setSize(500, 500);
+		window.setSize(500, 450);
 		window.setVisible(true);
 	}
 
@@ -108,7 +111,8 @@ public class Setup {
 	}
 
 	private void createMainPanel() {
-		mainPanel = new JPanel(new GridLayout(20, 1));
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		window.add(mainPanel);
 	}
 
