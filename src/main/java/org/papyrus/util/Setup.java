@@ -125,11 +125,11 @@ public class Setup {
 	}
 
 	void loadBootstrap() {
-		jdbcLoader.loadSchema();
+		jdbcLoader.loadBootstrap();
 	}
 
 	void createTables() {
-		jdbcLoader.loadBootstrap();
+		jdbcLoader.loadSchema();
 	}
 
 	private void createMainPanel() {

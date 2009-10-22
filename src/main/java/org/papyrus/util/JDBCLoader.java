@@ -13,6 +13,7 @@ import java.util.Properties;
  * Runs a batch of sql statements
  */
 public class JDBCLoader {
+	// private final Logger logger = Logger.getLogger(JDBCLoader.class);
 	private final Connection connection;
 	private final PropertiesLoader propertiesLoader;
 
@@ -36,20 +37,17 @@ public class JDBCLoader {
 	 * @param sqlfile
 	 */
 	public void run(String sqlfile) {
-		System.out.println("==============================" + sqlfile + "==============================");
+		// System.out.println("==============================" + sqlfile + "==============================");
 		BufferedReader reader = null;
 		FileReader fileReader = null;
 
 		try {
 			fileReader = new FileReader(sqlfile);
-			System.out.println("==============================" + "filereader" + "==============================");
 			reader = new BufferedReader(fileReader);
-			System.out.println("==============================" + "reader" + "==============================");
 
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
-				System.out.println("==============================" + "line" + "==============================");
 				if (line.trim()
 						.length() > 0) {
 					// logger.debug("JDBCLoader: [Running] " + line);
