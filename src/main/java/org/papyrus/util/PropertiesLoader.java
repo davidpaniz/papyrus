@@ -31,6 +31,9 @@ public class PropertiesLoader {
 
 	public void writePropertie(Properties properties, String fileName) throws IOException {
 		properties.store(new FileOutputStream(new File(parentFile, fileName)), null);
+	}
 
+	public String getParentFile() {
+		return parentFile;
 	}
 }

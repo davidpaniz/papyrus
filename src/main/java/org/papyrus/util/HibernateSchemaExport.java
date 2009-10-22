@@ -47,14 +47,14 @@ public class HibernateSchemaExport {
 		config.addAnnotatedClass(Staff.class);
 		config.addAnnotatedClass(Detail.class);
 
-		Properties props = new PropertiesLoader().loadProperties();
+		Properties props = new PropertiesLoader("WebContent/WEB-INF/classes").loadProperties();
 
 		props.setProperty("hibernate.dialect", props.getProperty("connection.dialect"));
 
-		// String[] generateDropSchemaScript = config.generateDropSchemaScript(Dialect.getDialect(props));
-		// for (String string : generateDropSchemaScript) {
-		// System.out.println(string + ";");
-		// }
+		String[] generateDropSchemaScript = config.generateDropSchemaScript(Dialect.getDialect(props));
+		for (String string : generateDropSchemaScript) {
+			System.out.println(string + ";");
+		}
 		String[] generateSchemaCreationScript = config.generateSchemaCreationScript(Dialect.getDialect(props));
 		for (String string : generateSchemaCreationScript) {
 			System.out.println(string + ";");

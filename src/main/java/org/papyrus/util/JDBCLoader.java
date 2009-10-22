@@ -9,16 +9,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 /**
  * Runs a batch of sql statements
  */
 public class JDBCLoader {
-	private static final Logger logger = Logger.getLogger(JDBCLoader.class);
 	private final Connection connection;
+	private final PropertiesLoader propertiesLoader;
 
-	public JDBCLoader(Connection connection) {
+	public JDBCLoader(PropertiesLoader propertiesLoader) {
+		this.propertiesLoader = propertiesLoader;
+		Connection connection = null;
+		try {
+			Properties props = propertiesLoader.loadProperties();
+			Class.forName(props.getProperty("connection.driverClassName"));
+			connection = DriverManager.getConnection(props.getProperty("connection.url"),
+					props.getProperty("connection.username"), props.getProperty("connection.password"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		this.connection = connection;
 	}
 
@@ -28,21 +36,23 @@ public class JDBCLoader {
 	 * @param sqlfile
 	 */
 	public void run(String sqlfile) {
+		System.out.println("==============================" + sqlfile + "==============================");
 		BufferedReader reader = null;
 		FileReader fileReader = null;
 
 		try {
-			fileReader = new FileReader(this.getClass()
-					.getResource(sqlfile)
-					.getFile());
+			fileReader = new FileReader(sqlfile);
+			System.out.println("==============================" + "filereader" + "==============================");
 			reader = new BufferedReader(fileReader);
+			System.out.println("==============================" + "reader" + "==============================");
 
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
+				System.out.println("==============================" + "line" + "==============================");
 				if (line.trim()
 						.length() > 0) {
-					logger.debug("JDBCLoader: [Running] " + line);
+					// logger.debug("JDBCLoader: [Running] " + line);
 					this.runStatement(line);
 				}
 			}
@@ -72,11 +82,22 @@ public class JDBCLoader {
 	}
 
 	public static void main(String... args) throws IOException, SQLException {
-		Properties props = new PropertiesLoader().loadProperties();
-		Connection connection = DriverManager.getConnection(props.getProperty("connection.url"),
-				props.getProperty("connection.username"), props.getProperty("connection.password"));
+		PropertiesLoader propertiesLoader = new PropertiesLoader("WebContent/WEB-INF/classes");
 
-		new JDBCLoader(connection).run("/db_script/schema.sql");
-		new JDBCLoader(connection).run("/db_script/bootstrap.sql");
+		JDBCLoader jdbcLoader = new JDBCLoader(propertiesLoader);
+		jdbcLoader.loadSchema();
+		jdbcLoader.loadBootstrap();
+	}
+
+	public void loadSchema() {
+		run(getRootPath() + "/db_script/schema.sql");
+	}
+
+	public void loadBootstrap() {
+		run(getRootPath() + "/db_script/bootstrap.sql");
+	}
+
+	private String getRootPath() {
+		return this.propertiesLoader.getParentFile();
 	}
 }

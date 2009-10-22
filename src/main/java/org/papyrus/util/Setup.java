@@ -30,6 +30,8 @@ public class Setup {
 
 	private final PropertiesLoader propertiesLoader;
 
+	private JDBCLoader jdbcLoader;
+
 	public Setup(PropertiesLoader propertiesLoader) {
 		this.propertiesLoader = propertiesLoader;
 
@@ -100,14 +102,34 @@ public class Setup {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					createFiles();
+					jdbcLoader = new JDBCLoader(propertiesLoader);
+					int response = JOptionPane.showConfirmDialog(null,
+							"Setup is done! Do you want to create tables now?", "Ok", 0);
+					if (response == JOptionPane.YES_OPTION) {
+						createTables();
+					}
+					response = JOptionPane.showConfirmDialog(null,
+							"Tables were created. Do you want to load bootstrap data?", "Ok", 0);
+					if (response == JOptionPane.YES_OPTION) {
+						loadBootstrap();
+					}
 					JOptionPane.showConfirmDialog(null, "Setup is done!", "Ok", -1);
 					System.exit(0);
 				} catch (Throwable e) {
+					e.printStackTrace();
 					JOptionPane.showConfirmDialog(null, e.getMessage(), "Fail", -1);
 				}
 			}
 		});
 		mainPanel.add(finishButton);
+	}
+
+	void loadBootstrap() {
+		jdbcLoader.loadSchema();
+	}
+
+	void createTables() {
+		jdbcLoader.loadBootstrap();
 	}
 
 	private void createMainPanel() {

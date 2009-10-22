@@ -247,6 +247,7 @@
         <jar destfile="${jetty.home}/setup.jar" basedir="${jar.home.dir}">
             <manifest>
                 <attribute name="Main-Class" value="org.papyrus.util.Setup"/>
+                <attribute name="Class-Path" value="webapps/papyrus/WEB-INF/lib/mysql-connector-java-5.1.6.jar"/>
             </manifest>
         </jar>
 		
