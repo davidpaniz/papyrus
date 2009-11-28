@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.papyrus.domain.model;
 
 import javax.persistence.Entity;

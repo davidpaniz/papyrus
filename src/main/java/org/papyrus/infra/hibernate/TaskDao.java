@@ -2,6 +2,9 @@ package org.papyrus.infra.hibernate;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import org.papyrus.domain.model.ConditionComparable;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +35,13 @@ public class TaskDao implements TaskRepository {
 
 	public void update(Task task) {
 		template.update(task);
+	}
+
+	public List<Task> tasksOf(ConditionComparable conditionComparable) {
+		Criteria criteria = template.getSessionFactory()
+				.getCurrentSession()
+				.createCriteria(Task.class);
+		criteria.add(Restrictions.eq("detail", conditionComparable));
+		return criteria.list();
 	}
 }

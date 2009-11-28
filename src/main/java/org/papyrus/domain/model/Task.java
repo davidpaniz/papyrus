@@ -77,5 +77,4 @@ public class Task {
 	public void setDetail(ConditionComparable detail) {
 		this.detail = detail;
 	}
-
 }
