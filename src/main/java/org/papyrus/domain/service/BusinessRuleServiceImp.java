@@ -37,8 +37,8 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository, MailService mailService,
-			ConditionComparableRepository conditionComparableRepository, TaskRepository taskRepository) {
+			ActionRepository actionRepository, ConditionComparableRepository conditionComparableRepository,
+			TaskRepository taskRepository) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
