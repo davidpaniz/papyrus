@@ -2,6 +2,7 @@
 *.swf
 *.DS_Store
 target
+target/**/*
 build/classes
 build/tests
 WebContent/WEB-INF/classes
