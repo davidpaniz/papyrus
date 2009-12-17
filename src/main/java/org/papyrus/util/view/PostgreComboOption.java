@@ -11,4 +11,9 @@ public class PostgreComboOption extends DatabaseComboOption {
 		return String.format("jdbc:postgresql://%s:%s/%s", host, port, dataBase);
 	}
 
+	@Override
+	public String getDatabaseName() {
+		return "postgre";
+	}
+
 }

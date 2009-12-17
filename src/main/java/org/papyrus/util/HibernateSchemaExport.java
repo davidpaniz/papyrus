@@ -51,10 +51,10 @@ public class HibernateSchemaExport {
 
 		props.setProperty("hibernate.dialect", props.getProperty("connection.dialect"));
 
-		String[] generateDropSchemaScript = config.generateDropSchemaScript(Dialect.getDialect(props));
-		for (String string : generateDropSchemaScript) {
-			System.out.println(string + ";");
-		}
+		// String[] generateDropSchemaScript = config.generateDropSchemaScript(Dialect.getDialect(props));
+		// for (String string : generateDropSchemaScript) {
+		// System.out.println(string + ";");
+		// }
 		String[] generateSchemaCreationScript = config.generateSchemaCreationScript(Dialect.getDialect(props));
 		for (String string : generateSchemaCreationScript) {
 			System.out.println(string + ";");

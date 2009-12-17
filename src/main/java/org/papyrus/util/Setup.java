@@ -18,6 +18,7 @@ import org.papyrus.util.view.DatabaseComboInput;
 import org.papyrus.util.view.DatabaseComboOption;
 import org.papyrus.util.view.Input;
 import org.papyrus.util.view.MySqlComboOption;
+import org.papyrus.util.view.PasswordInput;
 import org.papyrus.util.view.PostgreComboOption;
 import org.papyrus.util.view.TextInput;
 
@@ -44,12 +45,12 @@ public class Setup {
 				new MySqlComboOption(), new PostgreComboOption() }) });
 
 		map.put("user-database.properties", new Input[] { new TextInput("connection.username", "Database username"),
-				new TextInput("connection.password", "Database password") });
+				new PasswordInput("connection.password", "Database password") });
 
 		map.put("mail.properties", new Input[] { new TextInput("mail.smtp.host", "SMTP Host"),
 				new TextInput("mail.smtp.port", "SMTP port"), new TextInput("mail.smtp.username", "SMTP user"),
-				new TextInput("mail.smtp.password", "SMTP password"), new CheckInput("mail.smtp.auth", "SMTP auth"),
-				new CheckInput("mail.smtp.starttls", "SMTP starttls") });
+				new PasswordInput("mail.smtp.password", "SMTP password"),
+				new CheckInput("mail.smtp.auth", "SMTP auth"), new CheckInput("mail.smtp.starttls", "SMTP starttls") });
 	}
 
 	public void createFiles() throws IOException {

@@ -16,15 +16,16 @@ public class JDBCLoader {
 	// private final Logger logger = Logger.getLogger(JDBCLoader.class);
 	private final Connection connection;
 	private final PropertiesLoader propertiesLoader;
+	private final Properties properties;
 
 	public JDBCLoader(PropertiesLoader propertiesLoader) {
 		this.propertiesLoader = propertiesLoader;
 		Connection connection = null;
 		try {
-			Properties props = propertiesLoader.loadProperties();
-			Class.forName(props.getProperty("connection.driverClassName"));
-			connection = DriverManager.getConnection(props.getProperty("connection.url"),
-					props.getProperty("connection.username"), props.getProperty("connection.password"));
+			properties = propertiesLoader.loadProperties();
+			Class.forName(properties.getProperty("connection.driverClassName"));
+			connection = DriverManager.getConnection(properties.getProperty("connection.url"),
+					properties.getProperty("connection.username"), properties.getProperty("connection.password"));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -88,11 +89,11 @@ public class JDBCLoader {
 	}
 
 	public void loadSchema() {
-		run(getRootPath() + "/db_script/schema.sql");
+		run(getRootPath() + String.format("/db_script/schema_%s.sql", this.properties.get("databaseName")));
 	}
 
 	public void loadBootstrap() {
-		run(getRootPath() + "/db_script/bootstrap.sql");
+		run(getRootPath() + String.format("/db_script/bootstrap_%s.sql", this.properties.get("databaseName")));
 	}
 
 	private String getRootPath() {

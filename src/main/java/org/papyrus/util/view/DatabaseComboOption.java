@@ -25,4 +25,6 @@ public abstract class DatabaseComboOption {
 	}
 
 	public abstract String getConnectionString(String host, String port, String dataBase);
+
+	public abstract String getDatabaseName();
 }

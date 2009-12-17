@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
  * @author davidpaniz
  */
 @Entity
+// @Table(name = "users")
 @SequenceGenerator(name = "User_Seq")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
