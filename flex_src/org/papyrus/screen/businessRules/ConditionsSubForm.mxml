@@ -3,8 +3,9 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Condition;
-	 			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayCollection;
+			
+			import org.papyrus.model.Condition;
 			private function addCondition():void
 			{
 				container.addChild(new ConditionForm());	
@@ -19,6 +20,17 @@
 					conditions.addItem((conditionForms[i] as ConditionForm).condition);					
 				}
 				return conditions;
+			}
+			
+			public function set conditions(conditions:ArrayCollection):void
+			{
+				container.removeAllChildren();	
+				for each(var c:Condition in conditions)
+				{
+					var conditionForm:ConditionForm = new ConditionForm();
+					conditionForm.condition = c;
+					container.addChild(conditionForm);
+				}
 			}
 		]]>
 	</mx:Script>

@@ -31,7 +31,7 @@ package org.papyrus.services
 		}
  		public function loadBusinessRuleResult( event:ResultEvent ):void
 		{
-			callBackFunction( event.result as BusinessRule );
+			callBackFunction( BusinessRule(event.result) );
 		}
 		
 		/*************************************

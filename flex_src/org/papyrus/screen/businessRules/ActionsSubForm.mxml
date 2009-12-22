@@ -20,6 +20,17 @@
 				}
 				return actions;
 			}
+			
+			public function set actions(actions:ArrayCollection):void
+			{
+				container.removeAllChildren();	
+				for each(var a:Action in actions)
+				{
+					var actionForm:ActionForm = new ActionForm();
+					actionForm.action = a;
+					container.addChild(actionForm);
+				}
+			}
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" id="container">

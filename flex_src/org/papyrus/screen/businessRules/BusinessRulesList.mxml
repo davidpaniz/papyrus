@@ -56,7 +56,7 @@
 				}
 				
 				private function backToList():void {
-					selectedChild = list;
+					this.selectedChild = list;
 				}
 				
 				private function editBusinessRule():void {
@@ -64,8 +64,8 @@
 				}
 				
 				private function showForm(businessRule:BusinessRule):void {
-					selectedChild = form;
-					form.businessRule = businessRule;
+					this.form.businessRule = businessRule;
+					this.selectedChild = this.form;
 				}
 				
 				private function saveCallBack():void {
