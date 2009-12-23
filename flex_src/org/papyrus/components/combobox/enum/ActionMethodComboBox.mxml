@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	creationComplete="init()" labelFunction="showI18NLabel" 
-	i18nName="businessRule">
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	i18nName="businessRule" creationComplete="fillItem();">
 	<mx:Script >
 		<![CDATA[
-			private function init():void {
+			
+			public var method:String = "";
+			
+			override protected function init():void {
 				staticDataProvider.addItem("CREATE");
 				staticDataProvider.addItem("UPDATE");
 				staticDataProvider.addItem("DELETE");
 				
 				dataProvider = staticDataProvider;
+			}
+			
+			private function fillItem():void{
+				selectedItem = method;
 			}
 		]]>
 	</mx:Script>

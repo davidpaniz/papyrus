@@ -72,9 +72,9 @@
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_action.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
-			<enum:ActionMethodComboBox id="cbMethod" selectedItem="{_action.method}"/>
+			<enum:ActionMethodComboBox id="cbMethod" method="{_action.method}"/>
 			<mx:Spacer />
-			<enum:ActionFormsComboBox id="cbType" selectedItem="{_action.type}"/>
+			<enum:ActionFormsComboBox id="cbType" type="{_action.type}"/>
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" />
 			<mx:Spacer />

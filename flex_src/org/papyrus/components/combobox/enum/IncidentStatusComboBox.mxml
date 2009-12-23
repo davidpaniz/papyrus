@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	creationComplete="init()" labelFunction="showI18NLabel" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	i18nName="incident">
 	<mx:Script >
 		<![CDATA[
 			public var showAll:Boolean = false;
 			
-			private function init():void {
+			override protected function init():void {
 				staticDataProvider.addItem("OPENED");
 				staticDataProvider.addItem("CLOSED");
 				

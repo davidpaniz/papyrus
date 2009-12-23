@@ -8,7 +8,8 @@ package org.papyrus.components.combobox.enum
 	public class EnumComboBox extends AutoCompleteCombo
 	{
 		public var i18nName:String ;
-		protected var staticDataProvider:ArrayCollection = new ArrayCollection();	
+		protected var staticDataProvider:ArrayCollection = new ArrayCollection();
+		protected function init():void{}
 		
 		protected function showI18NLabel(item:Object):String {
 			return resourceManager.getString(i18nName, item.toString());
@@ -16,17 +17,20 @@ package org.papyrus.components.combobox.enum
 		
 		public function EnumComboBox() {
 			super();
+			init();
+			labelFunction = showI18NLabel;
 		}
 		
 		override public function set selectedItem( param:Object ):void
 		{
 			super.selectedItem = 1;
 			var count:int = 0;
-			for each( var obj:Object in staticDataProvider )
+			for each( var obj:Object in collection )
 			{
 				if( obj && obj == param )
 				{
 					selectedIndex = count;
+					super.selectedItem = obj;
 					dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
 					return;
 				}

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	creationComplete="init()" labelFunction="showI18NLabel" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	i18nName="businessRule">
 	<mx:Script >
 		<![CDATA[
 			
-			private function init():void {
+			override protected function init():void {
 				staticDataProvider.addItem("INCIDENT");
 				staticDataProvider.addItem("WORK_ORDER");
 				staticDataProvider.addItem("MAIL_NOTIFICATION");
