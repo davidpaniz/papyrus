@@ -1,11 +1,10 @@
 package org.papyrus.services
 {
 	import mx.collections.ArrayCollection;
-	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import org.papyrus.components.notification.NotificatorManager;
 	import org.papyrus.model.Incident;
+	import org.papyrus.model.Staff;
 
 	public class IncidentService extends Service
 	{
@@ -47,6 +46,26 @@ package org.papyrus.services
 		}
 		
 		public function updateIncidentResult( event:ResultEvent ):void
+		{
+			callBackFunction(event.result as Incident);
+		}
+		
+		public function assignIncident( incident:Incident, staff:Staff ):void
+		{
+			service.assignIncident( incident, staff );
+		}
+		
+		public function assignIncidentResult( event:ResultEvent ):void
+		{
+			callBackFunction(event.result as Incident);
+		}
+		
+		public function closeIncident( incident:Incident ):void
+		{
+			service.closeIncident( incident );
+		}
+		
+		public function closeIncidentResult( event:ResultEvent ):void
 		{
 			callBackFunction(event.result as Incident);
 		}

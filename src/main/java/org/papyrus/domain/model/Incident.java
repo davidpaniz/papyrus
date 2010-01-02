@@ -215,4 +215,18 @@ public class Incident implements ConditionComparable {
 				.toDate();
 
 	}
+
+	public void fillIncidentDataOnCreate() {
+		this.setOpenedDate(new Date());
+		this.setPriority(this.client.getPriority());
+		this.calculateDueDate();
+	}
+
+	public void assignTo(Staff staff) {
+		this.responsable = staff;
+	}
+
+	public void close() {
+		this.status = IncidentStatus.CLOSED;
+	}
 }

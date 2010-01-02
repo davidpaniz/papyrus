@@ -22,9 +22,4 @@ public class ConditionDao implements ConditionRepository {
 		return condition;
 	}
 
-	public Condition delete(Condition condition) {
-		template.delete(condition);
-		return condition;
-	}
-
 }

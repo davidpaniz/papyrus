@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.classic.Session;
 import org.hibernate.collection.AbstractPersistentCollection;
 import org.hibernate.criterion.Restrictions;
+import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.BusinessRuleType;
+import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.ConditionComparable;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +94,13 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 		if (collection instanceof AbstractPersistentCollection) {
 			((AbstractPersistentCollection) collection).forceInitialization();
 		}
+	}
+
+	public void clearConditionsAndActionsOf(BusinessRule businessRule) {
+		BusinessRule load = (BusinessRule) getSession().load(BusinessRule.class, businessRule.getId());
+		List<Action> actions = load.getActions();
+		List<Condition> conditions = load.getConditions();
+		template.deleteAll(actions);
+		template.deleteAll(conditions);
 	}
 }

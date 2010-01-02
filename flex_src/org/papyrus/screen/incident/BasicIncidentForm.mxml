@@ -5,25 +5,17 @@
 		 xmlns:incident="org.papyrus.screen.incident.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import mx.binding.utils.BindingUtils;
- 			import org.papyrus.model.Client;
- 			import org.papyrus.model.Detail;
- 			import org.papyrus.model.Model;
- 			import org.papyrus.model.Category;
- 			import mx.managers.PopUpManager;
- 			import org.papyrus.components.notification.AskNotification;
- 			import org.papyrus.model.TemplateValue;
-			import org.papyrus.model.Impact;
-			import org.papyrus.model.Urgency;
-			import org.papyrus.model.Incident;
-			import org.papyrus.services.Service;
-			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.IncidentService;
-			import org.papyrus.model.Incident;
 			import mx.collections.ArrayCollection;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
-			import mx.controls.Alert;
+			
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.Category;
+			import org.papyrus.model.Client;
+			import org.papyrus.model.Detail;
+			import org.papyrus.model.Incident;
+			import org.papyrus.model.Model;
+			import org.papyrus.model.Staff;
+			import org.papyrus.model.User;
+			import org.papyrus.services.IncidentService;
 			
 			[Bindable]
 			private var _incident:Incident;
@@ -95,8 +87,19 @@
 
 			private function close():void
 			{
-				cbStatus.selectedItem = "CLOSED";
-				edit();
+				var incident:Incident = _incident ? _incident : new Incident();
+				incident.id = new Number(txtId.text);
+				new IncidentService(onResultSave).closeIncident(incident);
+			}
+
+			private function assign():void
+			{
+				var incident:Incident = _incident ? _incident : new Incident();
+				incident.id = new Number(txtId.text);
+				//TODO fix selected User
+				var staff:Staff =  new Staff();
+				staff.id = 2;
+				new IncidentService(onResultSave).assignIncident(incident, staff);
 			}
 			
 			private function cleanForm():void
@@ -109,6 +112,25 @@
 				NotificatorManager.ask(resourceManager.getString('general', 'are_you_sure_clear_form'), cleanForm);
 			}
 			
+			private function isNotNewIncident():Boolean{
+				return this._incident != null;
+			}
+			
+			private function isNotClosedIncident():Boolean{
+				return this._incident.status != 'CLOSED';
+			}
+			
+			private function isNotClient():Boolean{
+				return !Model.inst().user.isClient();
+			}
+			
+			private function mayAssing():Boolean{
+				return mayEdit() && isNotClient();
+			}
+			
+			private function mayEdit():Boolean{
+				return isNotNewIncident() && isNotClosedIncident();
+			}
 		]]>
 	</mx:Script>
 	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" >
@@ -132,13 +154,13 @@
 			<incident:DetailBox detail="{(rpDetail.currentItem as Detail)}" />			
 		</mx:Repeater> 
 		<mx:FormItem label="{resourceManager.getString('incident', 'comment')}:" width="345">
-			
 			<mx:TextArea id="txtComment" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
-			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel(event)"/>
-			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="save()" textAlign="center"/>
-			<mx:Button label="{resourceManager.getString('incident', 'close')}" click="close();" includeInLayout="{_incident != null}" visible="{_incident != null}"/>
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel(event)" />
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" includeInLayout="{mayEdit()}" visible="{mayEdit()}" textAlign="center" click="save()" />
+			<mx:Button label="{resourceManager.getString('incident', 'close')}" click="close();" includeInLayout="{mayEdit()}" visible="{mayEdit()}" />
+			<mx:Button label="{resourceManager.getString('incident', 'assign')}" click="assign();" includeInLayout="{mayAssing()}" visible="{mayAssing()}" /> 
 		</mx:ControlBar>
 	</mx:Form>
 

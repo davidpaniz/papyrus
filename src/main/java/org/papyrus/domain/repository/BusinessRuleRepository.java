@@ -41,4 +41,6 @@ public interface BusinessRuleRepository {
 	void unlock(ConditionComparable conditionComparable);
 
 	BusinessRule load(Long id);
+
+	void clearConditionsAndActionsOf(BusinessRule persistedBusinessRule);
 }

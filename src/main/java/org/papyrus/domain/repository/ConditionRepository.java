@@ -17,10 +17,4 @@ public interface ConditionRepository {
 	 */
 	Condition saveOrUpdate(Condition condition);
 
-	/**
-	 * @param condition
-	 * @return the same object if deleted or null if some problems ocurrer
-	 */
-	Condition delete(Condition condition);
-
 }

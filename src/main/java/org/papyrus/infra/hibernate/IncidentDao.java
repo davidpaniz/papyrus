@@ -33,7 +33,6 @@ public class IncidentDao implements IncidentRepository {
 	public Incident saveOrUpdate(Incident incident) {
 		incident.setUpdatedAt(new Date());
 		getSession().saveOrUpdate(incident);
-		saveDetails(incident);
 		return incident;
 	}
 
@@ -43,7 +42,7 @@ public class IncidentDao implements IncidentRepository {
 
 	}
 
-	private void saveDetails(Incident incident) {
+	public void saveDetails(Incident incident) {
 		for (Detail detail : incident.getDetails()) {
 			if (detail.getId() == 0) {
 				detail.setDate(Calendar.getInstance());

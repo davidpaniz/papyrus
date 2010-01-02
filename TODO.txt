@@ -8,6 +8,6 @@ Na tela de incidents utilizar a busca avanÃ§ada e permitir salvar as buscas.
 Adicionar no "Quando um" os itens: Categoria, Urgenia, Impacto, Prioridade, Cliente, Empresa, Responsavel
 
 
-Ao salvar incidente repousar o form com as altera›es.
+Ao salvar incidente repopular o form com as alteraï¿½ï¿½es.
 
-Ao salvar Client n‹o perder a senha do mesmo
+Ao salvar Client nï¿½o perder a senha do mesmo

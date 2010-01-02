@@ -22,5 +22,6 @@ package org.papyrus.model
 		{
 			return instance;
 		}
+		
 	}
 }

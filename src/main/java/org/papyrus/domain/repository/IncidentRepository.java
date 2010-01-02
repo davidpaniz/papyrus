@@ -35,4 +35,6 @@ public interface IncidentRepository {
 	List<Incident> listIncidentsAssignedTo(User user, IncidentStatus status, Date inicialDate, Date endDate);
 
 	List<Incident> listUserInicidents(User user, IncidentStatus incidentStatus, Date inicialDate, Date endDate);
+
+	void saveDetails(Incident incident);
 }

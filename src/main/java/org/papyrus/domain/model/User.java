@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  * Entity that represents a User
@@ -21,7 +20,7 @@ import javax.persistence.Table;
  * @author davidpaniz
  */
 @Entity
-//@Table(name = "users")
+// @Table(name = "users")
 @SequenceGenerator(name = "User_Seq")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {

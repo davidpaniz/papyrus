@@ -3,11 +3,11 @@
  */
 package org.papyrus.domain.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.Staff;
 import org.papyrus.domain.repository.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,19 +40,25 @@ public class IncidentServiceImp implements IncidentService {
 
 	public Incident createIncident(Incident incident) throws Exception {
 		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
-		fillIncidentDataOnCreate(incident);
+		incident.fillIncidentDataOnCreate();
 		repository.saveOrUpdate(incident);
 		return incident;
 	}
 
-	private void fillIncidentDataOnCreate(Incident incident) {
-		incident.setOpenedDate(new Date());
-		incident.setPriority(incident.getClient()
-				.getPriority());
-		incident.calculateDueDate();
+	public Incident updateIncident(Incident incident) throws Exception {
+		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
+		repository.saveDetails(incident);
+		return repository.saveOrUpdate(incident);
 	}
 
-	public Incident updateIncident(Incident incident) throws Exception {
+	public Incident assignIncident(Incident incident, Staff staff) throws Exception {
+		incident.assignTo(staff);
+		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
+		return repository.saveOrUpdate(incident);
+	}
+
+	public Incident closeIncident(Incident incident) throws Exception {
+		incident.close();
 		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
 		return repository.saveOrUpdate(incident);
 	}

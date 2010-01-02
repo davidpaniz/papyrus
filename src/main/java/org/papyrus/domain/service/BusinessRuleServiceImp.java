@@ -84,17 +84,22 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	}
 
 	public BusinessRule saveBusinessRule(BusinessRule businessRule) {
-		BusinessRule persistedBusinessRule = repository.saveOrUpdate(businessRule);
+		if (businessRule.getId() != 0) {
+			repository.clearConditionsAndActionsOf(businessRule);
+		} else {
+			businessRule = repository.saveOrUpdate(businessRule);
+		}
+
 		for (Condition condition : businessRule.getConditions()) {
-			condition.setBusinessRule(persistedBusinessRule);
+			condition.setBusinessRule(businessRule);
 			conditionRepository.saveOrUpdate(condition);
 		}
 		for (Action action : businessRule.getActions()) {
-			action.setBusinessRule(persistedBusinessRule);
+			action.setBusinessRule(businessRule);
 			actionRepository.save(action);
 		}
 
-		return persistedBusinessRule;
+		return businessRule;
 	}
 
 	public List<BusinessRule> listBusinessRule() {

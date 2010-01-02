@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+@SuppressWarnings("unchecked")
 @Repository(value = "taskRepository")
 public class TaskDao implements TaskRepository {
 
@@ -27,7 +28,6 @@ public class TaskDao implements TaskRepository {
 		return task;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Task> taskToExecute() {
 		String sql = "from Task t where t.duoDate <= current_timestamp() and t.executed = false";
 		return template.find(sql);

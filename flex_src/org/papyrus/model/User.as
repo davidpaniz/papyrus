@@ -16,5 +16,11 @@ package org.papyrus.model
 		{
 		}
 
+		public function isClient():Boolean {
+			if(role != '' && role != 'CLIENT'){
+				return false;
+			}
+			return true;
+		}
 	}
 }
