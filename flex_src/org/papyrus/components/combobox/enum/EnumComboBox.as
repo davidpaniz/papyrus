@@ -8,6 +8,8 @@ package org.papyrus.components.combobox.enum
 	public class EnumComboBox extends AutoCompleteCombo
 	{
 		public var i18nName:String ;
+		public var showAll:Boolean = false;
+		
 		protected var staticDataProvider:ArrayCollection = new ArrayCollection();
 		protected function init():void{}
 		

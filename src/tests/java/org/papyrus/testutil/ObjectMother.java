@@ -1,7 +1,5 @@
 package org.papyrus.testutil;
 
-import java.util.Arrays;
-
 import org.hibernate.Session;
 import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Incident;
@@ -42,7 +40,7 @@ public class ObjectMother {
 	public Incident createIncident(String description, WorkOrder... workOrders) {
 		Incident incident = new Incident();
 		incident.setDescription(description);
-		incident.setWorkOrders(Arrays.asList(workOrders));
+		// incident.setWorkOrders(Arrays.asList(workOrders));
 
 		session.save(incident);
 		session.flush();

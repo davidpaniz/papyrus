@@ -54,7 +54,6 @@ public class StaffServiceImp implements StaffService {
 			throws Exception {
 		List<Incident> inicidents = incidentRepository.listAllIncidents(incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
-			incident.setWorkOrders(null);
 			incident.setAttachments(null);
 		}
 		return inicidents;
@@ -65,7 +64,6 @@ public class StaffServiceImp implements StaffService {
 		List<Incident> inicidents = incidentRepository.listIncidentsAssignedTo(sessionManager.getLoggedUser(),
 				incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
-			incident.setWorkOrders(null);
 			incident.setAttachments(null);
 		}
 		return inicidents;

@@ -105,6 +105,7 @@
 			private function cleanForm():void
 			{
 				_incident = null;
+				txtComment.text = "";
 			}
 			
 			private function cancel(event:MouseEvent):void
@@ -158,7 +159,7 @@
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel(event)" />
-			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" includeInLayout="{mayEdit()}" visible="{mayEdit()}" textAlign="center" click="save()" />
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" includeInLayout="{isNotClosedIncident()}" visible="{isNotClosedIncident()}" textAlign="center" click="save()" />
 			<mx:Button label="{resourceManager.getString('incident', 'close')}" click="close();" includeInLayout="{mayEdit()}" visible="{mayEdit()}" />
 			<mx:Button label="{resourceManager.getString('incident', 'assign')}" click="assign();" includeInLayout="{mayAssing()}" visible="{mayAssing()}" /> 
 		</mx:ControlBar>

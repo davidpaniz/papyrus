@@ -60,8 +60,8 @@ public class Incident implements ConditionComparable {
 	@OneToMany(mappedBy = "incident")
 	private List<Detail> details;
 
-	@OneToMany(mappedBy = "incident")
-	private List<WorkOrder> workOrders;
+	// @OneToMany(mappedBy = "incident")
+	// private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
 
@@ -118,13 +118,13 @@ public class Incident implements ConditionComparable {
 		this.dueDate = dueDate;
 	}
 
-	public List<WorkOrder> getWorkOrders() {
-		return workOrders;
-	}
+	// public List<WorkOrder> getWorkOrders() {
+	// return workOrders;
+	// }
 
-	public void setWorkOrders(List<WorkOrder> workOrders) {
-		this.workOrders = workOrders;
-	}
+	// public void setWorkOrders(List<WorkOrder> workOrders) {
+	// this.workOrders = workOrders;
+	// }
 
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;

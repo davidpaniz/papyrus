@@ -16,7 +16,7 @@ package org.papyrus.model
 		public var openedDate:Date;
 		public var respondedDate:Date;
 		public var dueDate:Date;
-		public var workOrders:ArrayCollection = new ArrayCollection();
+//		public var workOrders:ArrayCollection = new ArrayCollection();
 		public var attachments:ArrayCollection = new ArrayCollection();
 		public var details:ArrayCollection = new ArrayCollection();
 		public var category:Category;

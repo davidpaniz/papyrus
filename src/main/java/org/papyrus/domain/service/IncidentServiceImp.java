@@ -48,7 +48,9 @@ public class IncidentServiceImp implements IncidentService {
 	public Incident updateIncident(Incident incident) throws Exception {
 		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
 		repository.saveDetails(incident);
-		return repository.saveOrUpdate(incident);
+		Incident savedIncident = repository.saveOrUpdate(incident);
+		// savedIncident.getDetails();
+		return savedIncident;
 	}
 
 	public Incident assignIncident(Incident incident, Staff staff) throws Exception {
@@ -62,4 +64,8 @@ public class IncidentServiceImp implements IncidentService {
 		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
 		return repository.saveOrUpdate(incident);
 	}
+
+	// public Incident loadIncident(Incident incident) throws Exception {
+	// return repository.load(incident);
+	// }
 }

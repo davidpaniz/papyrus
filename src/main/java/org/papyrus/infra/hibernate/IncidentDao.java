@@ -57,7 +57,7 @@ public class IncidentDao implements IncidentRepository {
 		List<Incident> list = template.findByCriteria(criteria);
 
 		for (Incident incident : list) {
-			incident.setWorkOrders(null);
+			// incident.setWorkOrders(null);
 			incident.setAttachments(null);
 			incident.setDetails(null);
 		}
@@ -109,4 +109,9 @@ public class IncidentDao implements IncidentRepository {
 		return criteria;
 	}
 
+	// public Incident load(Incident incident) {
+	// template.refresh(incident);
+	// incident.getDetails();
+	// return incident;
+	// }
 }

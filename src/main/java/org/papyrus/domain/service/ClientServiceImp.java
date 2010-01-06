@@ -53,7 +53,7 @@ public class ClientServiceImp implements ClientService {
 		List<Incident> inicidents = incidentRepository.listUserInicidents(sessionManager.getLoggedUser(),
 				incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
-			incident.setWorkOrders(null);
+			// incident.setWorkOrders(null);
 			incident.setAttachments(null);
 		}
 		return inicidents;

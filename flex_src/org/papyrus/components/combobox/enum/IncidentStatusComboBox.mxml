@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	i18nName="incident">
+	i18nName="incident" creationComplete="init();">
 	<mx:Script >
 		<![CDATA[
-			public var showAll:Boolean = false;
+			import mx.collections.ArrayCollection;
 			
 			override protected function init():void {
-				staticDataProvider.addItem("OPENED");
-				staticDataProvider.addItem("CLOSED");
+				this.dataProvider = new ArrayCollection();
+				staticDataProvider = new ArrayCollection();
 				
 				if(showAll){
 					staticDataProvider.addItem("ALL");
 				}
+				
+				staticDataProvider.addItem("OPENED");
+				staticDataProvider.addItem("CLOSED");
 				
 				dataProvider = staticDataProvider;
 			}

@@ -25,4 +25,5 @@ public interface IncidentService {
 
 	List<Incident> listIncident() throws Exception;
 
+	// Incident loadIncident(Incident incident) throws Exception;
 }
