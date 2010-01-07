@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:ViewStack xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:home="org.papyrus.screen.home.*" xmlns:incident="org.papyrus.screen.incident.*"
-	 width="100%" height="100%" 
-	 creationPolicy="auto" 
-	 >
-	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
-	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>	
-</mx:ViewStack>

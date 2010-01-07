@@ -28,7 +28,6 @@ public class Task {
 	@Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER, optional = false)
 	@AnyMetaDef(idType = "long", metaType = "string", metaValues = {
 			@MetaValue(value = "INCIDENT", targetEntity = Incident.class),
-			@MetaValue(value = "WORK_ORDER", targetEntity = WorkOrder.class),
 			@MetaValue(value = "MAIL_NOTIFICATION", targetEntity = MailNotification.class) })
 	@JoinColumn(name = "detail_id")
 	private ConditionComparable detail;

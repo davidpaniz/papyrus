@@ -15,6 +15,7 @@
 				}
 				
 				staticDataProvider.addItem("OPENED");
+				staticDataProvider.addItem("PENDING");
 				staticDataProvider.addItem("CLOSED");
 				
 				dataProvider = staticDataProvider;

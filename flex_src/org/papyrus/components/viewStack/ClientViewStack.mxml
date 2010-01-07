@@ -27,6 +27,6 @@
 	</mx:Script>
 	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 	<incident:IncidentList id="incidentList" label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="incidentListSearch" openIncidentFunction="showIncident"/>
-	<incident:BasicIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
+	<incident:ClientIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>
 </mx:ViewStack>

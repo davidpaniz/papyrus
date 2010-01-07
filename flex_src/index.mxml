@@ -66,8 +66,6 @@
 						vsMain.selectedChild = vsAdmin;
 					}else if( user.role == "STAFF" ){
 						vsMain.selectedChild = vsStaff;
-					}else if( user.role == "MANAGER" ){
-						vsMain.selectedChild = vsManager;
 					}else{
 						vsMain.selectedChild = vsClient;
 					}
@@ -101,7 +99,6 @@
 			</mx:ViewStack>
 			<viewStack:AdminViewStack id="vsAdmin" />
 			<viewStack:ClientViewStack id="vsClient" />
-			<viewStack:ManagerViewStack id="vsManager" />
 			<viewStack:StaffViewStack id="vsStaff" />
 		</mx:ViewStack>
 	</mx:HDividedBox>

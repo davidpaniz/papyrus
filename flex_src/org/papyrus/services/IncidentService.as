@@ -70,16 +70,6 @@ package org.papyrus.services
 			callBackFunction(event.result as Incident);
 		}
 		
-		public function closeIncident( incident:Incident ):void
-		{
-			service.closeIncident( incident );
-		}
-		
-		public function closeIncidentResult( event:ResultEvent ):void
-		{
-			callBackFunction(event.result as Incident);
-		}
-		
 		/*************************************
 		 * DELETE 
 		 * ***********************************/

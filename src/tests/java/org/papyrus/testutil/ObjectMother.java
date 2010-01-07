@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;
-import org.papyrus.domain.model.WorkOrder;
 
 /**
  * @author davidpaniz
@@ -29,15 +28,7 @@ public class ObjectMother {
 		return user;
 	}
 
-	public WorkOrder createWorkOrder() {
-		WorkOrder workOrder = new WorkOrder();
-
-		session.save(workOrder);
-		session.flush();
-		return workOrder;
-	}
-
-	public Incident createIncident(String description, WorkOrder... workOrders) {
+	public Incident createIncident(String description) {
 		Incident incident = new Incident();
 		incident.setDescription(description);
 		// incident.setWorkOrders(Arrays.asList(workOrders));

@@ -6,13 +6,11 @@
 		<![CDATA[
 			import org.papyrus.model.ConditionComparable;
 			import org.papyrus.screen.notification.MailNotificationScreen;
-			import org.papyrus.screen.incident.WorkOrderForm;
 			import org.papyrus.components.containers.ConditionComparableScreen;
 			
 			public var type:String = "";
 			
 			override protected function init():void {
-				staticDataProvider.addItem("WORK_ORDER");
 				staticDataProvider.addItem("MAIL_NOTIFICATION");
 				
 				dataProvider = staticDataProvider;
@@ -20,13 +18,9 @@
 			
 			public function detailForm():ConditionComparableScreen
 			{
-				//TODO refactoring! Should use inheritance
+				//TODO refactoring! Should use polymorphism
 				var item:String = this.selectedItem.toString();
-				if(item == "WORK_ORDER") {
-					return new WorkOrderForm();
-				} else {
-					return new MailNotificationScreen();
-				}
+				return new MailNotificationScreen();
 			}
 			
 			private function fillItem():void{

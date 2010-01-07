@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*"
+		 width="100%" height="100%" 
+		 xmlns:incident="org.papyrus.screen.incident.*">
+	 	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.Category;
+			import org.papyrus.model.Client;
+			import org.papyrus.model.Detail;
+			import org.papyrus.model.Incident;
+			import org.papyrus.model.Model;
+			import org.papyrus.model.Staff;
+			import org.papyrus.model.User;
+			import org.papyrus.services.IncidentService;
+			
+			[Bindable]
+			private var _incident:Incident;
+			
+			public function set incident(incident:Incident):void
+			{
+				this._incident = incident
+			}
+			
+			private function save():void
+			{
+				if(_incident) {
+					edit();
+				}else{
+					create();
+				}
+			}
+			
+			private function create():void {
+				var incident:Incident = _incident ? _incident : new Incident();
+				incident.id = new Number(txtId.text);
+				incident.description   = txtDs.text;
+				incident.category = cbCategory.selectedItem as Category;
+				incident.client = Model.inst().user as Client;
+				incident.status = cbStatus.selectedItem as String;
+				incident.details ||= new ArrayCollection();
+				var detail:Detail = new Detail();
+				detail.message = txtComment.text;
+				detail.user = Model.inst().user;
+				incident.details.addItem(detail);
+				
+				new IncidentService(onResultSave).createIncident(incident);
+			}
+			
+			private function edit():void {
+				var incident:Incident = _incident ? _incident : new Incident();
+				incident.id = new Number(txtId.text);
+				incident.description   = txtDs.text;
+				incident.category = cbCategory.selectedItem as Category;
+				incident.status = cbStatus.selectedItem as String;
+				incident.details ||= new ArrayCollection();
+				var detail:Detail = new Detail();
+				detail.message = txtComment.text;
+				detail.user = Model.inst().user;
+				incident.details.addItem(detail);
+				
+				new IncidentService(onResultSave).updateIncident(incident);
+			}
+			
+			private function onResultSave(incident:Incident):void
+			{
+				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
+				cleanForm();
+				this._incident = incident;
+			}
+			
+			private function setDefault():void
+			{
+				cleanForm();
+				showForm();
+			}
+
+			private function showForm():void
+			{
+				incidentForm.includeInLayout = true;
+				incidentForm.visible = true;
+				txtDs.setFocus();
+			}
+
+			private function cleanForm():void
+			{
+				_incident = null;
+				txtComment.text = "";
+			}
+			
+			private function cancel(event:MouseEvent):void
+			{
+				NotificatorManager.ask(resourceManager.getString('general', 'are_you_sure_clear_form'), cleanForm);
+			}
+			
+			private function isNotNewIncident():Boolean{
+				return this._incident != null;
+			}
+			
+			private function isNotClosedIncident():Boolean{
+				return this._incident.status != 'CLOSED';
+			}
+			
+			private function isNotClient():Boolean{
+				return !Model.inst().user.isClient();
+			}
+			
+			private function mayAssing():Boolean{
+				return mayEdit() && isNotClient();
+			}
+			
+			private function mayEdit():Boolean{
+				return isNotNewIncident() && isNotClosedIncident();
+			}
+		]]>
+	</mx:Script>
+	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" >
+		<mx:FormHeading label="{resourceManager.getString('general', 'incident')}" width="100%"/>
+		<mx:FormItem label="ID:" width="127">
+			<mx:TextInput id="txtId" text="{_incident.id.toString()}" width="100%" editable="false" enabled="false" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('incident', 'status')}:" width="345">
+			<enum:IncidentStatusComboBox id="cbStatus" text="{_incident.status}" width="100%" editable="false" enabled="false" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
+			<mx:TextInput id="txtDs" text="{_incident.description}" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'category')}:" width="345">
+			<combobox:CategoryChildComboBox id="cbCategory" text="{_incident.category}" editable="{_incident != null}" width="100%" />
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'staff')}:" width="345">
+			<combobox:StaffComboBox id="cbStaff" text="{_incident.responsable}" width="100%" editable="false"  enabled="false" />
+		</mx:FormItem>
+		<mx:Repeater id="rpDetail" dataProvider="{_incident.details}" >
+			<incident:DetailBox detail="{(rpDetail.currentItem as Detail)}" />			
+		</mx:Repeater> 
+		<mx:FormItem label="{resourceManager.getString('incident', 'comment')}:" width="345">
+			<mx:TextArea id="txtComment" width="100%" />
+		</mx:FormItem>
+		<mx:ControlBar horizontalAlign="center">
+			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel(event)" />
+			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" includeInLayout="{isNotClosedIncident()}" visible="{isNotClosedIncident()}" textAlign="center" click="save()" />
+		</mx:ControlBar>
+	</mx:Form>
+
+</mx:HBox>

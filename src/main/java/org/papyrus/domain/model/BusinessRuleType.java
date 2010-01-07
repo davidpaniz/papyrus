@@ -2,7 +2,7 @@ package org.papyrus.domain.model;
 
 public enum BusinessRuleType {
 	INCIDENT(Incident.class),
-	WORK_ORDER(WorkOrder.class),
+	// WORK_ORDER(WorkOrder.class),
 	MAIL_NOTIFICATION(MailNotification.class);
 
 	private final Class<? extends ConditionComparable> type;

@@ -38,7 +38,6 @@ public class DatabaseComboInput extends Input {
 		properties.put("connection.dialect", selectedItem.getDialect());
 		properties.put("connection.url", selectedItem.getConnectionString(this.hostInput.getText(),
 				this.portInput.getText(), this.databaseInput.getText()));
-		properties.put("databaseName", selectedItem.getDatabaseName());
 		return properties;
 	}
 }

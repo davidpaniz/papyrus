@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.hibernate.HibernateException;
 import org.papyrus.util.view.CheckInput;
 import org.papyrus.util.view.DatabaseComboInput;
 import org.papyrus.util.view.DatabaseComboOption;
@@ -31,7 +32,7 @@ public class Setup {
 
 	private final PropertiesLoader propertiesLoader;
 
-	private JDBCLoader jdbcLoader;
+	private HibernateUtils hibernateUtils;
 
 	public Setup(PropertiesLoader propertiesLoader) {
 		this.propertiesLoader = propertiesLoader;
@@ -68,8 +69,8 @@ public class Setup {
 	}
 
 	public static void main(String... args) throws IOException {
-		// new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createFiles();
-		new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createScreen();
+		// new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createScreen();
+		new Setup(new PropertiesLoader()).createScreen();
 
 	}
 
@@ -103,7 +104,7 @@ public class Setup {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					createFiles();
-					jdbcLoader = new JDBCLoader(propertiesLoader);
+					hibernateUtils = new HibernateUtils(propertiesLoader);
 					int response = JOptionPane.showConfirmDialog(null,
 							"Setup is done! Do you want to create tables now?", "Ok", 0);
 					if (response == JOptionPane.YES_OPTION) {
@@ -125,12 +126,12 @@ public class Setup {
 		mainPanel.add(finishButton);
 	}
 
-	void loadBootstrap() {
-		jdbcLoader.loadBootstrap();
+	void loadBootstrap() throws HibernateException, IOException {
+		new Bootstrap(hibernateUtils).loadBootstrap();
 	}
 
-	void createTables() {
-		jdbcLoader.loadSchema();
+	void createTables() throws IOException {
+		hibernateUtils.exportSchema();
 	}
 
 	private void createMainPanel() {

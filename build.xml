@@ -119,7 +119,7 @@
 		
 	</target>
 
-	<target name="fullCompile" depends="compile, flexCompile"></target>
+	<target name="fullCompile" depends="compile"></target>
 	
 	<target name="test" depends="compile" description="-> run the tests">
 		<copy todir="${tmp.test-classes.dir}" overwrite="true">
@@ -244,10 +244,26 @@
 	    	</fileset>
 		</copy>
 		
+		<path id="build.classpath">
+		  <fileset dir="${libs.dir}">
+		     <include name="*.jar"/>
+		  </fileset>
+		</path>
+
+		<pathconvert property="jar.classpath" pathsep=" ">
+			<path refid="build.classpath"/>
+			<mapper>
+			    <chainedmapper>
+			       <flattenmapper/>
+			       <globmapper from="*.jar" to="webapps/papyrus/WEB-INF/lib/*.jar"/>
+			    </chainedmapper>
+			</mapper>
+		</pathconvert>
+		
         <jar destfile="${jetty.home}/setup.jar" basedir="${jar.home.dir}">
             <manifest>
                 <attribute name="Main-Class" value="org.papyrus.util.Setup"/>
-                <attribute name="Class-Path" value="webapps/papyrus/WEB-INF/lib/mysql-connector-java-5.1.6.jar webapps/papyrus/WEB-INF/lib/postgresql-8.4-701.jdbc4.jar"/>
+                <attribute name="Class-Path" value="${jar.classpath}"/>
             </manifest>
         </jar>
 		

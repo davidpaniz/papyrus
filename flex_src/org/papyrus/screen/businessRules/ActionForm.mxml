@@ -6,8 +6,6 @@
 	 			import org.papyrus.components.containers.ConditionComparableScreen;
 	 			import org.papyrus.model.MailNotification;
 	 			import mx.managers.PopUpManager;
-	 			import org.papyrus.screen.incident.WorkOrderForm;
-	 			import org.papyrus.model.WorkOrder;
 	 			import org.papyrus.model.Action;
 	 			import mx.collections.ArrayCollection;
 	 			

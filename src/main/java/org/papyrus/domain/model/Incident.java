@@ -60,8 +60,6 @@ public class Incident implements ConditionComparable {
 	@OneToMany(mappedBy = "incident")
 	private List<Detail> details;
 
-	// @OneToMany(mappedBy = "incident")
-	// private List<WorkOrder> workOrders;
 	@OneToMany
 	private List<Attachment> attachments;
 
@@ -220,13 +218,5 @@ public class Incident implements ConditionComparable {
 		this.setOpenedDate(new Date());
 		this.setPriority(this.client.getPriority());
 		this.calculateDueDate();
-	}
-
-	public void assignTo(Staff staff) {
-		this.responsable = staff;
-	}
-
-	public void close() {
-		this.status = IncidentStatus.CLOSED;
 	}
 }
