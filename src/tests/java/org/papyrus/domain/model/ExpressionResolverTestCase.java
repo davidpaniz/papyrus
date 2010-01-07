@@ -14,10 +14,10 @@ public class ExpressionResolverTestCase {
 
 	@Test
 	public void testWithSubAttribute() {
-		Client client = new Client();
+		User client = new User();
 		client.setEmail("a@a.com");
 		Incident incident = new Incident();
-		incident.setClient(client);
+		incident.setRequester(client);
 
 		Assert.assertEquals("a@a.com", new ExpressionResolver(incident, null).valueOf("#{client.email}"));
 	}
@@ -40,11 +40,11 @@ public class ExpressionResolverTestCase {
 
 	@Test
 	public void testWithTwoExpressionsAndText() {
-		Client client = new Client();
+		User client = new User();
 		client.setName("David Paniz");
 		Incident incident = new Incident();
 		incident.setDescription("Testing");
-		incident.setClient(client);
+		incident.setRequester(client);
 
 		Assert.assertEquals(
 				"Client: David Paniz opened incident: Testing",

@@ -10,8 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,7 +22,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "User_Seq")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 	@Id
 	@GeneratedValue(generator = "User_Seq", strategy = GenerationType.AUTO)
@@ -37,6 +35,12 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	@ManyToOne
+	private Priority priority;
+
+	@ManyToOne
+	private Company company;
 
 	public long getId() {
 		return id;
@@ -84,6 +88,22 @@ public class User {
 
 	public Role getRole() {
 		return role;
+	}
+
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
+
+	public Priority getPriority() {
+		return priority;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Company getCompany() {
+		return company;
 	}
 
 }

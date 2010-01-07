@@ -3,7 +3,13 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Date;
+import java.util.List;
+
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.User;
+import org.papyrus.domain.repository.IncidentRepository;
 import org.papyrus.domain.repository.UserRepository;
 import org.papyrus.infra.http.DoesntRequiresLogin;
 import org.papyrus.infra.http.SessionManager;
@@ -21,11 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImp implements UserService {
 	private final UserRepository userRepository;
 	private final SessionManager sessionManager;
+	private final IncidentRepository incidentRepository;
 
 	@Autowired
-	public UserServiceImp(UserRepository userRepository, SessionManager sessionManager) {
+	public UserServiceImp(UserRepository userRepository, SessionManager sessionManager,
+			IncidentRepository incidentRepository) {
 		this.userRepository = userRepository;
 		this.sessionManager = sessionManager;
+		this.incidentRepository = incidentRepository;
 	}
 
 	@DoesntRequiresLogin
@@ -44,4 +53,41 @@ public class UserServiceImp implements UserService {
 		sessionManager.removeUser();
 	}
 
+	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception {
+		List<Incident> inicidents = incidentRepository.listUserInicidents(sessionManager.getLoggedUser(),
+				incidentStatus, inicialDate, endDate);
+		for (Incident incident : inicidents) {
+			incident.setAttachments(null);
+		}
+		return inicidents;
+	}
+
+	public List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception {
+		List<Incident> inicidents = incidentRepository.listAllIncidents(incidentStatus, inicialDate, endDate);
+		for (Incident incident : inicidents) {
+			incident.setAttachments(null);
+		}
+		return inicidents;
+	}
+
+	public List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
+			throws Exception {
+		List<Incident> inicidents = incidentRepository.listIncidentsAssignedTo(sessionManager.getLoggedUser(),
+				incidentStatus, inicialDate, endDate);
+		for (Incident incident : inicidents) {
+			incident.setAttachments(null);
+		}
+		return inicidents;
+	}
+
+	public User deleteUser(User user) throws Exception {
+		return userRepository.remove(user);
+	}
+
+	public List<User> listClient() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

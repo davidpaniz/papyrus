@@ -39,7 +39,7 @@
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
 				incident.category = cbCategory.selectedItem as Category;
-				incident.client = Model.inst().user as Client;
+				incident.requester = Model.inst().user;
 				incident.status = cbStatus.selectedItem as String;
 				incident.details ||= new ArrayCollection();
 				var detail:Detail = new Detail();
@@ -123,16 +123,16 @@
 			<mx:TextInput id="txtId" text="{_incident.id.toString()}" width="100%" editable="false" enabled="false" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('incident', 'status')}:" width="345">
-			<enum:IncidentStatusComboBox id="cbStatus" text="{_incident.status}" width="100%" editable="false" enabled="false" />
+			<enum:IncidentStatusComboBox id="cbStatus" selectedItem="{_incident.status}" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
 			<mx:TextInput id="txtDs" text="{_incident.description}" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'category')}:" width="345">
-			<combobox:CategoryChildComboBox id="cbCategory" text="{_incident.category}" editable="{_incident != null}" width="100%" />
+			<combobox:CategoryChildComboBox id="cbCategory" selectedItem="{_incident.category}" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'staff')}:" width="345">
-			<combobox:StaffComboBox id="cbStaff" text="{_incident.responsable}" width="100%" editable="false"  enabled="false" />
+			<combobox:StaffComboBox id="cbStaff" selectedItem="{_incident.responsable}" width="100%" />
 		</mx:FormItem>
 		<mx:Repeater id="rpDetail" dataProvider="{_incident.details}" >
 			<incident:DetailBox detail="{(rpDetail.currentItem as Detail)}" />			

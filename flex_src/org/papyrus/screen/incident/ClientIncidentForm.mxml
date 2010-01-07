@@ -39,7 +39,7 @@
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
 				incident.category = cbCategory.selectedItem as Category;
-				incident.client = Model.inst().user as Client;
+				incident.requester = Model.inst().user as Client;
 				incident.status = cbStatus.selectedItem as String;
 				incident.details ||= new ArrayCollection();
 				var detail:Detail = new Detail();

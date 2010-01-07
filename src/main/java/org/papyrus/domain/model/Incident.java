@@ -35,9 +35,10 @@ public class Incident implements ConditionComparable {
 	private long id;
 
 	@ManyToOne
-	private Client client;
+	private User requester;
+
 	@ManyToOne
-	private Staff responsable;
+	private User responsable;
 
 	private String description;
 	private String resolution;
@@ -116,14 +117,6 @@ public class Incident implements ConditionComparable {
 		this.dueDate = dueDate;
 	}
 
-	// public List<WorkOrder> getWorkOrders() {
-	// return workOrders;
-	// }
-
-	// public void setWorkOrders(List<WorkOrder> workOrders) {
-	// this.workOrders = workOrders;
-	// }
-
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
@@ -176,22 +169,6 @@ public class Incident implements ConditionComparable {
 		return category;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setResponsable(Staff responsable) {
-		this.responsable = responsable;
-	}
-
-	public Staff getResponsable() {
-		return responsable;
-	}
-
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
@@ -216,7 +193,23 @@ public class Incident implements ConditionComparable {
 
 	public void fillIncidentDataOnCreate() {
 		this.setOpenedDate(new Date());
-		this.setPriority(this.client.getPriority());
+		this.setPriority(this.requester.getPriority());
 		this.calculateDueDate();
+	}
+
+	public User getRequester() {
+		return requester;
+	}
+
+	public void setRequester(User requester) {
+		this.requester = requester;
+	}
+
+	public User getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(User responsable) {
+		this.responsable = responsable;
 	}
 }

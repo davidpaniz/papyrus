@@ -7,12 +7,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 import org.papyrus.domain.model.Category;
-import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Company;
 import org.papyrus.domain.model.Impact;
 import org.papyrus.domain.model.Priority;
 import org.papyrus.domain.model.Role;
-import org.papyrus.domain.model.Staff;
 import org.papyrus.domain.model.Urgency;
 import org.papyrus.domain.model.User;
 
@@ -33,15 +31,15 @@ public class Bootstrap {
 		company.setName("Example Company");
 		session.save(company);
 
-		User admin = new Staff();
+		User admin = new User();
 		setValuesToUser(admin, "Admin", true, "a@a.com", "123", Role.ADMIN);
 		session.save(admin);
 
-		User staff = new Staff();
+		User staff = new User();
 		setValuesToUser(staff, "Staff", true, "s@a.com", "123", Role.STAFF);
 		session.save(staff);
 
-		User client = new Client();
+		User client = new User();
 		setValuesToUser(client, "Cliente", true, "c@a.com", "123", Role.CLIENT);
 		session.save(client);
 
@@ -159,4 +157,8 @@ public class Bootstrap {
 		user.setRole(role);
 	}
 
+	public static void main(String... args) throws IOException {
+		Bootstrap bootstrap = new Bootstrap(new HibernateUtils(new PropertiesLoader()));
+		bootstrap.loadBootstrap();
+	}
 }

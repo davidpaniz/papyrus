@@ -11,7 +11,6 @@ import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.Attachment;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Category;
-import org.papyrus.domain.model.Client;
 import org.papyrus.domain.model.Company;
 import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Detail;
@@ -19,7 +18,6 @@ import org.papyrus.domain.model.Impact;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.Priority;
-import org.papyrus.domain.model.Staff;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.TemplateValue;
 import org.papyrus.domain.model.Urgency;
@@ -64,9 +62,7 @@ public class HibernateUtils {
 				.addAnnotatedClass(MailNotification.class)
 				.addAnnotatedClass(Task.class)
 				.addAnnotatedClass(Company.class)
-				.addAnnotatedClass(Client.class)
 				.addAnnotatedClass(Category.class)
-				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Detail.class);
 		return config;
 	}

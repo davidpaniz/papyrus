@@ -1,5 +1,7 @@
 package org.papyrus.domain.repository;
 
+import java.util.List;
+
 import org.papyrus.domain.model.User;
 
 /**
@@ -17,5 +19,11 @@ public interface UserRepository {
 	 */
 	User save(User user);
 
+	User remove(User user);
+
 	User login(User user);
+
+	List<User> listStaffs();
+
+	List<User> listClients();
 }
