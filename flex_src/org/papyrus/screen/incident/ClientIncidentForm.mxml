@@ -9,11 +9,9 @@
 			
 			import org.papyrus.components.notification.NotificatorManager;
 			import org.papyrus.model.Category;
-			import org.papyrus.model.Client;
 			import org.papyrus.model.Detail;
 			import org.papyrus.model.Incident;
 			import org.papyrus.model.Model;
-			import org.papyrus.model.Staff;
 			import org.papyrus.model.User;
 			import org.papyrus.services.IncidentService;
 			
@@ -39,7 +37,7 @@
 				incident.id = new Number(txtId.text);
 				incident.description   = txtDs.text;
 				incident.category = cbCategory.selectedItem as Category;
-				incident.requester = Model.inst().user as Client;
+				incident.requester = Model.inst().user;
 				incident.status = cbStatus.selectedItem as String;
 				incident.details ||= new ArrayCollection();
 				var detail:Detail = new Detail();
@@ -90,7 +88,7 @@
 				var incident:Incident = _incident ? _incident : new Incident();
 				incident.id = new Number(txtId.text);
 				//TODO fix selected User
-				var staff:Staff =  new Staff();
+				var staff:User =  new User();
 				staff.id = 2;
 				new IncidentService(onResultSave).assignIncident(incident, staff);
 			}

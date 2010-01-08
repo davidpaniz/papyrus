@@ -11,7 +11,6 @@
 	 			import mx.controls.Alert;
 	 			import mx.formatters.DateFormatter;
 	 			import org.papyrus.model.BusinessRule;
-	 			import org.papyrus.services.ClientService;
 	 			import mx.collections.ArrayCollection;
 	 			
 	 			[Bindable]

@@ -9,6 +9,8 @@ package org.papyrus.model
 		public var name:String;
 		public var password:String;
 		public var active:Boolean;
+		public var company:Company;
+		public var priority:Priority;
 		
 		public var role:String;
 		

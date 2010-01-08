@@ -3,6 +3,7 @@ package org.papyrus.services
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	
+	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -42,7 +43,7 @@ package org.papyrus.services
 		public function logoutUserResult( event:ResultEvent ):void
 		{
 			Model.inst().user = null;
-			//força refresh
+			//force refresh
 			navigateToURL(  new URLRequest( "/papyrus" ), "_self" );
 
 		}
@@ -61,5 +62,69 @@ package org.papyrus.services
 		{
 			return getLSO().data.user;
 		}
+		
+		public function listMyIncidents(status:String, initialDate:Date, endDate:Date):void
+		{
+			service.listMyIncidents( status, initialDate, endDate );
+		}
+		
+		public function listMyIncidentsResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as ArrayCollection);
+		}
+		
+		public function listAllIncidents(status:String, initialDate:Date, endDate:Date):void
+		{
+			service.listAllIncidents(status, initialDate, endDate );
+		}
+		public function listAllIncidentsResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as ArrayCollection);
+		}
+		
+		public function listIncidentsAssignedToMe(status:String, initialDate:Date, endDate:Date):void
+		{
+			service.listIncidentsAssignedToMe(status, initialDate, endDate );
+		}
+		public function listIncidentsAssignedToMeResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as ArrayCollection);
+		}		
+		
+		public function listAllStaffs():void
+		{
+			service.listAllStaffs( );
+		}
+		public function listAllStaffsResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as ArrayCollection);
+		}		
+		
+		public function listAllClients():void
+		{
+			service.listAllClients( );
+		}
+		public function listAllClientsResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as ArrayCollection);
+		}		
+		
+		public function saveUser(user:User):void
+		{
+			service.saveUser( user );
+		}
+		public function saveUserResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as User);
+		}		
+		
+		public function deleteUser(user:User):void
+		{
+			service.deleteUser( user );
+		}
+		public function deleteUserResult( event:ResultEvent ):void
+		{
+			callBackFunction( event.result as User);
+		}		
 	}
 }

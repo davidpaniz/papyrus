@@ -9,11 +9,9 @@
 			
 			import org.papyrus.components.notification.NotificatorManager;
 			import org.papyrus.model.Category;
-			import org.papyrus.model.Client;
 			import org.papyrus.model.Detail;
 			import org.papyrus.model.Incident;
 			import org.papyrus.model.Model;
-			import org.papyrus.model.Staff;
 			import org.papyrus.model.User;
 			import org.papyrus.services.IncidentService;
 			

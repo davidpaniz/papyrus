@@ -53,8 +53,7 @@ public class UserServiceImp implements UserService {
 		sessionManager.removeUser();
 	}
 
-	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
-			throws Exception {
+	public List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) {
 		List<Incident> inicidents = incidentRepository.listUserInicidents(sessionManager.getLoggedUser(),
 				incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
@@ -72,8 +71,7 @@ public class UserServiceImp implements UserService {
 		return inicidents;
 	}
 
-	public List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
-			throws Exception {
+	public List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate) {
 		List<Incident> inicidents = incidentRepository.listIncidentsAssignedTo(sessionManager.getLoggedUser(),
 				incidentStatus, inicialDate, endDate);
 		for (Incident incident : inicidents) {
@@ -82,12 +80,15 @@ public class UserServiceImp implements UserService {
 		return inicidents;
 	}
 
-	public User deleteUser(User user) throws Exception {
+	public User deleteUser(User user) {
 		return userRepository.remove(user);
 	}
 
-	public List<User> listClient() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> listAllClients() {
+		return userRepository.listClients();
+	}
+
+	public List<User> listAllStaffs() {
+		return userRepository.listStaffs();
 	}
 }

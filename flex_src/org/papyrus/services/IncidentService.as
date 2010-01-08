@@ -4,7 +4,7 @@ package org.papyrus.services
 	import mx.rpc.events.ResultEvent;
 	
 	import org.papyrus.model.Incident;
-	import org.papyrus.model.Staff;
+	import org.papyrus.model.User;
 
 	public class IncidentService extends Service
 	{
@@ -60,9 +60,9 @@ package org.papyrus.services
 			callBackFunction(event.result as Incident);
 		}
 		
-		public function assignIncident( incident:Incident, staff:Staff ):void
+		public function assignIncident( incident:Incident, user:User ):void
 		{
-			service.assignIncident( incident, staff );
+			service.assignIncident( incident, user );
 		}
 		
 		public function assignIncidentResult( event:ResultEvent ):void

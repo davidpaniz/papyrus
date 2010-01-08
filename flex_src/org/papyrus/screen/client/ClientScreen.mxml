@@ -3,32 +3,30 @@
 	 width="488" height="384"  show="getList()" xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Priority;
-	 			import org.papyrus.model.Company;
-			import org.papyrus.services.Service;
-			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.ClientService;
-			import org.papyrus.model.Client;
 			import mx.collections.ArrayCollection;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.Company;
+			import org.papyrus.model.Priority;
+			import org.papyrus.model.User;
+			import org.papyrus.services.UserService;
 			[Bindable]
 			private var listClients:ArrayCollection;
-			private var client:Client;
+			private var client:User;
 			
 			private function save():void
 			{
-				this.client = new Client();
+				this.client = new User();
 				this.client.id   = new Number(txtId.text);
 				this.client.name   = txtName.text;
 				this.client.email   = txtEmail.text;
 				this.client.company = cbCompany.selectedItem as Company;
 				this.client.priority = cbPriority.selectedItem as Priority;
-				new ClientService(onResultSave).saveClient(client);
+				new UserService(onResultSave).saveUser(client);
 			}
 			
-			private function onResultSave(client:Client):void
+			private function onResultSave(client:User):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -37,14 +35,14 @@
 			private function remove():void
 			{
 				if (dg.selectedItem != null) {
-					client = dg.selectedItem as Client;
-					new ClientService(onResultRemove).deleteClient(client);
+					client = dg.selectedItem as User;
+					new UserService(onResultRemove).deleteUser(client);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
 			}
 			
-			private function onResultRemove(client:Client):void
+			private function onResultRemove(client:User):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -53,7 +51,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new ClientService(onResultGetList).listClient();
+				new UserService(onResultGetList).listAllClients();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void
@@ -70,11 +68,11 @@
 			private function populateForm():void
 			{
 				if(dg.selectedItem != null) {
-					txtId.text = (dg.selectedItem as Client).id.toString();
-					txtName.text = (dg.selectedItem as Client).name;
-					txtEmail.text = (dg.selectedItem as Client).email;
-					cbCompany.selectedItem = (dg.selectedItem as Client).company;
-					cbPriority.selectedItem = (dg.selectedItem as Client).priority;
+					txtId.text = (dg.selectedItem as User).id.toString();
+					txtName.text = (dg.selectedItem as User).name;
+					txtEmail.text = (dg.selectedItem as User).email;
+					cbCompany.selectedItem = (dg.selectedItem as User).company;
+					cbPriority.selectedItem = (dg.selectedItem as User).priority;
 				}
 				showForm();
 			}
@@ -119,21 +117,21 @@
 		<mx:FormHeading label="{resourceManager.getString('general', 'client')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput width="100%" id="txtId"
-				text="{Client(dg.selectedItem).id}" editable="false" enabled="false"/>
+				text="{User(dg.selectedItem).id}" editable="false" enabled="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('client', 'name')}:" width="345">
 			<mx:TextInput width="100%" id="txtName"
-				text="{Client(dg.selectedItem).name}"/>
+				text="{User(dg.selectedItem).name}"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('client', 'email')}:" width="345">
 			<mx:TextInput width="100%" id="txtEmail"
-				text="{Client(dg.selectedItem).email}"/>
+				text="{User(dg.selectedItem).email}"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('client', 'company')}:" width="345">
-			<combobox:CompanyComboBox id="cbCompany" selectedItem="{Client(dg.selectedItem).company}" width="100%" />
+			<combobox:CompanyComboBox id="cbCompany" selectedItem="{User(dg.selectedItem).company}" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
-			<combobox:PriorityComboBox id="cbPriority" selectedItem="{Client(dg.selectedItem).priority}" width="100%" />
+			<combobox:PriorityComboBox id="cbPriority" selectedItem="{User(dg.selectedItem).priority}" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

@@ -6,14 +6,14 @@
 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.Incident;
-			import org.papyrus.services.StaffService;
+			import org.papyrus.services.UserService;
 			
 			private function listAllIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
-				new StaffService(handler).listAllIncidents(status, initialDate, endDate);				
+				new UserService(handler).listAllIncidents(status, initialDate, endDate);				
 			}
 			
 			private function listMyIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
-				new StaffService(handler).listIncidentsAssignedToMe(status, initialDate, endDate);				
+				new UserService(handler).listIncidentsAssignedToMe(status, initialDate, endDate);				
 			}
 			
 			private function openIncident(incident:Incident):void {

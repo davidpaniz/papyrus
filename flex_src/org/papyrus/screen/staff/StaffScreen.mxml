@@ -3,29 +3,26 @@
 	 width="488" height="384"  show="getList()" xmlns:combobox="org.papyrus.components.combobox.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Company;
-			import org.papyrus.services.Service;
-			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.StaffService;
-			import org.papyrus.model.Staff;
 			import mx.collections.ArrayCollection;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.User;
+			import org.papyrus.services.UserService;
 			[Bindable]
 			private var listStaff:ArrayCollection;
-			private var staff:Staff;
+			private var staff:User;
 			
 			private function save():void
 			{
-				this.staff = new Staff();
+				this.staff = new User();
 				this.staff.id   = new Number(txtId.text);
 				this.staff.name   = txtName.text;
 				this.staff.email   = txtEmail.text;
-				new StaffService(onResultSave).saveStaff(staff);
+				new UserService(onResultSave).saveUser(staff);
 			}
 			
-			private function onResultSave(staff:Staff):void
+			private function onResultSave(staff:User):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -34,14 +31,14 @@
 			private function remove():void
 			{
 				if (dg.selectedItem != null) {
-					staff = dg.selectedItem as Staff;
-					new StaffService(onResultRemove).deleteStaff(staff);
+					staff = dg.selectedItem as User;
+					new UserService(onResultRemove).deleteUser(staff);
 				} else {
 					Alert.show(resourceManager.getString('general', 'save_successfully'));
 				}
 			}
 			
-			private function onResultRemove(staff:Staff):void
+			private function onResultRemove(staff:User):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
 				getList();
@@ -50,7 +47,7 @@
 			private function getList():void
 			{
 				hideForm();
-				new StaffService(onResultGetList).listStaff();
+				new UserService(onResultGetList).listAllStaffs();
 			}
 			
 			private function onResultGetList(list:ArrayCollection):void
@@ -67,9 +64,9 @@
 			private function populateForm():void
 			{
 				if(dg.selectedItem != null) {
-					txtId.text = (dg.selectedItem as Staff).id.toString();
-					txtName.text = (dg.selectedItem as Staff).name;
-					txtEmail.text = (dg.selectedItem as Staff).email;
+					txtId.text = (dg.selectedItem as User).id.toString();
+					txtName.text = (dg.selectedItem as User).name;
+					txtEmail.text = (dg.selectedItem as User).email;
 				}
 				showForm();
 			}
@@ -112,15 +109,15 @@
 		<mx:FormHeading label="{resourceManager.getString('general', 'staff')}" width="100%"/>
 		<mx:FormItem label="ID:" width="127">
 			<mx:TextInput width="100%" id="txtId"
-				text="{Staff(dg.selectedItem).id}" editable="false" enabled="false"/>
+				text="{User(dg.selectedItem).id}" editable="false" enabled="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('staff', 'name')}:" width="345">
 			<mx:TextInput width="100%" id="txtName"
-				text="{Staff(dg.selectedItem).name}"/>
+				text="{User(dg.selectedItem).name}"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('staff', 'email')}:" width="345">
 			<mx:TextInput width="100%" id="txtEmail"
-				text="{Staff(dg.selectedItem).email}"/>
+				text="{User(dg.selectedItem).email}"/>
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

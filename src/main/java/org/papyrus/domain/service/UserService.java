@@ -21,13 +21,14 @@ public interface UserService {
 
 	User saveUser(User user);
 
-	User deleteUser(User client) throws Exception;
+	User deleteUser(User user);
 
-	List<User> listClient() throws Exception;
+	List<User> listAllStaffs();
 
-	List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) throws Exception;
+	List<User> listAllClients();
 
-	List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate)
-			throws Exception;
+	List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
+
+	List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
 	// List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) throws Exception;
 }

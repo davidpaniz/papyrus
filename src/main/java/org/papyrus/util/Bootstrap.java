@@ -32,15 +32,15 @@ public class Bootstrap {
 		session.save(company);
 
 		User admin = new User();
-		setValuesToUser(admin, "Admin", true, "a@a.com", "123", Role.ADMIN);
+		setValuesToUser(admin, "Admin", true, "a@a.com", "123", company, Role.ADMIN);
 		session.save(admin);
 
 		User staff = new User();
-		setValuesToUser(staff, "Staff", true, "s@a.com", "123", Role.STAFF);
+		setValuesToUser(staff, "Staff", true, "s@a.com", "123", company, Role.STAFF);
 		session.save(staff);
 
 		User client = new User();
-		setValuesToUser(client, "Cliente", true, "c@a.com", "123", Role.CLIENT);
+		setValuesToUser(client, "Cliente", true, "c@a.com", "123", company, Role.CLIENT);
 		session.save(client);
 
 		Urgency lowUrgency = new Urgency();
@@ -149,11 +149,13 @@ public class Bootstrap {
 		priority.setImpact(impact);
 	}
 
-	private void setValuesToUser(User user, String name, boolean active, String email, String password, Role role) {
+	private void setValuesToUser(User user, String name, boolean active, String email, String password,
+			Company company, Role role) {
 		user.setName(name);
 		user.setActive(active);
 		user.setEmail(email);
 		user.setPassword(password);
+		user.setCompany(company);
 		user.setRole(role);
 	}
 
