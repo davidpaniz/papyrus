@@ -61,7 +61,7 @@ public class Incident implements ConditionComparable {
 	@OneToMany(mappedBy = "incident")
 	private List<Detail> details;
 
-	@OneToMany
+	@OneToMany(mappedBy = "incident")
 	private List<Attachment> attachments;
 
 	@ManyToOne

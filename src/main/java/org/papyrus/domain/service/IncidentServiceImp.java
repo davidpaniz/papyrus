@@ -29,26 +29,26 @@ public class IncidentServiceImp implements IncidentService {
 		this.businessRuleService = businessRuleService;
 	}
 
-	public List<Incident> listIncident() throws Exception {
+	public List<Incident> listIncident() {
 		return repository.list();
 	}
 
-	public Incident deleteIncident(Incident incident) throws Exception {
+	public Incident deleteIncident(Incident incident) {
 		return repository.delete(incident);
 	}
 
-	public Incident createIncident(Incident incident) throws Exception {
+	public Incident createIncident(Incident incident) {
 		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
 		incident.fillIncidentDataOnCreate();
+		repository.saveDetails(incident);
 		repository.saveOrUpdate(incident);
 		return incident;
 	}
 
-	public Incident updateIncident(Incident incident) throws Exception {
+	public Incident updateIncident(Incident incident) {
 		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
 		repository.saveDetails(incident);
 		Incident savedIncident = repository.saveOrUpdate(incident);
-		// savedIncident.getDetails();
 		return savedIncident;
 	}
 }

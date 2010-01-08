@@ -12,11 +12,11 @@ import org.papyrus.domain.model.Incident;
  * 
  */
 public interface IncidentService {
-	Incident deleteIncident(Incident incident) throws Exception;
+	Incident deleteIncident(Incident incident);
 
-	Incident createIncident(Incident incident) throws Exception;
+	Incident createIncident(Incident incident);
 
-	Incident updateIncident(Incident incident) throws Exception;
+	Incident updateIncident(Incident incident);
 
-	List<Incident> listIncident() throws Exception;
+	List<Incident> listIncident();
 }

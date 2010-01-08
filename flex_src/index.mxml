@@ -3,9 +3,9 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	layout="horizontal" 
 	xmlns:local="*" 
-	xmlns:screen="org.papyrus.screen.*" xmlns:home="org.papyrus.screen.home.*" xmlns:urgency="org.papyrus.screen.urgency.*"
-	creationComplete="init()" xmlns:impact="org.papyrus.screen.impact.*" xmlns:priority="org.papyrus.screen.priority.*" xmlns:incident="org.papyrus.screen.incident.*" xmlns:businessRules="org.papyrus.screen.businessRules.*"
-	height="100%" width="100%" xmlns:notification="org.papyrus.screen.notification.*" xmlns:company="org.papyrus.screen.company.*" xmlns:client="org.papyrus.screen.client.*" xmlns:category="org.papyrus.screen.category.*" xmlns:staff="org.papyrus.screen.staff.*" xmlns:viewStack="org.papyrus.components.viewStack.*">
+	creationComplete="init()" 
+	height="100%" width="100%"
+	xmlns:home="org.papyrus.screen.home.*">
 	<mx:Metadata>
 		[ResourceBundle("general")]
 		[ResourceBundle("urgency")]
@@ -23,12 +23,12 @@
 
 	<mx:Script>
 		<![CDATA[
-			import mx.controls.VScrollBar;
-			import org.papyrus.model.User;
-			import org.papyrus.model.Model;
-			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.LocaleService;
 			import locale.Locale;
+			
+			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.Model;
+			import org.papyrus.model.User;
+			import org.papyrus.services.LocaleService;
 		
 			[Bindable]
 			private var locales:Array = [ new Locale("en_US", "English (US)") , new Locale("pt_BR", "Portugês Brasil") ];
@@ -97,9 +97,9 @@
 			<mx:ViewStack id="vsHome" width="100%" height="100%" creationPolicy="auto" >
 				<home:Login label="{resourceManager.getString('general', 'login')}" width="100%" loginHandler="loginHandler"/>
 			</mx:ViewStack>
-			<viewStack:AdminViewStack id="vsAdmin" />
-			<viewStack:ClientViewStack id="vsClient" />
-			<viewStack:StaffViewStack id="vsStaff" />
+			<home:AdminViewstack id="vsAdmin" />
+			<home:ClientViewstack id="vsClient" />
+			<home:StaffViewstack id="vsStaff" />
 		</mx:ViewStack>
 	</mx:HDividedBox>
 </mx:Application>

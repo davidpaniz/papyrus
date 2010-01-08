@@ -37,6 +37,4 @@ public interface IncidentRepository {
 	List<Incident> listUserInicidents(User user, IncidentStatus incidentStatus, Date inicialDate, Date endDate);
 
 	void saveDetails(Incident incident);
-
-	// Incident load(Incident incident);
 }

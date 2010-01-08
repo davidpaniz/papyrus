@@ -12,12 +12,6 @@
 				new UserService(handler).listMyIncidents(status, initialDate, endDate);				
 			}
 			
-			
-			
-//			private function openIncident(incident:Incident):void {
-//				new IncidentService(showIncident).loadIncident(incident);
-//			}
-			
 			private function showIncident(incident:Incident):void {
 				selectedChild = incidentForm;
 				incidentForm.incident =  incident;

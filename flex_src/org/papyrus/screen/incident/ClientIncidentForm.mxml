@@ -26,6 +26,9 @@
 			private function save():void
 			{
 				if(_incident) {
+					if(checkShouldClose.selected){
+						cbStatus.selectedItem = "CLOSED";
+					}
 					edit();
 				}else{
 					create();
@@ -139,6 +142,9 @@
 		</mx:Repeater> 
 		<mx:FormItem label="{resourceManager.getString('incident', 'comment')}:" width="345">
 			<mx:TextArea id="txtComment" width="100%" />
+		</mx:FormItem> 
+		<mx:FormItem label="{resourceManager.getString('incident', 'shouldClose')}:" width="345">
+			<mx:CheckBox id="checkShouldClose" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('incident', 'clearForm')}" click="cancel(event)" />

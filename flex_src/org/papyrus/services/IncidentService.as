@@ -25,17 +25,7 @@ package org.papyrus.services
 		{
 			callBackFunction( event.result as ArrayCollection);
 		}
-//		
-//		public function loadIncident( incident:Incident ):void
-//		{
-//			service.createIncident( incident );
-//		}
-//		
-//		public function loadIncidentResult( event:ResultEvent ):void
-//		{
-//			callBackFunction(event.result as Incident);
-//		}
-//		
+		
 		/*************************************
 		 * SAVE
 		 * ***********************************/
