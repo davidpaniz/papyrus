@@ -13,6 +13,10 @@
 			}
 			
 			private function listMyIncidentsSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
+				new UserService(handler).listMyIncidents(status, initialDate, endDate);				
+			}
+			
+			private function listIncidentsIamResponsabelSearch(status:String, initialDate:Date, endDate:Date, handler:Function):void {
 				new UserService(handler).listIncidentsAssignedToMe(status, initialDate, endDate);				
 			}
 			
@@ -26,6 +30,7 @@
 	<incident:StaffIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
 	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="listAllIncidentsSearch" openIncidentFunction="openIncident" />
 	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="listMyIncidentsSearch" openIncidentFunction="openIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'incidents_i_am_responsible')}" searchFunction="listIncidentsIamResponsabelSearch" openIncidentFunction="openIncident" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>	
 </mx:ViewStack>
 
