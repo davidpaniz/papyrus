@@ -19,7 +19,7 @@ public class ExpressionResolverTestCase {
 		Incident incident = new Incident();
 		incident.setRequester(client);
 
-		Assert.assertEquals("a@a.com", new ExpressionResolver(incident, null).valueOf("#{client.email}"));
+		Assert.assertEquals("a@a.com", new ExpressionResolver(incident, null).valueOf("#{requester.email}"));
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class ExpressionResolverTestCase {
 
 		Assert.assertEquals(
 				"Client: David Paniz opened incident: Testing",
-				new ExpressionResolver(incident, null).valueOf("Client: #{client.name} opened incident: #{description}"));
+				new ExpressionResolver(incident, null).valueOf("Client: #{requester.name} opened incident: #{description}"));
 	}
 
 	@Test

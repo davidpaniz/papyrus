@@ -22,7 +22,6 @@
 		<mapping class="org.papyrus.domain.model.Priority" />
 		<mapping class="org.papyrus.domain.model.Incident" />
 		<mapping class="org.papyrus.domain.model.Impact" />
-		<mapping class="org.papyrus.domain.model.WorkOrder" />
 		<mapping class="org.papyrus.domain.model.Attachment" />
 		<mapping class="org.papyrus.domain.model.BusinessRule" />
 		<mapping class="org.papyrus.domain.model.Condition" />
@@ -31,9 +30,7 @@
 		<mapping class="org.papyrus.domain.model.MailNotification" />
 		<mapping class="org.papyrus.domain.model.Task" />
 		<mapping class="org.papyrus.domain.model.Company" />
-		<mapping class="org.papyrus.domain.model.Client" />
 		<mapping class="org.papyrus.domain.model.Category" />
-		<mapping class="org.papyrus.domain.model.Staff" />
 		<mapping class="org.papyrus.domain.model.Detail" />
 	</session-factory>
 </hibernate-configuration>
