@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-		xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*"
 		 width="100%" height="100%" 
-		 xmlns:incident="org.papyrus.screen.incident.*">
+		xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:incident="org.papyrus.screen.incident.*">
 	 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -12,7 +11,6 @@
 			import org.papyrus.model.Detail;
 			import org.papyrus.model.Incident;
 			import org.papyrus.model.Model;
-			import org.papyrus.model.User;
 			import org.papyrus.services.IncidentService;
 			
 			[Bindable]
@@ -73,29 +71,6 @@
 				this._incident = incident;
 			}
 			
-			private function setDefault():void
-			{
-				cleanForm();
-				showForm();
-			}
-
-			private function showForm():void
-			{
-				incidentForm.includeInLayout = true;
-				incidentForm.visible = true;
-				txtDs.setFocus();
-			}
-
-			private function assign():void
-			{
-				var incident:Incident = _incident ? _incident : new Incident();
-				incident.id = new Number(txtId.text);
-				//TODO fix selected User
-				var staff:User =  new User();
-				staff.id = 2;
-				new IncidentService(onResultSave).assignIncident(incident, staff);
-			}
-			
 			private function cleanForm():void
 			{
 				_incident = null;
@@ -107,17 +82,10 @@
 				NotificatorManager.ask(resourceManager.getString('general', 'are_you_sure_clear_form'), cleanForm);
 			}
 			
-			private function isNotNewIncident():Boolean{
-				return this._incident != null;
-			}
-			
 			private function isNotClosedIncident():Boolean{
 				return this._incident.status != 'CLOSED';
 			}
 			
-			private function mayEdit():Boolean{
-				return isNotNewIncident() && isNotClosedIncident();
-			}
 		]]>
 	</mx:Script>
 	<mx:Form id="incidentForm" width="100%" height="100%" defaultButton="{btSalvar}" >
