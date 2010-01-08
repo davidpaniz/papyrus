@@ -88,7 +88,7 @@ public class IncidentDao implements IncidentRepository {
 	public List<Incident> listUserInicidents(User user, IncidentStatus status, Date inicialDate, Date endDate) {
 		Criteria criteria = createIncidentBaseCriteria(status, inicialDate, endDate);
 
-		criteria.add(Restrictions.eq("client", user));
+		criteria.add(Restrictions.eq("requester", user));
 
 		return criteria.list();
 	}
@@ -108,10 +108,4 @@ public class IncidentDao implements IncidentRepository {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria;
 	}
-
-	// public Incident load(Incident incident) {
-	// template.refresh(incident);
-	// incident.getDetails();
-	// return incident;
-	// }
 }
