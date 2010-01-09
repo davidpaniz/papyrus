@@ -117,30 +117,37 @@ public class BusinessRule {
 		return type;
 	}
 
+	/**
+	 * 
+	 * @param oldValue
+	 * @param newValue
+	 * @return the boolean result of execution condition chain
+	 */
 	public boolean shouldExecute(ConditionComparable oldValue, ConditionComparable newValue) {
-		boolean result = false;
-		// TODO refactoring plz. Documentation too!
 		Condition before = null;
-		for (int i = 0; i < conditions.size(); i++) {
+		// keep the result of execution of the first condition
+		boolean result = conditions.get(0)
+				.test(oldValue, newValue);
+
+		// iteration start on 1 couse the first one was evaluated before looping
+		for (int i = 1; i < conditions.size(); i++) {
 			Condition condition = conditions.get(i);
+			// evaluate the current condition
 			boolean conditionResult = condition.test(oldValue, newValue);
-			if (i == 0) {
-				result = conditionResult;
-			} else {
-				if (before.getLogicalOperator() == ConditionLogicalOperator.OR) {
-					result = result || conditionResult;
-				} else {
-					result = result && conditionResult;
-				}
-			}
+
+			// next result will be the current result comparated (by the logical operator of the last condition) with
+			// the result of the current condition and stored as the new result
+			result = before.getLogicalOperator()
+					.compare(result, conditionResult);
 			before = condition;
 		}
 
+		// return the stored result
 		return result;
 	}
 
 	public Calendar calculateDate() {
-		// FIXME should implement method
+		// TODO should implement method when implements tasks scheduling
 		return Calendar.getInstance();
 	}
 

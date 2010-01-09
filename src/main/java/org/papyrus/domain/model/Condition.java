@@ -47,23 +47,12 @@ public class Condition {
 		return businessRule;
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean test(ConditionComparable oldValue, ConditionComparable newValue) {
 		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
 		Object firstParam = resolver.valueOf(expression1);
 		Object secondParam = resolver.valueOf(expression2);
 
-		if (this.comparisonOperator == ConditionComparisonOperator.EQ) {
-			return firstParam.equals(secondParam);
-		} else if (this.comparisonOperator == ConditionComparisonOperator.NEQ) {
-			return !firstParam.equals(secondParam);
-		} else if (this.comparisonOperator == ConditionComparisonOperator.GT) {
-			return ((Comparable) firstParam).compareTo((secondParam)) > 0;
-		} else if (this.comparisonOperator == ConditionComparisonOperator.LT) {
-			return ((Comparable) firstParam).compareTo((secondParam)) < 0;
-		}
-
-		return false;
+		return this.comparisonOperator.compare(firstParam, secondParam);
 	}
 
 	public String getExpression1() {

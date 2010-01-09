@@ -40,8 +40,7 @@ public class Incident implements ConditionComparable {
 	@ManyToOne
 	private User responsable;
 
-	private String description;
-	private String resolution;
+	private String title;
 
 	@ManyToOne
 	private Priority priority;
@@ -68,22 +67,6 @@ public class Incident implements ConditionComparable {
 	private Category category;
 
 	private boolean template = false;
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getResolution() {
-		return resolution;
-	}
-
-	public void setResolution(String resolution) {
-		this.resolution = resolution;
-	}
 
 	public IncidentStatus getStatus() {
 		return status;
@@ -211,5 +194,13 @@ public class Incident implements ConditionComparable {
 
 	public void setResponsable(User responsable) {
 		this.responsable = responsable;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

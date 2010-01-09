@@ -77,7 +77,7 @@
 		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="doubleClickHandler()">
 			<mx:columns>
 				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'openedDate')}" dataField="openedDate" labelFunction="formatDate" sortDescending="true"/>
-				<mx:DataGridColumn headerText="{resourceManager.getString('general', 'incident')}" dataField="description" />
+				<mx:DataGridColumn headerText="{resourceManager.getString('general', 'incident')}" dataField="title" />
 				<mx:DataGridColumn headerText="{resourceManager.getString('incident', 'status')}" dataField="status" labelFunction="statusLabelFunction"/>
 			</mx:columns>
 		</mx:DataGrid>

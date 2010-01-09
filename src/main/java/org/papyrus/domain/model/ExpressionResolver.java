@@ -66,15 +66,14 @@ public class ExpressionResolver {
 	private Object resolveExpression(String expression) {
 		// TODO what should return if attribute does not exist?
 		if (expression.indexOf("#") >= 0) {
-			return getValue(oldValue, removeBracket(expression));
+			return getValue(oldValue, removeBraces(expression));
 		} else if (expression.indexOf("$") >= 0) {
-			return getValue(newValue, removeBracket(expression));
+			return getValue(newValue, removeBraces(expression));
 		}
 		return expression;
 	}
 
-	private String removeBracket(String expression) {
-		// FIXME I don't remeber how to say '{' in english, so I use bracket. Rename please!
+	private String removeBraces(String expression) {
 		return expression.substring(2, expression.length() - 1);
 	}
 

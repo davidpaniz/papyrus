@@ -7,9 +7,9 @@ public class ExpressionResolverTestCase {
 	@Test
 	public void testWithSimpleAttribute() {
 		Incident incident = new Incident();
-		incident.setDescription("a");
+		incident.setTitle("a");
 
-		Assert.assertEquals("a", new ExpressionResolver(incident, null).valueOf("#{description}"));
+		Assert.assertEquals("a", new ExpressionResolver(incident, null).valueOf("#{title}"));
 	}
 
 	@Test
@@ -25,17 +25,17 @@ public class ExpressionResolverTestCase {
 	@Test
 	public void testWithTextAndSelector() {
 		Incident incident = new Incident();
-		incident.setDescription("a");
+		incident.setTitle("a");
 
-		Assert.assertEquals("Bla - a", new ExpressionResolver(incident, null).valueOf("Bla - #{description}"));
+		Assert.assertEquals("Bla - a", new ExpressionResolver(incident, null).valueOf("Bla - #{title}"));
 	}
 
 	@Test
 	public void testWithTextAndSelectorWithTextInTheEnd() {
 		Incident incident = new Incident();
-		incident.setDescription("a");
+		incident.setTitle("a");
 
-		Assert.assertEquals("aTesting", new ExpressionResolver(incident, null).valueOf("#{description}Testing"));
+		Assert.assertEquals("aTesting", new ExpressionResolver(incident, null).valueOf("#{title}Testing"));
 	}
 
 	@Test
@@ -43,12 +43,11 @@ public class ExpressionResolverTestCase {
 		User client = new User();
 		client.setName("David Paniz");
 		Incident incident = new Incident();
-		incident.setDescription("Testing");
+		incident.setTitle("Testing");
 		incident.setRequester(client);
 
-		Assert.assertEquals(
-				"Client: David Paniz opened incident: Testing",
-				new ExpressionResolver(incident, null).valueOf("Client: #{requester.name} opened incident: #{description}"));
+		Assert.assertEquals("Client: David Paniz opened incident: Testing",
+				new ExpressionResolver(incident, null).valueOf("Client: #{requester.name} opened incident: #{title}"));
 	}
 
 	@Test
@@ -62,26 +61,24 @@ public class ExpressionResolverTestCase {
 	@Test
 	public void testWithNewValue() {
 		Incident incident = new Incident();
-		incident.setDescription("bla");
+		incident.setTitle("bla");
 
-		Assert.assertEquals("bla", new ExpressionResolver(null, incident).valueOf("${description}"));
+		Assert.assertEquals("bla", new ExpressionResolver(null, incident).valueOf("${title}"));
 	}
 
 	@Test
 	public void testWithOldAndNewValues() {
 		Incident incident = new Incident();
-		incident.setDescription("bla");
+		incident.setTitle("bla");
 
-		Assert.assertEquals("bla = bla",
-				new ExpressionResolver(incident, incident).valueOf("${description} = #{description}"));
+		Assert.assertEquals("bla = bla", new ExpressionResolver(incident, incident).valueOf("${title} = #{title}"));
 	}
 
 	@Test
 	public void testWithOldAndNewValuesInAnotherOrder() {
 		Incident incident = new Incident();
-		incident.setDescription("bla");
+		incident.setTitle("bla");
 
-		Assert.assertEquals("bla = bla",
-				new ExpressionResolver(incident, incident).valueOf("#{description} = ${description}"));
+		Assert.assertEquals("bla = bla", new ExpressionResolver(incident, incident).valueOf("#{title} = ${title}"));
 	}
 }

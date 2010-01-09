@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:ViewStack xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:home="org.papyrus.screen.home.*" xmlns:incident="org.papyrus.screen.incident.*"
 	 width="100%" height="100%" 
-	 creationPolicy="auto" 
+	 creationPolicy="all" 
 	 >
 	<mx:Script>
 		<![CDATA[
@@ -20,17 +20,17 @@
 				new UserService(handler).listIncidentsAssignedToMe(status, initialDate, endDate);				
 			}
 			
-			private function openIncident(incident:Incident):void {
+			private function showIncident(incident:Incident):void {
 				selectedChild = incidentForm;
-				incidentForm.incident = incident;
+				incidentForm.incident =  incident;
 			}
 		]]>
 	</mx:Script>	 
 	<home:Welcome label="{resourceManager.getString('general', 'home')}" width="100%" height="100%"  />
 	<incident:StaffIncidentForm id="incidentForm" label="{resourceManager.getString('general', 'open_incident')}" />
-	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="listAllIncidentsSearch" openIncidentFunction="openIncident" />
-	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="listMyIncidentsSearch" openIncidentFunction="openIncident" />
-	<incident:IncidentList label="{resourceManager.getString('general', 'incidents_i_am_responsible')}" searchFunction="listIncidentsIamResponsabelSearch" openIncidentFunction="openIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'incidents')}" searchFunction="listAllIncidentsSearch" openIncidentFunction="showIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'my_incidents')}" searchFunction="listMyIncidentsSearch" openIncidentFunction="showIncident" />
+	<incident:IncidentList label="{resourceManager.getString('general', 'incidents_i_am_responsible')}" searchFunction="listIncidentsIamResponsabelSearch" openIncidentFunction="showIncident" />
 	<home:Logout label="{resourceManager.getString('general', 'logout')}"/>	
 </mx:ViewStack>
 

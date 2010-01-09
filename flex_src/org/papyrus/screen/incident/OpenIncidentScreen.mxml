@@ -29,7 +29,7 @@
 			{
 				var result:ArrayCollection = new ArrayCollection();
 				result.addItem(TemplateValue.createTemplateValue("id", txtId.text));
-				result.addItem(TemplateValue.createTemplateValue("description", txtDs.text));
+				result.addItem(TemplateValue.createTemplateValue("title", txtTitle.text));
 				
 				return result;
 			}
@@ -38,7 +38,7 @@
 			{
 				var incident:Incident = new Incident();
 				incident.id = new Number(txtId.text);
-				incident.description   = txtDs.text;
+				incident.title   = txtTitle.text;
 				incident.priority = cbPriority.selectedItem as Priority;
 				incident.status = cbStatus.selectedItem.toString();
 				
@@ -77,7 +77,7 @@
 			private function populateForm(incident:Incident):void
 			{
 				cbPriority.selectedItem = incident.priority;
-				txtDs.text = incident.description;
+				txtTitle.text = incident.title;
 				txtId.text = incident.id.toString();
 			}
 			
@@ -85,7 +85,7 @@
 			{
 				incidentForm.includeInLayout = true;
 				incidentForm.visible = true;
-				txtDs.setFocus();
+				txtTitle.setFocus();
 			}
 			
 			private function hideForm(event:MouseEvent):void
@@ -101,7 +101,7 @@
 			private function cleanForm():void
 			{
 				txtId.text = "";
-				txtDs.text = "";
+				txtTitle.text = "";
 				cbPriority.selectedIndex = 0;
 			}
 			
@@ -130,7 +130,7 @@
 			<mx:TextInput id="txtId" width="100%" editable="false" enabled="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'incident')}:" width="345">
-			<mx:TextInput id="txtDs" width="100%" />
+			<mx:TextInput id="txtTitle" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">
 			<combobox:PriorityComboBox width="100%" id="cbPriority" />

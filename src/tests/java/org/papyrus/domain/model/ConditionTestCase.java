@@ -7,13 +7,13 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldReturnTrueWhenExpressionsAreEqualsAndOperatiorIsEQ() {
 		Incident oldValue = new Incident();
-		oldValue.setDescription("a");
+		oldValue.setTitle("a");
 		Incident newValue = new Incident();
-		newValue.setDescription("a");
+		newValue.setTitle("a");
 
 		Condition c = new Condition();
-		c.setExpression1("#{description}");
-		c.setExpression2("${description}");
+		c.setExpression1("#{title}");
+		c.setExpression2("${title}");
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 
 		boolean test = c.test(oldValue, newValue);
@@ -23,13 +23,13 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldReturnFalseWhenExpressionsAreEqualsAndOperatiorIsNEQ() {
 		Incident oldValue = new Incident();
-		oldValue.setDescription("a");
+		oldValue.setTitle("a");
 		Incident newValue = new Incident();
-		newValue.setDescription("a");
+		newValue.setTitle("a");
 
 		Condition c = new Condition();
-		c.setExpression1("#{description}");
-		c.setExpression2("${description}");
+		c.setExpression1("#{title}");
+		c.setExpression2("${title}");
 		c.setComparisonOperator(ConditionComparisonOperator.NEQ);
 
 		boolean test = c.test(oldValue, newValue);
@@ -39,13 +39,13 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldReturnFalseWhenExpressionsAreDifferentAndOperatiorIsEQ() {
 		Incident oldValue = new Incident();
-		oldValue.setDescription("a");
+		oldValue.setTitle("a");
 		Incident newValue = new Incident();
-		newValue.setDescription("b");
+		newValue.setTitle("b");
 
 		Condition c = new Condition();
-		c.setExpression1("#{description}");
-		c.setExpression2("${description}");
+		c.setExpression1("#{title}");
+		c.setExpression2("${title}");
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 
 		boolean test = c.test(oldValue, newValue);
@@ -55,13 +55,13 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldReturnTrueWhenExpressionsAreDifferentAndOperatiorIsNEQ() {
 		Incident oldValue = new Incident();
-		oldValue.setDescription("a");
+		oldValue.setTitle("a");
 		Incident newValue = new Incident();
-		newValue.setDescription("b");
+		newValue.setTitle("b");
 
 		Condition c = new Condition();
-		c.setExpression1("#{description}");
-		c.setExpression2("${description}");
+		c.setExpression1("#{title}");
+		c.setExpression2("${title}");
 		c.setComparisonOperator(ConditionComparisonOperator.NEQ);
 
 		boolean test = c.test(oldValue, newValue);
@@ -71,10 +71,10 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReference() {
 		Incident newValue = new Incident();
-		newValue.setDescription("a");
+		newValue.setTitle("a");
 
 		Condition c = new Condition();
-		c.setExpression1("${description}");
+		c.setExpression1("${title}");
 		c.setExpression2("a");
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 
@@ -85,10 +85,10 @@ public class ConditionTestCase {
 	@Test
 	public void testShouldNotThrowsExceptionWhenNullObjectSentAndExpressionDoesNotUseThisReferenceReturnigFalse() {
 		Incident newValue = new Incident();
-		newValue.setDescription("a");
+		newValue.setTitle("a");
 
 		Condition c = new Condition();
-		c.setExpression1("${description}");
+		c.setExpression1("${title}");
 		c.setExpression2("b");
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 

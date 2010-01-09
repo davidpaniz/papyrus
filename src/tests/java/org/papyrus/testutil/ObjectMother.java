@@ -27,10 +27,9 @@ public class ObjectMother {
 		return user;
 	}
 
-	public Incident createIncident(String description) {
+	public Incident createIncident(String title) {
 		Incident incident = new Incident();
-		incident.setDescription(description);
-		// incident.setWorkOrders(Arrays.asList(workOrders));
+		incident.setTitle(title);
 
 		session.save(incident);
 		session.flush();

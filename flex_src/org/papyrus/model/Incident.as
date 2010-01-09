@@ -9,8 +9,7 @@ package org.papyrus.model
 		public var id:Number;
 		public var requester:User;
 		public var responsable:User;
-		public var description:String;
-		public var resolution:String;
+		public var title:String;
 		public var priority:Priority;
 		public var status:String;
 		public var openedDate:Date;
