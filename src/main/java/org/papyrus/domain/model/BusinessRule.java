@@ -129,7 +129,7 @@ public class BusinessRule {
 		boolean result = conditions.get(0)
 				.test(oldValue, newValue);
 
-		// iteration start on 1 couse the first one was evaluated before looping
+		// iteration starts on 1 because the first one (0) was evaluated before looping
 		for (int i = 1; i < conditions.size(); i++) {
 			Condition condition = conditions.get(i);
 			// evaluate the current condition

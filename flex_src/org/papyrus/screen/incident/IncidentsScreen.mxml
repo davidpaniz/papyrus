@@ -74,7 +74,7 @@
 		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="openIncident()">
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
-				<mx:DataGridColumn headerText="Incident" dataField="description"/>
+				<mx:DataGridColumn headerText="Incident" dataField="title"/>
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:ControlBar horizontalAlign="center">
