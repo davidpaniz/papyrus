@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	i18nName="businessRule">
+	i18nName="businessRule" creationComplete="fillItem();">
 	<mx:Script >
 		<![CDATA[
 			
+			public var type:String = "";
+			
 			override protected function init():void {
 				staticDataProvider.addItem("INCIDENT");
-				staticDataProvider.addItem("WORK_ORDER");
-				staticDataProvider.addItem("MAIL_NOTIFICATION");
+				//staticDataProvider.addItem("MAIL_NOTIFICATION");
 				
 				dataProvider = staticDataProvider;
+			}
+			
+			private function fillItem():void{
+				selectedItem = type;
 			}
 			
 		]]>

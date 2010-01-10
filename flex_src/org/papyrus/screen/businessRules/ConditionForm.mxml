@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*"
-	width="100%">
+	xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
-			import mx.controls.Alert;
-			
 			import org.papyrus.model.Condition;
 			[Bindable]
 			private var _condition:Condition;
@@ -38,13 +35,13 @@
 			<mx:TextInput id="txtId" text="{_condition.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
 			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}:" />
-			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="250" />
+			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="200" />
 			<mx:Spacer />
-			<enum:ComparisonOperatorComboBox id="cbComparison" comparisonOperator="{_condition.comparisonOperator}"/>
+			<enum:ComparisonOperatorComboBox id="cbComparison" comparisonOperator="{_condition.comparisonOperator}" width="100"/>
 			<mx:Spacer />
-			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="250" />
+			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="200" />
 			<mx:Spacer />
-			<enum:LogicalOperatorComboBox id="cbLogical" logicalOperator="{_condition.logicalOperator}"/>
+			<enum:LogicalOperatorComboBox id="cbLogical" logicalOperator="{_condition.logicalOperator}" width="100"/>
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>

@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="100%"  xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
+	 width="488" height="100%" 
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
- 			import org.papyrus.model.Action;
-			import org.papyrus.model.BusinessRule;
-			import org.papyrus.services.Service;
-			import org.papyrus.components.notification.NotificatorManager;
-			import org.papyrus.services.BusinessRuleService;
-			import mx.collections.ArrayCollection;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
-			import mx.controls.Alert;
+ 			import org.papyrus.components.notification.NotificatorManager;
+ 			import org.papyrus.model.BusinessRule;
+ 			import org.papyrus.services.BusinessRuleService;
+			
 			[Bindable]
 			private var _businessRule:BusinessRule;
 			
