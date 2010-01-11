@@ -1,6 +1,6 @@
 package org.papyrus.domain.repository;
 
-import org.papyrus.domain.model.Action;
+import org.papyrus.domain.model.action.Action;
 
 /**
  * @author David Paniz

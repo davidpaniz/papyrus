@@ -19,8 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.joda.time.DateTime;
-import org.papyrus.domain.repository.ConditionComparableRepository;
-import org.papyrus.domain.service.MailService;
 
 /**
  * Entity that represents an Impact
@@ -29,7 +27,7 @@ import org.papyrus.domain.service.MailService;
  */
 @Entity
 @SequenceGenerator(name = "Incident_Seq")
-public class Incident implements ConditionComparable {
+public class Incident {
 	@Id
 	@GeneratedValue(generator = "Incident_Seq", strategy = GenerationType.AUTO)
 	private long id;
@@ -116,10 +114,6 @@ public class Incident implements ConditionComparable {
 		return id;
 	}
 
-	public void execute(MailService mailService, ConditionComparableRepository conditionComparableRepository) {
-		conditionComparableRepository.activeTemplate(this);
-	}
-
 	public void activeTemplate() {
 		this.template = false;
 	}
@@ -169,13 +163,15 @@ public class Incident implements ConditionComparable {
 	}
 
 	public void calculateDueDate() {
-		this.dueDate = new DateTime(this.openedDate).plusSeconds(this.priority.getDuration())
+		this.dueDate = this.priority == null ? null : new DateTime(this.openedDate).plusSeconds(
+				this.priority.getDuration())
 				.toDate();
 
 	}
 
 	public void fillIncidentDataOnCreate() {
 		this.setOpenedDate(new Date());
+		this.setUpdatedAt(new Date());
 		this.setPriority(this.requester.getPriority());
 		this.calculateDueDate();
 	}

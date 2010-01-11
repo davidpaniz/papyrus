@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class TaskDao implements TaskRepository {
 	}
 
 	public List<Task> taskToExecute() {
-		String sql = "from Task t where t.duoDate <= current_timestamp() and t.executed = false";
+		String sql = "from Task t where t.scheduledDate <= current_timestamp() and t.executed = false";
 		return template.find(sql);
 	}
 
@@ -37,7 +37,7 @@ public class TaskDao implements TaskRepository {
 		template.update(task);
 	}
 
-	public List<Task> tasksOf(ConditionComparable conditionComparable) {
+	public List<Task> tasksOf(Incident conditionComparable) {
 		Criteria criteria = template.getSessionFactory()
 				.getCurrentSession()
 				.createCriteria(Task.class);

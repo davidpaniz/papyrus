@@ -1,6 +1,6 @@
 package org.papyrus.infra.hibernate;
 
-import org.papyrus.domain.model.Action;
+import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.repository.ActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

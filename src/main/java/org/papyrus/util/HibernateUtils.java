@@ -7,7 +7,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.Attachment;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Category;
@@ -22,6 +21,7 @@ import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.TemplateValue;
 import org.papyrus.domain.model.Urgency;
 import org.papyrus.domain.model.User;
+import org.papyrus.domain.model.action.Action;
 
 public class HibernateUtils {
 	PropertiesLoader propertiesLoader;

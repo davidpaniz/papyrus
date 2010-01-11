@@ -4,13 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import org.papyrus.domain.model.action.Action;
 
 @Entity
 @SequenceGenerator(name = "Business_Rule_Seq")
@@ -27,9 +27,6 @@ public class BusinessRule {
 	private boolean onCreate;
 	private boolean onUpdate;
 	private boolean onDelete;
-
-	@Enumerated(EnumType.STRING)
-	private BusinessRuleType type;
 
 	@OneToMany(mappedBy = "businessRule")
 	private List<Condition> conditions;
@@ -109,21 +106,13 @@ public class BusinessRule {
 		this.onDelete = onDelete;
 	}
 
-	public void setType(BusinessRuleType type) {
-		this.type = type;
-	}
-
-	public BusinessRuleType getType() {
-		return type;
-	}
-
 	/**
 	 * 
 	 * @param oldValue
 	 * @param newValue
 	 * @return the boolean result of execution condition chain
 	 */
-	public boolean shouldExecute(ConditionComparable oldValue, ConditionComparable newValue) {
+	public boolean shouldExecute(Incident oldValue, Incident newValue) {
 		Condition before = null;
 		// keep the result of execution of the first condition
 		boolean result = conditions.get(0)
@@ -162,7 +151,6 @@ public class BusinessRule {
 		businessRule.onCreate = this.onCreate;
 		businessRule.onDelete = this.onDelete;
 		businessRule.onUpdate = this.onUpdate;
-		businessRule.type = this.type;
 
 		return businessRule;
 	}

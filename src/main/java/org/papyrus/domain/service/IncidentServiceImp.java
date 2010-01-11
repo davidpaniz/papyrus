@@ -3,9 +3,9 @@
  */
 package org.papyrus.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
-import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.repository.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,21 @@ public class IncidentServiceImp implements IncidentService {
 	}
 
 	public Incident deleteIncident(Incident incident) {
+		incident.setUpdatedAt(new Date());
 		return repository.delete(incident);
 	}
 
 	public Incident createIncident(Incident incident) {
-		businessRuleService.executeCreateCondition(BusinessRuleType.INCIDENT, incident);
 		incident.fillIncidentDataOnCreate();
+		businessRuleService.executeCreateCondition(incident);
 		repository.saveDetails(incident);
 		repository.saveOrUpdate(incident);
 		return incident;
 	}
 
 	public Incident updateIncident(Incident incident) {
-		businessRuleService.executeUpdateCondition(BusinessRuleType.INCIDENT, incident);
+		businessRuleService.executeUpdateCondition(incident);
+		incident.setUpdatedAt(new Date());
 		repository.saveDetails(incident);
 		Incident savedIncident = repository.saveOrUpdate(incident);
 		return savedIncident;

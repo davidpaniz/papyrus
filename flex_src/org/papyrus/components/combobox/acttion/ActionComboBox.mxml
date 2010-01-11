@@ -4,19 +4,24 @@
 	i18nName="businessRule" creationComplete="fillItem();">
 	<mx:Script >
 		<![CDATA[
+			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
+			import org.papyrus.screen.businessRules.action.StatusSubForm;
 			
 			public var method:String = "";
 			
 			override protected function init():void {
-				staticDataProvider.addItem("CREATE");
-				staticDataProvider.addItem("UPDATE");
-				staticDataProvider.addItem("DELETE");
+				staticDataProvider.addItem("status");
+				staticDataProvider.addItem("priority");
 				
 				dataProvider = staticDataProvider;
 			}
 			
 			private function fillItem():void{
 				selectedItem = method;
+			}
+			
+			public function getSubForm():SpecificActionSubForm {
+				return new StatusSubForm();
 			}
 		]]>
 	</mx:Script>

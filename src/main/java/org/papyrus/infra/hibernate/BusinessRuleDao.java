@@ -7,11 +7,10 @@ import java.util.List;
 import org.hibernate.classic.Session;
 import org.hibernate.collection.AbstractPersistentCollection;
 import org.hibernate.criterion.Restrictions;
-import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Condition;
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,22 +54,22 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 		return businessRule;
 	}
 
-	public List<BusinessRule> findCreateRules(BusinessRuleType type) {
-		return findRule(type, "onCreate");
+	public List<BusinessRule> findCreateRules() {
+		return findRule("onCreate");
 	}
 
-	public List<BusinessRule> findUpdateRules(BusinessRuleType type) {
-		return findRule(type, "onUpdate");
+	public List<BusinessRule> findUpdateRules() {
+		return findRule("onUpdate");
 	}
 
-	public List<BusinessRule> findDeleteRules(BusinessRuleType type) {
-		return findRule(type, "onDelete");
+	public List<BusinessRule> findDeleteRules() {
+		return findRule("onDelete");
 	}
 
-	private List<BusinessRule> findRule(BusinessRuleType type, String field) {
+	private List<BusinessRule> findRule(String field) {
 		return getSession().createCriteria(BusinessRule.class)
 				.add(Restrictions.eq("enabled", true))
-				.add(Restrictions.eq("type", type))
+				// .add(Restrictions.eq("type", type))
 				.add(Restrictions.eq(field, true))
 				.list();
 	}
@@ -79,7 +78,7 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 		return (T) template.get(type, id);
 	}
 
-	public void unlock(ConditionComparable conditionComparable) {
+	public void unlock(Incident conditionComparable) {
 		template.evict(conditionComparable);
 	}
 

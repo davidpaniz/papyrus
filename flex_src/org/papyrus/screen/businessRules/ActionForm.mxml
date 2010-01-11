@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:acttion="org.papyrus.components.combobox.acttion.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.components.containers.ConditionComparableScreen;
-	 			import org.papyrus.model.MailNotification;
-	 			import mx.managers.PopUpManager;
-	 			import org.papyrus.model.Action;
 	 			import mx.collections.ArrayCollection;
+	 			
+	 			import org.papyrus.model.Action;
 	 			
 			[Bindable]
 			private var _action:Action = new Action();
@@ -20,12 +18,6 @@
 				action.method = cbMethod.selectedItem as String;
 				action.type = cbType.selectedItem as String;
 				action.detail = this.detail;
-//				var mail:MailNotification = new MailNotification();
-//				mail.address = "davidpaniz@gmail.com"; 
-//				mail.body = "Testando Uhu!" ;
-//				mail.subject = "Teste";
-//				action.detail = mail.asDetail();
-//				action.type = "MAIL_NOTIFICATION";
 				return action;
 			}
 			
@@ -40,29 +32,29 @@
 			}
 			
 						
-			private var detailForm:ConditionComparableScreen;
-			private function openDetails():void
-			{
-				detailForm = cbType.detailForm();
-				detailForm.isTemplate = true;
-				detailForm.onCancel = closePopup;
-				detailForm.onOk = okForm;
-				detailForm.setStyle("backgroundAlpha", 0.9);
-				detailForm.setStyle("backgroundColor", "#999999");
-				PopUpManager.addPopUp(detailForm, this, false);
-			}
-			
-			private function closePopup():void
-			{
-                PopUpManager.removePopUp(detailForm);
-			}
-			
-			private function okForm():void
-			{
-                PopUpManager.removePopUp(detailForm);
-				this.detail = detailForm.asDetail();
-			}
-			
+//			private var detailForm:ConditionComparableScreen;
+//			private function openDetails():void
+//			{
+//				detailForm = cbType.detailForm();
+//				detailForm.isTemplate = true;
+//				detailForm.onCancel = closePopup;
+//				detailForm.onOk = okForm;
+//				detailForm.setStyle("backgroundAlpha", 0.9);
+//				detailForm.setStyle("backgroundColor", "#999999");
+//				PopUpManager.addPopUp(detailForm, this, false);
+//			}
+//			
+//			private function closePopup():void
+//			{
+//                PopUpManager.removePopUp(detailForm);
+//			}
+//			
+//			private function okForm():void
+//			{
+//                PopUpManager.removePopUp(detailForm);
+//				this.detail = detailForm.asDetail();
+//			}
+//			
 			
 		]]>
 	</mx:Script>
@@ -70,11 +62,11 @@
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_action.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
-			<enum:ActionMethodComboBox id="cbMethod" method="{_action.method}"/>
+			<acttion:ActionComboBox id="cbMethod" method="{_action.method}"/>
 			<mx:Spacer />
-			<enum:ActionFormsComboBox id="cbType" type="{_action.type}"/>
+			<acttion:ActionFormsComboBox id="cbType" type="{_action.type}"/>
 			<mx:Spacer />
-			<mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" />
+			<!--mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" /-->
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>

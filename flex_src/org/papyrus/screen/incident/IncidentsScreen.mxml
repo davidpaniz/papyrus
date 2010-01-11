@@ -50,28 +50,28 @@
 				incidentList = list;
 			}
 			
-			private var form:OpenIncidentScreen;
-			private function openIncident():void
-			{
-				form = new OpenIncidentScreen();
-				form.closeFunction = closePopup;
-				form.setStyle("backgroundAlpha", 0.9);
-				form.setStyle("backgroundColor", "#999999");
-				PopUpManager.addPopUp(form, dg.parent, false);
-				var item:Incident = dg.selectedItem as Incident;
-				form.incident = item == null ? new Incident : item;
-			}
-			
-			private function closePopup():void
-			{
-                PopUpManager.removePopUp(form);
-			}
+//			private var form:OpenIncidentScreen;
+//			private function openIncident():void
+//			{
+//				form = new OpenIncidentScreen();
+//				form.closeFunction = closePopup;
+//				form.setStyle("backgroundAlpha", 0.9);
+//				form.setStyle("backgroundColor", "#999999");
+//				PopUpManager.addPopUp(form, dg.parent, false);
+//				var item:Incident = dg.selectedItem as Incident;
+//				form.incident = item == null ? new Incident : item;
+//			}
+//			
+//			private function closePopup():void
+//			{
+//                PopUpManager.removePopUp(form);
+//			}
 			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" >
 		<mx:Text text="{resourceManager.getString('incident', 'incident.managemant')}" />
-		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" doubleClick="openIncident()">
+		<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{incidentList}" doubleClickEnabled="true" >
 			<mx:columns>
 				<mx:DataGridColumn headerText="ID" dataField="id" width="30"/>
 				<mx:DataGridColumn headerText="Incident" dataField="title"/>

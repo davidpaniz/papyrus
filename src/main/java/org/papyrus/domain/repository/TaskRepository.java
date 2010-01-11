@@ -2,7 +2,7 @@ package org.papyrus.domain.repository;
 
 import java.util.List;
 
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
 
 public interface TaskRepository {
@@ -12,5 +12,5 @@ public interface TaskRepository {
 
 	void update(Task task);
 
-	List<Task> tasksOf(ConditionComparable conditionComparable);
+	List<Task> tasksOf(Incident conditionComparable);
 }

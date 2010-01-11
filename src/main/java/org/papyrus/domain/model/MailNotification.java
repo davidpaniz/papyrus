@@ -7,14 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import org.papyrus.domain.repository.ConditionComparableRepository;
-import org.papyrus.domain.service.MailService;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 @Entity
 @SequenceGenerator(name = "Mail_Notification_Seq")
-public class MailNotification implements MimeMessagePreparator, ConditionComparable {
+public class MailNotification implements MimeMessagePreparator {
 	@Id
 	@GeneratedValue(generator = "Mail_Notification_Seq", strategy = GenerationType.AUTO)
 	private long id;
@@ -64,12 +62,6 @@ public class MailNotification implements MimeMessagePreparator, ConditionCompara
 		// FIXME "from" must be parameterized
 		message.setFrom("papyrus@davidpaniz.com");
 		message.setText(body, false);
-	}
-
-	public void execute(MailService mailService, ConditionComparableRepository conditionComparableRepository) {
-		conditionComparableRepository.saveTemplate(this);
-		conditionComparableRepository.activeTemplate(this);
-		mailService.sendMail(this);
 	}
 
 	public void activeTemplate() {

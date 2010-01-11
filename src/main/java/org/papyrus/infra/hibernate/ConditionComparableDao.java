@@ -1,6 +1,6 @@
 package org.papyrus.infra.hibernate;
 
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.repository.ConditionComparableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,21 +17,20 @@ public class ConditionComparableDao implements ConditionComparableRepository {
 		this.template = template;
 	}
 
-	public ConditionComparable saveTemplate(ConditionComparable conditionComparable) {
+	public Incident saveTemplate(Incident conditionComparable) {
 		conditionComparable.asTemplate();
 		template.save(conditionComparable);
 		return conditionComparable;
 	}
 
-	public void activeTemplate(ConditionComparable conditionComparable) {
-		ConditionComparable loadedCondition = (ConditionComparable) template.load(conditionComparable.getClass(),
-				conditionComparable.getId());
+	public void activeTemplate(Incident conditionComparable) {
+		Incident loadedCondition = (Incident) template.load(conditionComparable.getClass(), conditionComparable.getId());
 		loadedCondition.activeTemplate();
 		template.update(loadedCondition);
 	}
 
-	public ConditionComparable load(ConditionComparable detail) {
-		return (ConditionComparable) template.load(detail.getClass(), detail.getId());
+	public Incident load(Incident detail) {
+		return (Incident) template.load(detail.getClass(), detail.getId());
 	}
 
 }

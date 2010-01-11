@@ -6,15 +6,13 @@ package org.papyrus.domain.service;
 import java.util.Calendar;
 import java.util.List;
 
-import org.papyrus.domain.model.Action;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.BusinessRuleType;
 import org.papyrus.domain.model.Condition;
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
+import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
-import org.papyrus.domain.repository.ConditionComparableRepository;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.papyrus.domain.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,50 +27,43 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "businessRuleService")
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class BusinessRuleServiceImp implements BusinessRuleService {
+	// TODO change to incidentRepository
 	private final BusinessRuleRepository repository;
 	private final ConditionRepository conditionRepository;
 	private final ActionRepository actionRepository;
 	private final TaskRepository taskRepository;
-	private final ConditionComparableRepository conditionComparableRepository;
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository, ConditionComparableRepository conditionComparableRepository,
-			TaskRepository taskRepository) {
+			ActionRepository actionRepository, TaskRepository taskRepository) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
-		this.conditionComparableRepository = conditionComparableRepository;
 		this.taskRepository = taskRepository;
 	}
 
-	public void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
-		List<BusinessRule> rules = repository.findCreateRules(type);
-		execute(type, conditionComparable, rules);
+	public void executeCreateCondition(Incident incident) {
+		List<BusinessRule> rules = repository.findCreateRules();
+		execute(incident, rules);
 
 	}
 
-	public void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
-		List<BusinessRule> rules = repository.findUpdateRules(type);
-		execute(type, conditionComparable, rules);
+	public void executeUpdateCondition(Incident conditionComparable) {
+		List<BusinessRule> rules = repository.findUpdateRules();
+		execute(conditionComparable, rules);
 	}
 
-	public void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable) {
-		List<BusinessRule> rules = repository.findDeleteRules(type);
-		execute(type, conditionComparable, rules);
+	public void executeDeleteCondition(Incident conditionComparable) {
+		List<BusinessRule> rules = repository.findDeleteRules();
+		execute(conditionComparable, rules);
 	}
 
-	private void execute(BusinessRuleType type, ConditionComparable conditionComparable, List<BusinessRule> rules) {
-		ConditionComparable oldValue = repository.load(type.getType(), conditionComparable.getId());
+	private void execute(Incident incident, List<BusinessRule> rules) {
+		Incident oldValue = repository.load(Incident.class, incident.getId());
 		for (BusinessRule businessRule : rules) {
-			if (businessRule.shouldExecute(oldValue, conditionComparable)) {
+			if (businessRule.shouldExecute(oldValue, incident)) {
 				Calendar taskDate = businessRule.calculateDate();
-				List<Action> actions = businessRule.getActions();
-				for (Action action : actions) {
-					ConditionComparable detail = conditionComparableRepository.saveTemplate(action.detail(oldValue,
-							conditionComparable));
-					taskRepository.saveTask(new Task(detail, taskDate));
-				}
+				taskRepository.saveTask(new Task(incident, businessRule, taskDate));
 			}
 		}
 

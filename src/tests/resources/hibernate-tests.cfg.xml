@@ -17,20 +17,7 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		
-		<mapping class="org.papyrus.domain.model.User" />
-		<mapping class="org.papyrus.domain.model.Urgency" />
-		<mapping class="org.papyrus.domain.model.Priority" />
-		<mapping class="org.papyrus.domain.model.Incident" />
-		<mapping class="org.papyrus.domain.model.Impact" />
-		<mapping class="org.papyrus.domain.model.Attachment" />
-		<mapping class="org.papyrus.domain.model.BusinessRule" />
-		<mapping class="org.papyrus.domain.model.Condition" />
-		<mapping class="org.papyrus.domain.model.Action" />
-		<mapping class="org.papyrus.domain.model.TemplateValue" />
-		<mapping class="org.papyrus.domain.model.MailNotification" />
-		<mapping class="org.papyrus.domain.model.Task" />
-		<mapping class="org.papyrus.domain.model.Company" />
-		<mapping class="org.papyrus.domain.model.Category" />
-		<mapping class="org.papyrus.domain.model.Detail" />
+		<mapping package="org.papyrus.domain.model" />
+		<mapping package="org.papyrus.domain.model.action" />
 	</session-factory>
 </hibernate-configuration>

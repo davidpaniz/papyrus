@@ -47,7 +47,7 @@ public class Condition {
 		return businessRule;
 	}
 
-	public boolean test(ConditionComparable oldValue, ConditionComparable newValue) {
+	public boolean test(Incident oldValue, Incident newValue) {
 		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
 		Object firstParam = resolver.valueOf(expression1);
 		Object secondParam = resolver.valueOf(expression2);

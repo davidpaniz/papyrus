@@ -1,6 +1,6 @@
 package org.papyrus.domain.repository;
 
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 
 /**
  * @author David Paniz
@@ -16,7 +16,7 @@ public interface ConditionComparableRepository {
 	 * @param the
 	 *            conditionComparable that will be persisted as a template
 	 */
-	ConditionComparable saveTemplate(ConditionComparable conditionComparable);
+	Incident saveTemplate(Incident conditionComparable);
 
 	/**
 	 * Update the conditionComparable setting as a non template (template field set false).
@@ -24,7 +24,7 @@ public interface ConditionComparableRepository {
 	 * @param the
 	 *            conditionComparable that will be activated
 	 */
-	void activeTemplate(ConditionComparable conditionComparable);
+	void activeTemplate(Incident conditionComparable);
 
-	 ConditionComparable load(ConditionComparable detail);
+	Incident load(Incident detail);
 }

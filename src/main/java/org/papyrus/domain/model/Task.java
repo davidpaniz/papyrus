@@ -2,20 +2,14 @@ package org.papyrus.domain.model;
 
 import java.util.Calendar;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.MetaValue;
 
 @Entity
 @SequenceGenerator(name = "Task_Seq")
@@ -25,24 +19,21 @@ public class Task {
 	@GeneratedValue(generator = "Task_Seq", strategy = GenerationType.AUTO)
 	private long id;
 
-	@Any(metaColumn = @Column(name = "detail_type"), fetch = FetchType.EAGER, optional = false)
-	@AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-			@MetaValue(value = "INCIDENT", targetEntity = Incident.class),
-			@MetaValue(value = "MAIL_NOTIFICATION", targetEntity = MailNotification.class) })
-	@JoinColumn(name = "detail_id")
-	private ConditionComparable detail;
+	@ManyToOne
+	private Incident incident;
+
+	@ManyToOne
+	private BusinessRule businessRule;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar duoDate;
+	private Calendar scheduledDate;
 
 	private boolean executed = false;
 
-	public Task() {
-	}
-
-	public Task(ConditionComparable conditionComparable, Calendar duoDate) {
-		detail = conditionComparable;
-		this.duoDate = duoDate;
+	public Task(Incident incident, BusinessRule businessRule, Calendar scheduledDate) {
+		this.businessRule = businessRule;
+		this.incident = incident;
+		this.scheduledDate = scheduledDate;
 	}
 
 	public long getId() {
@@ -53,27 +44,35 @@ public class Task {
 		this.id = id;
 	}
 
-	public Calendar getDuoDate() {
-		return duoDate;
+	public void setIncident(Incident incident) {
+		this.incident = incident;
 	}
 
-	public void setDuoDate(Calendar duoDate) {
-		this.duoDate = duoDate;
-	}
-
-	public boolean isExecuted() {
-		return executed;
+	public Incident getIncident() {
+		return incident;
 	}
 
 	public void setExecuted(boolean executed) {
 		this.executed = executed;
 	}
 
-	public ConditionComparable getDetail() {
-		return detail;
+	public boolean isExecuted() {
+		return executed;
 	}
 
-	public void setDetail(ConditionComparable detail) {
-		this.detail = detail;
+	public void setScheduledDate(Calendar scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
+
+	public Calendar getScheduledDate() {
+		return scheduledDate;
+	}
+
+	public void setBusinessRule(BusinessRule businessRule) {
+		this.businessRule = businessRule;
+	}
+
+	public BusinessRule getBusinessRule() {
+		return businessRule;
 	}
 }

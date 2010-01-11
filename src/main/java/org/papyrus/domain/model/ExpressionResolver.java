@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.vidageek.mirror.dsl.Mirror;
+import net.vidageek.mirror.exception.MirrorException;
 
 import org.apache.log4j.Logger;
 
@@ -41,7 +42,7 @@ public class ExpressionResolver {
 		int lastIndexOfExpression = 0;
 		while (matcher.find()) {
 			String foundExpression = matcher.group();
-			logger.debug(String.format("Founded Expression: %s", foundExpression));
+			logger.debug(String.format("Found Expression: %s", foundExpression));
 			int newIndexOf = fullText.indexOf(foundExpression);
 
 			builder.append(fullText.substring(lastIndexOfExpression, newIndexOf))
@@ -64,11 +65,14 @@ public class ExpressionResolver {
 	}
 
 	private Object resolveExpression(String expression) {
-		// TODO what should return if attribute does not exist?
-		if (expression.indexOf("#") >= 0) {
-			return getValue(oldValue, removeBraces(expression));
-		} else if (expression.indexOf("$") >= 0) {
-			return getValue(newValue, removeBraces(expression));
+		try {
+			if (expression.indexOf("#") >= 0) {
+				return getValue(oldValue, removeBraces(expression));
+			} else if (expression.indexOf("$") >= 0) {
+				return getValue(newValue, removeBraces(expression));
+			}
+		} catch (MirrorException e) {
+			logger.warn(String.format("Expression %s is invalid", expression));
 		}
 		return expression;
 	}

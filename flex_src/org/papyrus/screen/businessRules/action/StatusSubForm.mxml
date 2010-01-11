@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpecificActionSubForm 
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*"	xmlns:businessRules="org.papyrus.screen.businessRules.*"
+	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	 	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+//			
+//			import org.papyrus.model.Condition;
+//			private function addCondition():void
+//			{
+//				container.addChild(new ConditionForm());	
+//			}
+//			
+//			public function get conditions():ArrayCollection
+//			{
+//				var conditions:ArrayCollection = new ArrayCollection();
+//				var conditionForms:Array = container.getChildren();
+//				for(var i:int = 0; i < conditionForms.length; i++)
+//				{
+//					conditions.addItem((conditionForms[i] as ConditionForm).condition);					
+//				}
+//				return conditions;
+//			}
+//			
+//			public function set conditions(conditions:ArrayCollection):void
+//			{
+//				container.removeAllChildren();	
+//				for each(var c:Condition in conditions)
+//				{
+//					var conditionForm:ConditionForm = new ConditionForm();
+//					container.addChild(conditionForm);
+//					conditionForm.condition = c;
+//				}
+//			}
+		]]>
+	</mx:Script>
+	<enum:IncidentStatusComboBox  />
+</SpecificActionSubForm>

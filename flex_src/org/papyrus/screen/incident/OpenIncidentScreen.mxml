@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ConditionComparableScreen xmlns="org.papyrus.components.containers.*"
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	 width="488" height="384"  xmlns:urgency="org.papyrus.screen.urgency.*" xmlns:combobox="org.papyrus.components.combobox.*" xmlns:input="org.papyrus.components.input.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	 width="488" height="384"
+	 xmlns:combobox="org.papyrus.components.combobox.*" xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
 	 			import org.papyrus.model.Priority;
@@ -25,15 +25,6 @@
 				populateForm(incident);
 			}
 			
-			override public function asDetail():ArrayCollection
-			{
-				var result:ArrayCollection = new ArrayCollection();
-				result.addItem(TemplateValue.createTemplateValue("id", txtId.text));
-				result.addItem(TemplateValue.createTemplateValue("title", txtTitle.text));
-				
-				return result;
-			}
-			
 			private function save():void
 			{
 				var incident:Incident = new Incident();
@@ -48,10 +39,6 @@
 			private function onResultSave(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
-				if(closeFunction != null)
-				{
-					closeFunction();
-				}
 			}
 			
 			private function remove():void
@@ -62,10 +49,6 @@
 			private function onResultRemove(incident:Incident):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
-				if(closeFunction != null)
-				{
-					closeFunction();
-				}
 			}
 			
 			private function setDefault():void
@@ -92,10 +75,6 @@
 			{
 				incidentForm.includeInLayout = false;
 				incidentForm.visible = false;
-				if(closeFunction != null)
-				{
-					closeFunction();
-				}
 			}
 			
 			private function cleanForm():void
@@ -107,20 +86,12 @@
 			
 			protected function ok():void
 			{
-				if(isTemplate) {
-					onOk();
-				} else {
-					save();
-				}
+				save();
 			}
 			
 			protected function cancel(event:MouseEvent):void
 			{
-				if(isTemplate) {
-					onCancel();
-				} else {
-					hideForm(event);
-				}
+				hideForm(event);
 			}
 		]]>
 	</mx:Script>
@@ -145,4 +116,4 @@
 		</mx:ControlBar>
 	</mx:Form>
 
-</ConditionComparableScreen>
+</mx:HBox>

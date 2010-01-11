@@ -81,4 +81,14 @@ public class ExpressionResolverTestCase {
 
 		Assert.assertEquals("bla = bla", new ExpressionResolver(incident, incident).valueOf("#{title} = ${title}"));
 	}
+
+	@Test
+	public void testWithInvalidAttributeShouldReturnTheExpressionAsItIs() {
+		Incident incident = new Incident();
+		incident.setTitle("bla");
+
+		Assert.assertEquals("#{testando} = bla",
+				new ExpressionResolver(incident, incident).valueOf("#{testando} = ${title}"));
+	}
+
 }

@@ -4,9 +4,7 @@
 	i18nName="businessRule" creationComplete="fillItem();">
 	<mx:Script >
 		<![CDATA[
-			import org.papyrus.model.ConditionComparable;
-			import org.papyrus.screen.notification.MailNotificationScreen;
-			import org.papyrus.components.containers.ConditionComparableScreen;
+			
 			
 			public var type:String = "";
 			
@@ -16,12 +14,12 @@
 				dataProvider = staticDataProvider;
 			}
 			
-			public function detailForm():ConditionComparableScreen
-			{
-				//TODO refactoring! Should use polymorphism
-				var item:String = this.selectedItem.toString();
-				return new MailNotificationScreen();
-			}
+//			public function detailForm():ConditionComparableScreen
+//			{
+//				//TODO refactoring! Should use polymorphism
+//				var item:String = this.selectedItem.toString();
+//				return new MailNotificationScreen();
+//			}
 			
 			private function fillItem():void{
 				selectedItem = type;

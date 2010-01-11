@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ConditionComparableScreen xmlns="org.papyrus.components.containers.*"
+<mx:HBox
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:urgency="org.papyrus.screen.urgency.*" 
 	xmlns:combobox="org.papyrus.components.combobox.*" 
@@ -28,16 +28,6 @@
 				populateForm(mailNotification);
 			}
 			
-			override public function asDetail():ArrayCollection
-			{
-				var result:ArrayCollection = new ArrayCollection();
-				result.addItem(TemplateValue.createTemplateValue("address", txtTo.text));
-				result.addItem(TemplateValue.createTemplateValue("body", txtBody.text));
-				result.addItem(TemplateValue.createTemplateValue("subject", txtTitle.text));
-				
-				return result;
-			}
-			
 			private function save():void
 			{
 				var mailNotification:MailNotification = new MailNotification();
@@ -51,10 +41,6 @@
 			private function onResultSave(mailNotification:MailNotification):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'save_successfully'));
-				if(closeFunction != null)
-				{
-					closeFunction();
-				}
 			}
 			
 			private function remove():void
@@ -65,10 +51,6 @@
 			private function onResultRemove(mailNotification:MailNotification):void
 			{
 				NotificatorManager.warn(resourceManager.getString('general', 'delete_successfully'));
-				if(closeFunction != null)
-				{
-					closeFunction();
-				}
 			}
 			
 			private function populateForm(mailNotification:MailNotification):void
@@ -81,17 +63,9 @@
 		
 			protected function ok():void
 			{
-				if(isTemplate) {
-					onOk();
-				} else {
-					save();
-				}
+				save();
 			}
 			
-			protected function cancel():void
-			{
-				onCancel();
-			}
 			
 		]]>
 	</mx:Script>
@@ -108,10 +82,9 @@
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>
-			<mx:Button label="{resourceManager.getString('general', 'cancel')}" click="cancel()"/>
 			<mx:Button label="{resourceManager.getString('general', 'save')}" id="btSalvar" click="ok()"
 				textAlign="center"/>
 		</mx:ControlBar>
 	</mx:Form>
 
-</ConditionComparableScreen>
+</mx:HBox>

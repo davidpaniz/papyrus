@@ -3,16 +3,15 @@ package org.papyrus.domain.service;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.BusinessRuleType;
-import org.papyrus.domain.model.ConditionComparable;
+import org.papyrus.domain.model.Incident;
 
 public interface BusinessRuleService {
 
-	void executeCreateCondition(BusinessRuleType type, ConditionComparable conditionComparable);
+	void executeCreateCondition(Incident incident);
 
-	void executeUpdateCondition(BusinessRuleType type, ConditionComparable conditionComparable);
+	void executeUpdateCondition(Incident incident);
 
-	void executeDeleteCondition(BusinessRuleType type, ConditionComparable conditionComparable);
+	void executeDeleteCondition(Incident incident);
 
 	BusinessRule deleteBusinessRule(BusinessRule businessRule);
 

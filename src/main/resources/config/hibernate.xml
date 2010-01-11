@@ -27,23 +27,10 @@
 		<property name="dataSource">
 			<ref local="dataSource" />
 		</property>
-		<property name="annotatedClasses">
+		<property name="packagesToScan">
 			<list>
-				<value>org.papyrus.domain.model.User</value>
-				<value>org.papyrus.domain.model.Urgency</value>
-				<value>org.papyrus.domain.model.Impact</value>
-				<value>org.papyrus.domain.model.Priority</value>
-				<value>org.papyrus.domain.model.Incident</value>
-				<value>org.papyrus.domain.model.Attachment</value>
-				<value>org.papyrus.domain.model.BusinessRule</value>
-				<value>org.papyrus.domain.model.Condition</value>
-				<value>org.papyrus.domain.model.Action</value>
-				<value>org.papyrus.domain.model.TemplateValue</value>
-				<value>org.papyrus.domain.model.MailNotification</value>
-				<value>org.papyrus.domain.model.Task</value>
-				<value>org.papyrus.domain.model.Company</value>
-				<value>org.papyrus.domain.model.Category</value>
-				<value>org.papyrus.domain.model.Detail</value>
+				<value>org.papyrus.domain.model</value>
+				<value>org.papyrus.domain.model.action</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->
