@@ -1,10 +1,19 @@
 package org.papyrus.domain.model.action;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;
 import org.papyrus.domain.service.MailService;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserNotificationAction extends Action {
+
+	@ManyToOne
 	private User user;
 	private String subject;
 	private String body;

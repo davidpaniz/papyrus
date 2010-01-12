@@ -3,8 +3,9 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:businessRules="org.papyrus.screen.businessRules.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import org.papyrus.model.Action;
-	 			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayCollection;
+			
+			import org.papyrus.model.action.Action;
 			private function addAction():void
 			{
 				container.addChild(new ActionForm());	

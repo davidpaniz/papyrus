@@ -3,22 +3,25 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:acttion="org.papyrus.components.combobox.acttion.*">
 	 	<mx:Script>
 		<![CDATA[
-	 			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayCollection;
+			
+			import org.papyrus.model.action.Action;
+			import org.papyrus.model.action.StatusAction;
 	 			
-	 			import org.papyrus.model.Action;
 	 			
 			[Bindable]
-			private var _action:Action = new Action();
+			private var _action:Action = new StatusAction();
 			
 			private var detail:ArrayCollection;
 			
 			public function get action():Action
 			{
-				var action:Action = new Action();
-				action.method = cbMethod.selectedItem as String;
-				action.type = cbType.selectedItem as String;
-				action.detail = this.detail;
-				return action;
+//				var action:Action = new Action();
+//				action.method = cbMethod.selectedItem as String;
+//				action.type = cbType.selectedItem as String;
+//				action.detail = this.detail;
+//				return action;
+				return new StatusAction();
 			}
 			
 			public function set action(action:Action):void
@@ -62,10 +65,13 @@
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_action.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
-			<acttion:ActionComboBox id="cbMethod" method="{_action.method}"/>
+			<acttion:ActionComboBox id="cbMethod" />
 			<mx:Spacer />
-			<acttion:ActionFormsComboBox id="cbType" type="{_action.type}"/>
+			<acttion:ActionFormsComboBox id="cbType" />
 			<mx:Spacer />
+			<mx:VBox id="teste">
+				
+			</mx:VBox>
 			<!--mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" /-->
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />

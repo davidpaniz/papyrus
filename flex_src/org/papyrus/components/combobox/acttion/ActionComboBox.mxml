@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<EnumComboBox  xmlns="org.papyrus.components.combobox.enum.*" 
+<AutoCompleteCombo  xmlns="org.papyrus.components.combobox.*" 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	i18nName="businessRule" creationComplete="fillItem();">
+	creationComplete="init();" labelFunction="showI18NLabel">
 	<mx:Script >
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.ListEvent;
+			
+			import org.papyrus.model.action.Action;
+			import org.papyrus.model.action.StatusAction;
 			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
 			import org.papyrus.screen.businessRules.action.StatusSubForm;
 			
-			public var method:String = "";
-			
-			override protected function init():void {
-				staticDataProvider.addItem("status");
-				staticDataProvider.addItem("priority");
+			protected function init():void {
+				var defaultAction:Action = new StatusAction()
 				
-				dataProvider = staticDataProvider;
-			}
-			
-			private function fillItem():void{
-				selectedItem = method;
+				dataProvider = new ArrayCollection();			
+				dataProvider.addItem(defaultAction);
+				
+				selectedItem = defaultAction;
 			}
 			
 			public function getSubForm():SpecificActionSubForm {
 				return new StatusSubForm();
 			}
+			
+			public function showI18NLabel(item:Object):String {
+				return resourceManager.getString('businessRule', 'statusAction');
+			}
+			
+			override public function set selectedItem( param:Object ):void
+			{
+				super.selectedItem = 1;
+				var count:int = 0;
+				for each( var obj:Object in collection )
+				{
+					if( obj == param )
+					{
+						selectedIndex = count;
+						super.selectedItem = obj;
+						dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
+						return;
+					}
+					count++;
+				}
+				
+				// It was not found
+				super.selectedIndex = 0;
+			}
+			
 		]]>
 	</mx:Script>
-</EnumComboBox>
+</AutoCompleteCombo>

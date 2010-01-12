@@ -2,6 +2,7 @@ package org.papyrus.components.combobox.enum
 {
 	import mx.collections.ArrayCollection;
 	import mx.events.ListEvent;
+	import mx.utils.ObjectUtil;
 	
 	import org.papyrus.components.combobox.AutoCompleteCombo;
 
@@ -29,7 +30,7 @@ package org.papyrus.components.combobox.enum
 			var count:int = 0;
 			for each( var obj:Object in collection )
 			{
-				if( obj && obj == param )
+				if( obj && ObjectUtil.compare(obj, param) == 0 )
 				{
 					selectedIndex = count;
 					super.selectedItem = obj;

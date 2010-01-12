@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -12,6 +14,7 @@ import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.service.MailService;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(name = "Action_Seq")
 public class Action {
 
