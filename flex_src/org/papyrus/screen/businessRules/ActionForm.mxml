@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:acttion="org.papyrus.components.combobox.acttion.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:action="org.papyrus.components.combobox.action.*">
 	 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			
 			import org.papyrus.model.action.Action;
 			import org.papyrus.model.action.StatusAction;
+			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
 	 			
 	 			
 			[Bindable]
@@ -16,12 +17,9 @@
 			
 			public function get action():Action
 			{
-//				var action:Action = new Action();
-//				action.method = cbMethod.selectedItem as String;
-//				action.type = cbType.selectedItem as String;
-//				action.detail = this.detail;
-//				return action;
-				return new StatusAction();
+				var subForm:SpecificActionSubForm = SpecificActionSubForm(subFormContainer.getChildAt(0));
+				var action:Action = subForm.action;
+				return action;
 			}
 			
 			public function set action(action:Action):void
@@ -59,17 +57,21 @@
 //			}
 //			
 			
+			private function changeActionType(event:Event):void {
+				subFormContainer.removeAllChildren();
+				var subForm:SpecificActionSubForm = Action(cbAction.selectedItem).subForm;
+				subFormContainer.addChild(subForm);
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" >
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_action.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
 			
-			<acttion:ActionComboBox id="cbMethod" />
+			<action:ActionComboBox id="cbAction" change="changeActionType(event)" />
 			<mx:Spacer />
-			<acttion:ActionFormsComboBox id="cbType" />
-			<mx:Spacer />
-			<mx:VBox id="teste">
+			<mx:VBox id="subFormContainer">
 				
 			</mx:VBox>
 			<!--mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" /-->

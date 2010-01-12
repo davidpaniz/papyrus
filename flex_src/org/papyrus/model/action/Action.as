@@ -24,7 +24,6 @@ package org.papyrus.model.action
 		
 		
 		public function Action() {
-//			RuntimeCheck.abstractClass(this, Action, ["name", "subForm"]);
 		}
 	}
 }

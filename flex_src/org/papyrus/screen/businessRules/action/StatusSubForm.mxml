@@ -4,36 +4,16 @@
 	xmlns:enum="org.papyrus.components.combobox.enum.*">
 	 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-//			
-//			import org.papyrus.model.Condition;
-//			private function addCondition():void
-//			{
-//				container.addChild(new ConditionForm());	
-//			}
-//			
-//			public function get conditions():ArrayCollection
-//			{
-//				var conditions:ArrayCollection = new ArrayCollection();
-//				var conditionForms:Array = container.getChildren();
-//				for(var i:int = 0; i < conditionForms.length; i++)
-//				{
-//					conditions.addItem((conditionForms[i] as ConditionForm).condition);					
-//				}
-//				return conditions;
-//			}
-//			
-//			public function set conditions(conditions:ArrayCollection):void
-//			{
-//				container.removeAllChildren();	
-//				for each(var c:Condition in conditions)
-//				{
-//					var conditionForm:ConditionForm = new ConditionForm();
-//					container.addChild(conditionForm);
-//					conditionForm.condition = c;
-//				}
-//			}
+			import org.papyrus.model.action.Action;
+			import org.papyrus.model.action.StatusAction;
+
+			public override function get action():Action {
+				var action:StatusAction = new StatusAction();
+				action.status = String(cbStatus.selectedItem);
+				return action;
+			}
+			
 		]]>
 	</mx:Script>
-	<enum:IncidentStatusComboBox  />
+	<enum:IncidentStatusComboBox id="cbStatus" />
 </SpecificActionSubForm>

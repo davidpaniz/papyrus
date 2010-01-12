@@ -22,6 +22,8 @@ import org.papyrus.domain.model.TemplateValue;
 import org.papyrus.domain.model.Urgency;
 import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
+import org.papyrus.domain.model.action.StatusAction;
+import org.papyrus.domain.model.action.UserNotificationAction;
 
 public class HibernateUtils {
 	PropertiesLoader propertiesLoader;
@@ -58,12 +60,15 @@ public class HibernateUtils {
 				.addAnnotatedClass(BusinessRule.class)
 				.addAnnotatedClass(Condition.class)
 				.addAnnotatedClass(Action.class)
+				.addAnnotatedClass(StatusAction.class)
+				.addAnnotatedClass(UserNotificationAction.class)
 				.addAnnotatedClass(TemplateValue.class)
 				.addAnnotatedClass(MailNotification.class)
 				.addAnnotatedClass(Task.class)
 				.addAnnotatedClass(Company.class)
 				.addAnnotatedClass(Category.class)
 				.addAnnotatedClass(Detail.class);
+
 		return config;
 	}
 }

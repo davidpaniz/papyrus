@@ -36,6 +36,10 @@ public class Task {
 		this.scheduledDate = scheduledDate;
 	}
 
+	@Deprecated
+	public Task() {
+	}
+
 	public long getId() {
 		return id;
 	}

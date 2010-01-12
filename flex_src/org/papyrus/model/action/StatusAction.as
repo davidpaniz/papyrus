@@ -7,6 +7,8 @@ package org.papyrus.model.action
 	[Bindable]
 	public class StatusAction extends Action
 	{
+		public var status:String;
+		
 		public override function get name():String{
 			return "statusAction"
 		}
