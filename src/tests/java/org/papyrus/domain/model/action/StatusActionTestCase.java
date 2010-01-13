@@ -13,7 +13,7 @@ public class StatusActionTestCase {
 		StatusAction action = new StatusAction();
 		action.setStatus(IncidentStatus.CLOSED);
 
-		action.execute(incident, null);
+		action.execute(incident, null, null);
 		Assert.assertEquals(IncidentStatus.CLOSED, incident.getStatus());
 	}
 }

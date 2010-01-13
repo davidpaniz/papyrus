@@ -15,6 +15,7 @@ import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.papyrus.domain.repository.TaskRepository;
+import org.papyrus.infra.http.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,14 +33,16 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	private final ConditionRepository conditionRepository;
 	private final ActionRepository actionRepository;
 	private final TaskRepository taskRepository;
+	private final SessionManager sessionManager;
 
 	@Autowired
 	public BusinessRuleServiceImp(BusinessRuleRepository repository, ConditionRepository conditionRepository,
-			ActionRepository actionRepository, TaskRepository taskRepository) {
+			ActionRepository actionRepository, TaskRepository taskRepository, SessionManager sessionManager) {
 		this.repository = repository;
 		this.conditionRepository = conditionRepository;
 		this.actionRepository = actionRepository;
 		this.taskRepository = taskRepository;
+		this.sessionManager = sessionManager;
 	}
 
 	public void executeCreateCondition(Incident incident) {
@@ -63,7 +66,7 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 		for (BusinessRule businessRule : rules) {
 			if (businessRule.shouldExecute(oldValue, incident)) {
 				Calendar taskDate = businessRule.calculateDate();
-				taskRepository.saveTask(new Task(incident, businessRule, taskDate));
+				taskRepository.saveTask(new Task(incident, businessRule, taskDate, sessionManager.getLoggedUser()));
 			}
 		}
 

@@ -50,7 +50,7 @@ public class ScheduleTask extends TimerTask {
 		Incident incident = task.getIncident();
 		for (Action action : task.getBusinessRule()
 				.getActions()) {
-			action.execute(incident, mailService);
+			action.execute(incident, mailService, task);
 			incidentRepository.saveOrUpdate(incident);
 		}
 		task.setExecuted(true);

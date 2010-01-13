@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.papyrus.domain.model.action.UserAction;
+
 /**
  * Entity that represents a User
  * 
@@ -22,7 +24,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "User_Seq")
-public class User {
+public class User implements UserAction {
 	@Id
 	@GeneratedValue(generator = "User_Seq", strategy = GenerationType.AUTO)
 	private long id;
@@ -106,4 +108,7 @@ public class User {
 		return company;
 	}
 
+	public User getUser(Incident incident, Task task) {
+		return this;
+	}
 }

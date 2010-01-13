@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpecificActionSubForm 
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*" xmlns:action="org.papyrus.components.combobox.action.*">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.action.Action;
+			import org.papyrus.model.action.NotifyUserAction;
+			import org.papyrus.model.action.UserAction;
+
+			public override function get action():Action {
+				var action:NotifyUserAction = new NotifyUserAction();
+				action.body = txtBody.text;
+				action.subject = txtSubject.text;
+				action.userAction = UserAction(cbUser.selectedItem);
+				return action;
+			}
+			
+		]]>
+	</mx:Script>
+	<action:UserActionComboBox id="cbUser" />
+	<mx:TextInput id="txtSubject" />
+	<mx:TextArea id="txtBody" />
+</SpecificActionSubForm>

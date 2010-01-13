@@ -15,12 +15,12 @@ public class UserNotificationActionTestCase {
 		User user = new User();
 		user.setEmail("teste@teste.com");
 
-		UserNotificationAction action = new UserNotificationAction();
+		NotifyUserAction action = new NotifyUserAction();
 		action.setBody("Corpo");
 		action.setSubject("Assunto");
-		action.setUser(user);
+		action.setUserAction(user);
 
-		action.execute(incident, null);
+		action.execute(incident, null, null);
 		Assert.assertEquals(IncidentStatus.CLOSED, incident.getStatus());
 
 	}

@@ -1,8 +1,10 @@
 package org.papyrus.model
 {
+	import org.papyrus.model.action.UserAction;
+
 	[RemoteClass(alias="org.papyrus.domain.model.User")]
 	[Bindable]
-	public class User
+	public class User implements UserAction
 	{
 		public var id:Number;
 		public var email:String;

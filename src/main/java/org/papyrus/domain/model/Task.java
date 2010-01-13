@@ -20,6 +20,9 @@ public class Task {
 	private long id;
 
 	@ManyToOne
+	private User loggedUserWhenCreated;
+
+	@ManyToOne
 	private Incident incident;
 
 	@ManyToOne
@@ -30,10 +33,11 @@ public class Task {
 
 	private boolean executed = false;
 
-	public Task(Incident incident, BusinessRule businessRule, Calendar scheduledDate) {
+	public Task(Incident incident, BusinessRule businessRule, Calendar scheduledDate, User loggedUser) {
 		this.businessRule = businessRule;
 		this.incident = incident;
 		this.scheduledDate = scheduledDate;
+		loggedUserWhenCreated = loggedUser;
 	}
 
 	@Deprecated
@@ -78,5 +82,13 @@ public class Task {
 
 	public BusinessRule getBusinessRule() {
 		return businessRule;
+	}
+
+	public void setLoggedUserWhenCreated(User loggedUserWhenCreated) {
+		this.loggedUserWhenCreated = loggedUserWhenCreated;
+	}
+
+	public User getLoggedUserWhenCreated() {
+		return loggedUserWhenCreated;
 	}
 }

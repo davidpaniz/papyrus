@@ -12,10 +12,12 @@ import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.action.Action;
+import org.papyrus.domain.model.action.StatusAction;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.papyrus.domain.repository.TaskRepository;
+import org.papyrus.infra.http.SessionManager;
 import org.papyrus.testutil.TestCaseUtils;
 
 public class BusinessRuleServiceTestCase {
@@ -25,9 +27,10 @@ public class BusinessRuleServiceTestCase {
 	private final ConditionRepository conditionRepository = mockery.mock(ConditionRepository.class);
 	private final ActionRepository actionRepository = mockery.mock(ActionRepository.class);
 	private final TaskRepository taskRepository = mockery.mock(TaskRepository.class);
+	private final SessionManager sessionManager = mockery.mock(SessionManager.class);
 
 	private final BusinessRuleServiceImp serviceImp = new BusinessRuleServiceImp(repository, conditionRepository,
-			actionRepository, taskRepository);
+			actionRepository, taskRepository, sessionManager);
 
 	@Test
 	public void whenSaveBusinessRuleSaveItsActionsAndConditions() {
@@ -40,9 +43,9 @@ public class BusinessRuleServiceTestCase {
 		conditions.add(cond2);
 
 		List<Action> actions = new ArrayList<Action>();
-		final Action ac1 = new Action();
+		final Action ac1 = new StatusAction();
 		actions.add(ac1);
-		final Action ac2 = new Action();
+		final Action ac2 = new StatusAction();
 		actions.add(ac2);
 
 		br.setConditions(conditions);

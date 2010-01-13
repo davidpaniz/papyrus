@@ -11,12 +11,13 @@ import javax.persistence.SequenceGenerator;
 
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.Task;
 import org.papyrus.domain.service.MailService;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(name = "Action_Seq")
-public class Action {
+public abstract class Action {
 
 	@Id
 	@GeneratedValue(generator = "Action_Seq", strategy = GenerationType.AUTO)
@@ -41,6 +42,5 @@ public class Action {
 		return businessRule;
 	}
 
-	public void execute(Incident incident, MailService mailService) {
-	}
+	public abstract void execute(Incident incident, MailService mailService, Task task);
 }

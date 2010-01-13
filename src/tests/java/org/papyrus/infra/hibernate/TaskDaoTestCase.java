@@ -23,13 +23,13 @@ public class TaskDaoTestCase extends AbstractDAOTestCase {
 		Incident incident1 = ObjectMother().createIncident("teste1");
 		Incident incident2 = ObjectMother().createIncident("teste2");
 
-		Task task1 = new Task(incident1, null, null);
+		Task task1 = new Task(incident1, null, null, null);
 		dao.saveTask(task1);
 
-		Task task2 = new Task(incident1, null, null);
+		Task task2 = new Task(incident1, null, null, null);
 		dao.saveTask(task2);
 
-		Task task3 = new Task(incident2, null, null);
+		Task task3 = new Task(incident2, null, null, null);
 		dao.saveTask(task3);
 
 		List<Task> tasksOfIncident1 = dao.tasksOf(incident1);

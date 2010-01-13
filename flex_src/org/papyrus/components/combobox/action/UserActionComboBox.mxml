@@ -7,20 +7,38 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.ListEvent;
 			
-			import org.papyrus.model.action.Action;
-			import org.papyrus.model.action.NotifyUserAction;
-			import org.papyrus.model.action.StatusAction;
+			import org.papyrus.model.User;
+			import org.papyrus.model.action.UserAction;
+			import org.papyrus.model.action.UserActionValues;
 			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
 			import org.papyrus.screen.businessRules.action.StatusSubForm;
+			import org.papyrus.services.UserService;
 			
 			protected function init():void {
-				var defaultAction:Action = new StatusAction()
+				new UserService(setValues).listAllStaffs();
+			}
+			
+			private function setValues(users:ArrayCollection):void {
+				var currentUser:UserActionValues = new UserActionValues();
+				currentUser.template = "CURRENT_USER";
+				
+				var requester:UserActionValues = new UserActionValues();
+				requester.template = "REQUESTER";
+				
+				var responsable:UserActionValues = new UserActionValues();
+				responsable.template = "RESPONSABLE";
+				
 				
 				dataProvider = new ArrayCollection();			
-				dataProvider.addItem(defaultAction);
-				dataProvider.addItem(new NotifyUserAction());
+				dataProvider.addItem(currentUser);
+				dataProvider.addItem(requester);
+				dataProvider.addItem(responsable);
 				
-				selectedItem = defaultAction;
+				for each (var user:User in users) {
+					dataProvider.addItem(user);
+				}
+				
+				selectedItem = currentUser;
 			}
 			
 			public function getSubForm():SpecificActionSubForm {
@@ -28,7 +46,7 @@
 			}
 			
 			public function showI18NLabel(item:Object):String {
-				return resourceManager.getString('businessRule', Action(item).name);
+				return UserAction(item).name;
 			}
 			
 			override public function set selectedItem( param:Object ):void
