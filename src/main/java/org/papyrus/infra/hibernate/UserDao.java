@@ -58,4 +58,8 @@ public class UserDao implements UserRepository {
 		template.save(user);
 		return user;
 	}
+
+	public User loadUser(User user) {
+		return (User) getSession().load(User.class, user.getId());
+	}
 }

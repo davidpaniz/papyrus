@@ -2,13 +2,14 @@
 <DomainComboBox xmlns="org.papyrus.components.combobox.*" 
 				xmlns:mx="http://www.adobe.com/2006/mxml"
 				labelField="description"
-				dataId="client" serviceMethod="{new ClientService(handler).listClient}" entityClass="{Client}"
+				dataId="client" serviceMethod="{new UserService(handler).listAllClients}" entityClass="{User}"
 				isRequired="true"
 				>
 	<mx:Script>
 		<![CDATA[
-			import org.papyrus.model.Client;
-			import org.papyrus.services.ClientService;
+			import org.papyrus.model.User;
+			import org.papyrus.services.UserService;
+			
 						
 			public static function reset():void
 			{
@@ -18,7 +19,7 @@
 			
 			override protected function callService():void
 			{
-	 			new ClientService(handler).listClient();
+	 			new UserService(handler).listAllClients();
 			}
 		]]>
 	</mx:Script>

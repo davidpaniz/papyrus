@@ -128,7 +128,7 @@
 			<mx:TextInput width="100%" id="txtEmail"
 				text="{User(dg.selectedItem).email}"/>
 		</mx:FormItem>
-		<mx:FormItem label="{resourceManager.getString('client', 'company')}:" width="345">
+		<mx:FormItem label="{resourceManager.getString('general', 'company')}:" width="345">
 			<combobox:CompanyComboBox id="cbCompany" selectedItem="{User(dg.selectedItem).company}" width="100%" />
 		</mx:FormItem>
 		<mx:FormItem label="{resourceManager.getString('general', 'priority')}:" width="345">

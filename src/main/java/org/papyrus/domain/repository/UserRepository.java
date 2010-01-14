@@ -26,4 +26,6 @@ public interface UserRepository {
 	List<User> listStaffs();
 
 	List<User> listClients();
+
+	User loadUser(User user);
 }

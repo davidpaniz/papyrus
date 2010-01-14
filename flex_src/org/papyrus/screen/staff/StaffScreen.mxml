@@ -7,6 +7,7 @@
 			import mx.controls.Alert;
 			
 			import org.papyrus.components.notification.NotificatorManager;
+			import org.papyrus.model.Company;
 			import org.papyrus.model.User;
 			import org.papyrus.services.UserService;
 			[Bindable]
@@ -19,6 +20,7 @@
 				this.staff.id   = new Number(txtId.text);
 				this.staff.name   = txtName.text;
 				this.staff.email   = txtEmail.text;
+				this.staff.company = cbCompany.selectedItem as Company;
 				this.staff.role = "STAFF";
 				new UserService(onResultSave).saveUser(staff);
 			}
@@ -68,6 +70,7 @@
 					txtId.text = (dg.selectedItem as User).id.toString();
 					txtName.text = (dg.selectedItem as User).name;
 					txtEmail.text = (dg.selectedItem as User).email;
+					cbCompany.selectedItem = (dg.selectedItem as User).company;
 				}
 				showForm();
 			}
@@ -119,6 +122,9 @@
 		<mx:FormItem label="{resourceManager.getString('staff', 'email')}:" width="345">
 			<mx:TextInput width="100%" id="txtEmail"
 				text="{User(dg.selectedItem).email}"/>
+		</mx:FormItem>
+		<mx:FormItem label="{resourceManager.getString('general', 'company')}:" width="345">
+			<combobox:CompanyComboBox id="cbCompany" selectedItem="{User(dg.selectedItem).company}" width="100%" />
 		</mx:FormItem>
 		<mx:ControlBar horizontalAlign="center">
 			<mx:Button label="{resourceManager.getString('general', 'delete')}" click="remove()"/>

@@ -45,6 +45,25 @@ public class UserServiceImp implements UserService {
 	}
 
 	public User saveUser(User user) {
+		if (user.getId() == 0) {
+			return createUser(user);
+		} else {
+			return updateUser(user);
+		}
+
+	}
+
+	private User updateUser(User user) {
+		User loadedUser = userRepository.loadUser(user);
+		loadedUser.setCompany(user.getCompany());
+		loadedUser.setEmail(user.getEmail());
+		loadedUser.setName(user.getEmail());
+		loadedUser.setPriority(user.getPriority());
+		return userRepository.save(loadedUser);
+	}
+
+	private User createUser(User user) {
+		user.setPassword("Papyrus321");
 		return userRepository.save(user);
 	}
 
