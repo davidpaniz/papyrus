@@ -1,11 +1,9 @@
 package org.papyrus.infra.hibernate;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.classic.Session;
-import org.hibernate.collection.AbstractPersistentCollection;
 import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Condition;
@@ -84,15 +82,7 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 
 	public BusinessRule load(Long id) {
 		BusinessRule load = (BusinessRule) getSession().load(BusinessRule.class, id);
-		loadCollection(load.getActions());
-		loadCollection(load.getConditions());
 		return load;
-	}
-
-	private void loadCollection(Collection collection) {
-		if (collection instanceof AbstractPersistentCollection) {
-			((AbstractPersistentCollection) collection).forceInitialization();
-		}
 	}
 
 	public void clearConditionsAndActionsOf(BusinessRule businessRule) {
