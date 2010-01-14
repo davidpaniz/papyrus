@@ -1,17 +1,20 @@
 package org.papyrus.domain.model.action;
 
-import org.junit.Assert;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Test;
-import org.papyrus.domain.model.Incident;
-import org.papyrus.domain.model.IncidentStatus;
+import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.User;
+import org.papyrus.domain.service.MailService;
+import org.papyrus.testutil.TestCaseUtils;
 
 public class UserNotificationActionTestCase {
-	@Test
-	public void testExecutionShuoulChangeIncidentStatus() {
-		Incident incident = new Incident();
-		incident.setStatus(IncidentStatus.OPENED);
+	private final Mockery mockery = TestCaseUtils.newMockery();
 
+	private final MailService mailService = mockery.mock(MailService.class);
+
+	@Test
+	public void testExecutionShoulSendMail() {
 		User user = new User();
 		user.setEmail("teste@teste.com");
 
@@ -20,8 +23,19 @@ public class UserNotificationActionTestCase {
 		action.setSubject("Assunto");
 		action.setUserAction(user);
 
-		action.execute(incident, null, null);
-		Assert.assertEquals(IncidentStatus.CLOSED, incident.getStatus());
+		final MailNotification mailNotification = new MailNotification();
+		mailNotification.setAddress("teste@teste.com");
+		mailNotification.setBody("Corpo");
+		mailNotification.setSubject("Assunto");
+
+		mockery.checking(new Expectations() {
+			{
+				one(mailService).sendMail(with(same(mailNotification)));
+			}
+		});
+		action.execute(null, mailService, null);
+
+		mockery.assertIsSatisfied();
 
 	}
 }

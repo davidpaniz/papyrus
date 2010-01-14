@@ -21,8 +21,6 @@ public class MailNotification implements MimeMessagePreparator {
 	private String body;
 	private String address;
 
-	private boolean template;
-
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -64,19 +62,41 @@ public class MailNotification implements MimeMessagePreparator {
 		message.setText(body, false);
 	}
 
-	public void activeTemplate() {
-		this.template = false;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		return result;
 	}
 
-	public void asTemplate() {
-		this.template = true;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MailNotification other = (MailNotification) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		return true;
 	}
 
-	public boolean isTemplate() {
-		return template;
-	}
-
-	public void setTemplate(boolean template) {
-		this.template = template;
-	}
 }

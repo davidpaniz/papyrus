@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.Task;
+import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.action.StatusAction;
 import org.papyrus.domain.repository.ActionRepository;
@@ -89,6 +91,8 @@ public class BusinessRuleServiceTestCase {
 		final Action action = mockery.mock(Action.class);
 		actions.add(action);
 
+		final User user = new User();
+
 		mockery.checking(new Expectations() {
 			{
 				Calendar taskDate = Calendar.getInstance();
@@ -97,7 +101,7 @@ public class BusinessRuleServiceTestCase {
 
 				one(repository).load(Incident.class, 1L);
 				will(returnValue(oldValue));
-				one(repository).unlock(oldValue);
+
 				one(br1).shouldExecute(oldValue, conditionComparable);
 				will(returnValue(false));
 
@@ -105,14 +109,12 @@ public class BusinessRuleServiceTestCase {
 				will(returnValue(true));
 				one(br2).calculateDate();
 				will(returnValue(taskDate));
-				one(br2).getActions();
-				will(returnValue(actions));
-				Incident detail = new Incident();
-				// one(action).detail(oldValue, conditionComparable);
-				will(returnValue(detail));
-				// one(conditionComparableRepository).saveTemplate(detail);
-				// one(taskRepository).saveTask(with(any(Task.class)));
 
+				one(sessionManager).getLoggedUser();
+				will(returnValue(user));
+
+				one(taskRepository).saveTask(with(any(Task.class)));
+				one(repository).unlock(oldValue);
 			}
 		});
 
