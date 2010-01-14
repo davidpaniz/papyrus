@@ -15,6 +15,12 @@
 				return action;
 			}
 			
+			public override function set action(action:Action):void {
+				var notifyUserAction:NotifyUserAction = NotifyUserAction(action); 
+				cbUser.selectedItem = notifyUserAction.userAction;
+				txtSubject.text = notifyUserAction.subject;
+				txtBody.text = notifyUserAction.body;
+			}
 		]]>
 	</mx:Script>
 	<action:UserActionComboBox id="cbUser" />

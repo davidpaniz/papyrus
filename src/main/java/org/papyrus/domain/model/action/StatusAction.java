@@ -26,4 +26,11 @@ public class StatusAction extends Action {
 	public void execute(Incident incident, MailService mailService, Task task) {
 		incident.setStatus(status);
 	}
+
+	@Override
+	public Action specificCopy() {
+		StatusAction copy = new StatusAction();
+		copy.status = this.status;
+		return copy;
+	}
 }

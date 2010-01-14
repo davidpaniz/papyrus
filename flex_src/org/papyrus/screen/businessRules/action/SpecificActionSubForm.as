@@ -14,6 +14,9 @@ package org.papyrus.screen.businessRules.action
 			return null;
 		}
 		
+		public function set action(action:Action):void {
+		}
+		
 		public function SpecificActionSubForm() {
 //			RuntimeCheck.abstractClass(this, SpecificActionSubForm, ["action"]);
 		}

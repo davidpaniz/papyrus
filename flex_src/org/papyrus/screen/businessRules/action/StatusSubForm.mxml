@@ -12,6 +12,10 @@
 				action.status = String(cbStatus.selectedItem);
 				return action;
 			}
+
+			public override function set action(action:Action):void {
+				cbStatus.selectedItem = StatusAction(action).status;
+			}
 			
 		]]>
 	</mx:Script>

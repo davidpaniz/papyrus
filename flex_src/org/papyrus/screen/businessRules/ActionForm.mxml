@@ -25,38 +25,20 @@
 			public function set action(action:Action):void
 			{
 				this._action = action;
+				cbAction.selectedItem = action;
+//				setTimeout(function ():void {
+					SpecificActionSubForm(subFormContainer.getChildAt(0)).action = action;
+//				}, 500);
+				
 			}
 			
 			private function remove():void
 			{
 				this.parent.removeChild(this);
+				this.cbAction.selectedItem
 			}
 			
 						
-//			private var detailForm:ConditionComparableScreen;
-//			private function openDetails():void
-//			{
-//				detailForm = cbType.detailForm();
-//				detailForm.isTemplate = true;
-//				detailForm.onCancel = closePopup;
-//				detailForm.onOk = okForm;
-//				detailForm.setStyle("backgroundAlpha", 0.9);
-//				detailForm.setStyle("backgroundColor", "#999999");
-//				PopUpManager.addPopUp(detailForm, this, false);
-//			}
-//			
-//			private function closePopup():void
-//			{
-//                PopUpManager.removePopUp(detailForm);
-//			}
-//			
-//			private function okForm():void
-//			{
-//                PopUpManager.removePopUp(detailForm);
-//				this.detail = detailForm.asDetail();
-//			}
-//			
-			
 			private function changeActionType(event:Event):void {
 				subFormContainer.removeAllChildren();
 				var subForm:SpecificActionSubForm = Action(cbAction.selectedItem).subForm;

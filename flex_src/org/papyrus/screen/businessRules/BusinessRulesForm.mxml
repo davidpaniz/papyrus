@@ -13,6 +13,14 @@
 			
 			public function set businessRule(businessRule:BusinessRule):void {
 				_businessRule = businessRule;
+				if(businessRule == null) {
+					if(conditionForm != null) {
+						conditionForm.reset();
+					}
+					if(actionForm != null) {
+						actionForm.reset();
+					}
+				}
 			}
 			
 			public var cancelHandler:Function;

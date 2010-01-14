@@ -43,4 +43,15 @@ public abstract class Action {
 	}
 
 	public abstract void execute(Incident incident, MailService mailService, Task task);
+
+	public abstract Action specificCopy();
+
+	public Action copy() {
+		Action action = specificCopy();
+
+		action.businessRule = null;
+		action.id = this.id;
+
+		return action;
+	}
 }

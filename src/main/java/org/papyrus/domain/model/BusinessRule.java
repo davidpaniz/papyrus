@@ -1,5 +1,6 @@
 package org.papyrus.domain.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -142,8 +143,17 @@ public class BusinessRule {
 
 	public BusinessRule copy() {
 		BusinessRule businessRule = new BusinessRule();
-		businessRule.actions = this.actions;
-		businessRule.conditions = this.conditions;
+
+		businessRule.actions = new ArrayList<Action>();
+		for (Action action : this.actions) {
+			businessRule.actions.add(action.copy());
+		}
+
+		businessRule.conditions = new ArrayList<Condition>();
+		for (Condition conditions : this.conditions) {
+			businessRule.conditions.add(conditions);
+		}
+
 		businessRule.description = this.description;
 		businessRule.enabled = this.enabled;
 		businessRule.id = this.id;

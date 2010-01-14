@@ -5,6 +5,7 @@
 	<mx:Script >
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.core.mx_internal;
 			import mx.events.ListEvent;
 			
 			import org.papyrus.model.action.Action;
@@ -37,7 +38,7 @@
 				var count:int = 0;
 				for each( var obj:Object in collection )
 				{
-					if( obj == param )
+					if( Action(obj).getClass() == Action(param).getClass() )
 					{
 						selectedIndex = count;
 						super.selectedItem = obj;

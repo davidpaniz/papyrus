@@ -16,5 +16,9 @@ package org.papyrus.model.action
 		public override function get subForm():SpecificActionSubForm{
 			return new StatusSubForm();
 		}
+		
+		public override function getClass():Class{
+			return StatusAction;
+		}
 	}
 }

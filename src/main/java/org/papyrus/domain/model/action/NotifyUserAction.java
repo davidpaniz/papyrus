@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.Any;
 import org.hibernate.annotations.AnyMetaDef;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.MetaValue;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.MailNotification;
@@ -25,6 +27,7 @@ public class NotifyUserAction extends Action {
 			@MetaValue(value = "USER", targetEntity = User.class),
 			@MetaValue(value = "TEMPLATE", targetEntity = UserActionValues.class) })
 	@JoinColumn(name = "user_id")
+	@Cascade( { CascadeType.ALL })
 	private UserAction userAction;
 
 	private String subject;
@@ -62,5 +65,14 @@ public class NotifyUserAction extends Action {
 
 	public UserAction getUserAction() {
 		return userAction;
+	}
+
+	@Override
+	public Action specificCopy() {
+		NotifyUserAction copy = new NotifyUserAction();
+		copy.body = this.body;
+		copy.subject = this.subject;
+		copy.userAction = this.userAction;
+		return copy;
 	}
 }

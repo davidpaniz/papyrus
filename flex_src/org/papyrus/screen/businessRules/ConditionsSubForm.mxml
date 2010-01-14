@@ -22,6 +22,12 @@
 				return conditions;
 			}
 			
+			public function reset():void {
+				container.removeAllChildren();
+				container.addChild(new ConditionForm());
+				
+			}
+			
 			public function set conditions(conditions:ArrayCollection):void
 			{
 				container.removeAllChildren();	

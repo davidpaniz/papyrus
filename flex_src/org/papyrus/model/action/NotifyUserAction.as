@@ -19,5 +19,10 @@ package org.papyrus.model.action
 		public override function get subForm():SpecificActionSubForm{
 			return new NotifyUserActionSubForm();
 		}
+		
+		public override function getClass():Class{
+			return NotifyUserAction;
+		}
+
 	}
 }

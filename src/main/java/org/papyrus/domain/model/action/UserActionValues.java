@@ -1,6 +1,8 @@
 package org.papyrus.domain.model.action;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class UserActionValues implements UserAction {
 	@GeneratedValue(generator = "User_Template_Seq", strategy = GenerationType.AUTO)
 	private long id;
 
+	@Enumerated(EnumType.STRING)
 	private UserActionValuesTemplate template;
 
 	public UserActionValuesTemplate getTemplate() {

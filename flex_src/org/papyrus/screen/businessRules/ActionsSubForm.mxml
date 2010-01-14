@@ -32,6 +32,11 @@
 					container.addChild(actionForm);
 				}
 			}
+			
+			public function reset():void {
+				container.removeAllChildren();
+				container.addChild(new ActionForm());
+			}
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" id="container">
