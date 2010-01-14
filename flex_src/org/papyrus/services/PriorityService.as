@@ -4,6 +4,7 @@ package org.papyrus.services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
+	import org.papyrus.components.combobox.PriorityComboBox;
 	import org.papyrus.components.notification.NotificatorManager;
 	import org.papyrus.model.Priority;
 
@@ -39,6 +40,9 @@ package org.papyrus.services
 		public function savePriorityResult( event:ResultEvent ):void
 		{
 			callBackFunction(event.result as Priority);
+			
+			
+			PriorityComboBox.reset();
 		}
 		
 		public function savePriorityFault( event:FaultEvent ):void

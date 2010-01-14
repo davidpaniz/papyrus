@@ -7,6 +7,8 @@ package org.papyrus.services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
+	import org.papyrus.components.combobox.ClientComboBox;
+	import org.papyrus.components.combobox.StaffComboBox;
 	import org.papyrus.model.Model;
 	import org.papyrus.model.User;
 
@@ -116,6 +118,7 @@ package org.papyrus.services
 		public function saveUserResult( event:ResultEvent ):void
 		{
 			callBackFunction( event.result as User);
+			resetCombos();
 		}		
 		
 		public function deleteUser(user:User):void
@@ -125,6 +128,12 @@ package org.papyrus.services
 		public function deleteUserResult( event:ResultEvent ):void
 		{
 			callBackFunction( event.result as User);
-		}		
+			resetCombos();
+		}
+		
+		private function resetCombos():void {
+			ClientComboBox.reset();
+			StaffComboBox.reset();
+		}
 	}
 }

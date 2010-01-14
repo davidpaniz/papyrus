@@ -23,6 +23,7 @@
 				this.client.email   = txtEmail.text;
 				this.client.company = cbCompany.selectedItem as Company;
 				this.client.priority = cbPriority.selectedItem as Priority;
+				this.client.role = "CLIENT";
 				new UserService(onResultSave).saveUser(client);
 			}
 			

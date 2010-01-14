@@ -19,6 +19,7 @@
 				this.staff.id   = new Number(txtId.text);
 				this.staff.name   = txtName.text;
 				this.staff.email   = txtEmail.text;
+				this.staff.role = "STAFF";
 				new UserService(onResultSave).saveUser(staff);
 			}
 			
