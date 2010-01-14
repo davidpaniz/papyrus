@@ -2,6 +2,7 @@ package org.papyrus.util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.hibernate.HibernateException;
+import org.papyrus.domain.model.User;
 import org.papyrus.util.view.CheckInput;
 import org.papyrus.util.view.DatabaseComboInput;
 import org.papyrus.util.view.DatabaseComboOption;
@@ -52,6 +54,9 @@ public class Setup {
 				new TextInput("mail.smtp.port", "SMTP port"), new TextInput("mail.smtp.username", "SMTP user"),
 				new PasswordInput("mail.smtp.password", "SMTP password"),
 				new CheckInput("mail.smtp.auth", "SMTP auth"), new CheckInput("mail.smtp.starttls", "SMTP starttls") });
+
+		map.put("user", new Input[] { new TextInput("name", "Admin Name"), new TextInput("email", "Admin Email"),
+				new PasswordInput("password", "Admin Password") });
 	}
 
 	public void createFiles() throws IOException {
@@ -69,8 +74,8 @@ public class Setup {
 	}
 
 	public static void main(String... args) throws IOException {
-		// new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createScreen();
-		new Setup(new PropertiesLoader()).createScreen();
+		new Setup(new PropertiesLoader("./webapps/papyrus/WEB-INF/classes")).createScreen();
+		// new Setup(new PropertiesLoader()).createScreen();
 
 	}
 
@@ -93,7 +98,7 @@ public class Setup {
 
 	private void showWindow() {
 		window.pack();
-		window.setSize(500, 450);
+		window.setSize(500, 550);
 		window.setVisible(true);
 	}
 
@@ -112,9 +117,9 @@ public class Setup {
 					}
 					response = JOptionPane.showConfirmDialog(null,
 							"Tables were created. Do you want to load bootstrap data?", "Ok", 0);
-					if (response == JOptionPane.YES_OPTION) {
-						loadBootstrap();
-					}
+
+					loadBootstrap(response == JOptionPane.YES_OPTION);
+
 					JOptionPane.showConfirmDialog(null, "Setup is done!", "Ok", -1);
 					System.exit(0);
 				} catch (Throwable e) {
@@ -126,8 +131,20 @@ public class Setup {
 		mainPanel.add(finishButton);
 	}
 
-	void loadBootstrap() throws HibernateException, IOException {
-		new Bootstrap(hibernateUtils).loadBootstrap();
+	void loadBootstrap(boolean shouldLoadBootStrap) throws HibernateException, IOException {
+		Properties property = propertiesLoader.loadProperty("user");
+		String email = property.getProperty("email");
+		String name = property.getProperty("name");
+		String password = property.getProperty("password");
+
+		User user = new User();
+		user.setEmail(email);
+		user.setName(name);
+		user.setPassword(password);
+
+		new Bootstrap(hibernateUtils).loadBootstrap(user, shouldLoadBootStrap);
+
+		new File(propertiesLoader.getParentFile(), "user").delete();
 	}
 
 	void createTables() throws IOException {

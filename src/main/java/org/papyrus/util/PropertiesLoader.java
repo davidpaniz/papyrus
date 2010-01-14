@@ -29,6 +29,12 @@ public class PropertiesLoader {
 		return props;
 	}
 
+	public Properties loadProperty(String propertyFile) throws IOException {
+		Properties props = new Properties();
+		props.load(new FileInputStream(new File(parentFile, propertyFile)));
+		return props;
+	}
+
 	public void writePropertie(Properties properties, String fileName) throws IOException {
 		properties.store(new FileOutputStream(new File(parentFile, fileName)), null);
 	}
