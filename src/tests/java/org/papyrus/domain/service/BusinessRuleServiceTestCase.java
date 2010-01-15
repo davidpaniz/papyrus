@@ -94,20 +94,20 @@ public class BusinessRuleServiceTestCase {
 
 		mockery.checking(new Expectations() {
 			{
+				one(sessionManager).getLoggedUser();
+				will(returnValue(user));
+
 				Calendar taskDate = Calendar.getInstance();
 				one(repository).findCreateRules();
 				will(returnValue(businessRules));
 
-				one(br1).shouldExecute(conditionComparable);
+				one(br1).shouldExecute(conditionComparable, user);
 				will(returnValue(false));
 
-				one(br2).shouldExecute(conditionComparable);
+				one(br2).shouldExecute(conditionComparable, user);
 				will(returnValue(true));
 				one(br2).calculateDate();
 				will(returnValue(taskDate));
-
-				one(sessionManager).getLoggedUser();
-				will(returnValue(user));
 
 				one(taskRepository).saveTask(with(any(Task.class)));
 			}

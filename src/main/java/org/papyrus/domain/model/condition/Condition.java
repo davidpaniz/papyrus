@@ -16,6 +16,7 @@ import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.ConditionComparisonOperator;
 import org.papyrus.domain.model.ConditionLogicalOperator;
 import org.papyrus.domain.model.Incident;
+import org.papyrus.domain.model.User;
 
 @Entity
 @Table(name = "conditions")
@@ -52,7 +53,7 @@ public abstract class Condition {
 		return businessRule;
 	}
 
-	public abstract boolean test(Incident incident);
+	public abstract boolean test(Incident incident, User loggedUser);
 
 	public ConditionComparisonOperator getComparisonOperator() {
 		return comparisonOperator;

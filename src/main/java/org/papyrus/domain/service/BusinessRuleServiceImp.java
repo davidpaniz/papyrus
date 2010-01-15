@@ -9,6 +9,7 @@ import java.util.List;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
+import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.condition.Condition;
 import org.papyrus.domain.repository.ActionRepository;
@@ -62,10 +63,11 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	}
 
 	private void execute(Incident incident, List<BusinessRule> rules) {
+		User loggedUser = sessionManager.getLoggedUser();
 		for (BusinessRule businessRule : rules) {
-			if (businessRule.shouldExecute(incident)) {
+			if (businessRule.shouldExecute(incident, loggedUser)) {
 				Calendar taskDate = businessRule.calculateDate();
-				taskRepository.saveTask(new Task(incident, businessRule, taskDate, sessionManager.getLoggedUser()));
+				taskRepository.saveTask(new Task(incident, businessRule, taskDate, loggedUser));
 			}
 		}
 	}

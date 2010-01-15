@@ -5,6 +5,7 @@ import org.jmock.Mockery;
 import org.junit.Test;
 import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.User;
+import org.papyrus.domain.model.businessRules.TemplateUser;
 import org.papyrus.domain.service.MailService;
 import org.papyrus.testutil.TestCaseUtils;
 
@@ -21,7 +22,7 @@ public class UserNotificationActionTestCase {
 		NotifyUserAction action = new NotifyUserAction();
 		action.setBody("Corpo");
 		action.setSubject("Assunto");
-		action.setUserAction(user);
+		action.setTemplateUser(new TemplateUser(user));
 
 		final MailNotification mailNotification = new MailNotification();
 		mailNotification.setAddress("teste@teste.com");

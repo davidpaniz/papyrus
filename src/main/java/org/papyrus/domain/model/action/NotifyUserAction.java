@@ -1,35 +1,22 @@
 package org.papyrus.domain.model.action;
 
-import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.MetaValue;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.User;
+import org.papyrus.domain.model.businessRules.TemplateUser;
 import org.papyrus.domain.service.MailService;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class NotifyUserAction extends Action {
-
-	@Any(metaColumn = @Column(name = "user_type"), fetch = FetchType.EAGER, optional = false)
-	@AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-			@MetaValue(value = "USER", targetEntity = User.class),
-			@MetaValue(value = "TEMPLATE", targetEntity = UserActionValues.class) })
-	@JoinColumn(name = "user_id")
-	@Cascade( { CascadeType.ALL })
-	private UserAction userAction;
-
+	@Embedded
+	private TemplateUser templateUser;
 	private String subject;
 	private String body;
 
@@ -52,19 +39,15 @@ public class NotifyUserAction extends Action {
 	@Override
 	public void execute(Incident incident, MailService mailService, Task task) {
 		MailNotification notification = new MailNotification();
-		notification.setAddress(this.userAction.getUser(incident, task)
+		notification.setAddress(this.getUser(incident, task)
 				.getEmail());
 		notification.setBody(this.body);
 		notification.setSubject(this.subject);
 		mailService.sendMail(notification);
 	}
 
-	public void setUserAction(UserAction userAction) {
-		this.userAction = userAction;
-	}
-
-	public UserAction getUserAction() {
-		return userAction;
+	public User getUser(Incident incident, Task task) {
+		return templateUser.getUser(incident, task.getLoggedUserWhenCreated());
 	}
 
 	@Override
@@ -72,7 +55,15 @@ public class NotifyUserAction extends Action {
 		NotifyUserAction copy = new NotifyUserAction();
 		copy.body = this.body;
 		copy.subject = this.subject;
-		copy.userAction = this.userAction;
+		copy.templateUser = this.templateUser;
 		return copy;
+	}
+
+	public void setTemplateUser(TemplateUser templateUser) {
+		this.templateUser = templateUser;
+	}
+
+	public TemplateUser getTemplateUser() {
+		return templateUser;
 	}
 }

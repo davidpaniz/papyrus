@@ -20,10 +20,12 @@ import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.Urgency;
 import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
-import org.papyrus.domain.model.action.StatusAction;
-import org.papyrus.domain.model.action.UserActionValues;
 import org.papyrus.domain.model.action.NotifyUserAction;
+import org.papyrus.domain.model.action.StatusAction;
+import org.papyrus.domain.model.businessRules.TemplateUser;
 import org.papyrus.domain.model.condition.Condition;
+import org.papyrus.domain.model.condition.RequesterCondition;
+import org.papyrus.domain.model.condition.StatusCondition;
 
 public class HibernateUtils {
 	PropertiesLoader propertiesLoader;
@@ -53,13 +55,15 @@ public class HibernateUtils {
 
 				.addAnnotatedClass(Action.class)
 				.addAnnotatedClass(StatusAction.class)
-				.addAnnotatedClass(UserActionValues.class)
 				.addAnnotatedClass(NotifyUserAction.class)
+				.addAnnotatedClass(TemplateUser.class)
+				.addAnnotatedClass(Condition.class)
+				.addAnnotatedClass(RequesterCondition.class)
+				.addAnnotatedClass(StatusCondition.class)
 				.addAnnotatedClass(Attachment.class)
 				.addAnnotatedClass(BusinessRule.class)
 				.addAnnotatedClass(Category.class)
 				.addAnnotatedClass(Company.class)
-				.addAnnotatedClass(Condition.class)
 				.addAnnotatedClass(Detail.class)
 				.addAnnotatedClass(Impact.class)
 				.addAnnotatedClass(Incident.class)

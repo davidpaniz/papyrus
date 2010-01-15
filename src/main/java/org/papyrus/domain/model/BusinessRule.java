@@ -113,17 +113,17 @@ public class BusinessRule {
 	 * @param incident
 	 * @return the boolean result of execution condition chain
 	 */
-	public boolean shouldExecute(Incident incident) {
+	public boolean shouldExecute(Incident incident, User loggedUser) {
 		Condition before = null;
 		// keep the result of execution of the first condition
 		boolean result = conditions.get(0)
-				.test(incident);
+				.test(incident, loggedUser);
 
 		// iteration starts on 1 because the first one (0) was evaluated before looping
 		for (int i = 1; i < conditions.size(); i++) {
 			Condition condition = conditions.get(i);
 			// evaluate the current condition
-			boolean conditionResult = condition.test(incident);
+			boolean conditionResult = condition.test(incident, loggedUser);
 
 			// next result will be the current result comparated (by the logical operator of the last condition) with
 			// the result of the current condition and stored as the new result

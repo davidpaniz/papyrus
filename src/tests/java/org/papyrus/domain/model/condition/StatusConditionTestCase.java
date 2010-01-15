@@ -16,7 +16,7 @@ public class StatusConditionTestCase {
 		c.setStatus(IncidentStatus.CLOSED);
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 
-		boolean test = c.test(incident);
+		boolean test = c.test(incident, null);
 		Assert.assertTrue(test);
 	}
 
@@ -29,7 +29,7 @@ public class StatusConditionTestCase {
 		c.setStatus(IncidentStatus.CLOSED);
 		c.setComparisonOperator(ConditionComparisonOperator.EQ);
 
-		boolean test = c.test(incident);
+		boolean test = c.test(incident, null);
 		Assert.assertFalse(test);
 	}
 
@@ -42,7 +42,7 @@ public class StatusConditionTestCase {
 		c.setStatus(IncidentStatus.CLOSED);
 		c.setComparisonOperator(ConditionComparisonOperator.NEQ);
 
-		boolean test = c.test(incident);
+		boolean test = c.test(incident, null);
 		Assert.assertTrue(test);
 	}
 }
