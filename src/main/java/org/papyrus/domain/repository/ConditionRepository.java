@@ -1,6 +1,6 @@
 package org.papyrus.domain.repository;
 
-import org.papyrus.domain.model.Condition;
+import org.papyrus.domain.model.condition.Condition;
 
 /**
  * @author David Paniz

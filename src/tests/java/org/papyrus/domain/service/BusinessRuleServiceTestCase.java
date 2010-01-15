@@ -9,12 +9,13 @@ import org.jmock.Mockery;
 import org.junit.Assert;
 import org.junit.Test;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.action.StatusAction;
+import org.papyrus.domain.model.condition.Condition;
+import org.papyrus.domain.model.condition.StatusCondition;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.papyrus.domain.repository.ConditionRepository;
@@ -39,9 +40,9 @@ public class BusinessRuleServiceTestCase {
 		final BusinessRule br = new BusinessRule();
 
 		List<Condition> conditions = new ArrayList<Condition>();
-		final Condition cond1 = new Condition();
+		final StatusCondition cond1 = new StatusCondition();
 		conditions.add(cond1);
-		final Condition cond2 = new Condition();
+		final StatusCondition cond2 = new StatusCondition();
 		conditions.add(cond2);
 
 		List<Action> actions = new ArrayList<Action>();
@@ -85,8 +86,6 @@ public class BusinessRuleServiceTestCase {
 		final Incident conditionComparable = new Incident();
 		conditionComparable.setId(1);
 
-		final Incident oldValue = null;
-
 		final List<Action> actions = new ArrayList<Action>();
 		final Action action = mockery.mock(Action.class);
 		actions.add(action);
@@ -99,13 +98,10 @@ public class BusinessRuleServiceTestCase {
 				one(repository).findCreateRules();
 				will(returnValue(businessRules));
 
-				one(repository).load(Incident.class, 1L);
-				will(returnValue(oldValue));
-
-				one(br1).shouldExecute(oldValue, conditionComparable);
+				one(br1).shouldExecute(conditionComparable);
 				will(returnValue(false));
 
-				one(br2).shouldExecute(oldValue, conditionComparable);
+				one(br2).shouldExecute(conditionComparable);
 				will(returnValue(true));
 				one(br2).calculateDate();
 				will(returnValue(taskDate));
@@ -114,7 +110,6 @@ public class BusinessRuleServiceTestCase {
 				will(returnValue(user));
 
 				one(taskRepository).saveTask(with(any(Task.class)));
-				one(repository).unlock(oldValue);
 			}
 		});
 

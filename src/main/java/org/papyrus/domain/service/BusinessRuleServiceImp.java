@@ -7,10 +7,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.action.Action;
+import org.papyrus.domain.model.condition.Condition;
 import org.papyrus.domain.repository.ActionRepository;
 import org.papyrus.domain.repository.BusinessRuleRepository;
 import org.papyrus.domain.repository.ConditionRepository;
@@ -62,15 +62,12 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 	}
 
 	private void execute(Incident incident, List<BusinessRule> rules) {
-		Incident oldValue = repository.load(Incident.class, incident.getId());
 		for (BusinessRule businessRule : rules) {
-			if (businessRule.shouldExecute(oldValue, incident)) {
+			if (businessRule.shouldExecute(incident)) {
 				Calendar taskDate = businessRule.calculateDate();
 				taskRepository.saveTask(new Task(incident, businessRule, taskDate, sessionManager.getLoggedUser()));
 			}
 		}
-
-		repository.unlock(oldValue);
 	}
 
 	public BusinessRule deleteBusinessRule(BusinessRule businessRule) {

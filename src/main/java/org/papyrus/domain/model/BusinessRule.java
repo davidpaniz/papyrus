@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.papyrus.domain.model.action.Action;
+import org.papyrus.domain.model.condition.Condition;
 
 @Entity
 @SequenceGenerator(name = "Business_Rule_Seq")
@@ -109,21 +110,20 @@ public class BusinessRule {
 
 	/**
 	 * 
-	 * @param oldValue
-	 * @param newValue
+	 * @param incident
 	 * @return the boolean result of execution condition chain
 	 */
-	public boolean shouldExecute(Incident oldValue, Incident newValue) {
+	public boolean shouldExecute(Incident incident) {
 		Condition before = null;
 		// keep the result of execution of the first condition
 		boolean result = conditions.get(0)
-				.test(oldValue, newValue);
+				.test(incident);
 
 		// iteration starts on 1 because the first one (0) was evaluated before looping
 		for (int i = 1; i < conditions.size(); i++) {
 			Condition condition = conditions.get(i);
 			// evaluate the current condition
-			boolean conditionResult = condition.test(oldValue, newValue);
+			boolean conditionResult = condition.test(incident);
 
 			// next result will be the current result comparated (by the logical operator of the last condition) with
 			// the result of the current condition and stored as the new result

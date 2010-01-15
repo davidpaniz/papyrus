@@ -27,5 +27,5 @@ public enum ConditionComparisonOperator {
 		}
 	};
 
-	abstract boolean compare(Object firstParam, Object secondParam);
+	public abstract boolean compare(Object firstParam, Object secondParam);
 }

@@ -1,6 +1,6 @@
 package org.papyrus.infra.hibernate;
 
-import org.papyrus.domain.model.Condition;
+import org.papyrus.domain.model.condition.Condition;
 import org.papyrus.domain.repository.ConditionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

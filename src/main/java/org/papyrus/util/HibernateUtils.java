@@ -11,7 +11,6 @@ import org.papyrus.domain.model.Attachment;
 import org.papyrus.domain.model.BusinessRule;
 import org.papyrus.domain.model.Category;
 import org.papyrus.domain.model.Company;
-import org.papyrus.domain.model.Condition;
 import org.papyrus.domain.model.Detail;
 import org.papyrus.domain.model.Impact;
 import org.papyrus.domain.model.Incident;
@@ -24,6 +23,7 @@ import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.action.StatusAction;
 import org.papyrus.domain.model.action.UserActionValues;
 import org.papyrus.domain.model.action.NotifyUserAction;
+import org.papyrus.domain.model.condition.Condition;
 
 public class HibernateUtils {
 	PropertiesLoader propertiesLoader;

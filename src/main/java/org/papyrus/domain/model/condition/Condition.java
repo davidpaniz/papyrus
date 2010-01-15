@@ -1,4 +1,4 @@
-package org.papyrus.domain.model;
+package org.papyrus.domain.model.condition;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -6,21 +6,26 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.papyrus.domain.model.BusinessRule;
+import org.papyrus.domain.model.ConditionComparisonOperator;
+import org.papyrus.domain.model.ConditionLogicalOperator;
+import org.papyrus.domain.model.Incident;
+
 @Entity
 @Table(name = "conditions")
+@Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(name = "Condition_Seq")
-public class Condition {
+public abstract class Condition {
 
 	@Id
 	@GeneratedValue(generator = "Condition_Seq", strategy = GenerationType.AUTO)
 	private long id;
-
-	private String expression1;
-	private String expression2;
 
 	@Enumerated(EnumType.STRING)
 	private ConditionComparisonOperator comparisonOperator;
@@ -47,29 +52,7 @@ public class Condition {
 		return businessRule;
 	}
 
-	public boolean test(Incident oldValue, Incident newValue) {
-		ExpressionResolver resolver = new ExpressionResolver(oldValue, newValue);
-		Object firstParam = resolver.valueOf(expression1);
-		Object secondParam = resolver.valueOf(expression2);
-
-		return this.comparisonOperator.compare(firstParam, secondParam);
-	}
-
-	public String getExpression1() {
-		return expression1;
-	}
-
-	public void setExpression1(String expression1) {
-		this.expression1 = expression1;
-	}
-
-	public String getExpression2() {
-		return expression2;
-	}
-
-	public void setExpression2(String expression2) {
-		this.expression2 = expression2;
-	}
+	public abstract boolean test(Incident incident);
 
 	public ConditionComparisonOperator getComparisonOperator() {
 		return comparisonOperator;
