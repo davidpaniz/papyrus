@@ -5,7 +5,7 @@ import org.jmock.Mockery;
 import org.junit.Test;
 import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.User;
-import org.papyrus.domain.model.businessRules.TemplateUser;
+import org.papyrus.domain.model.businessRule.TemplateUser;
 import org.papyrus.domain.service.MailService;
 import org.papyrus.testutil.TestCaseUtils;
 

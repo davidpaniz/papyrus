@@ -4,7 +4,6 @@
 	i18nName="businessRule" creationComplete="fillItem();">
 	<mx:Script >
 		<![CDATA[
-			import org.papyrus.model.Condition;
 			
 			[Bindable]
 			public var comparisonOperator:String = ""

@@ -27,10 +27,28 @@
 		<property name="dataSource">
 			<ref local="dataSource" />
 		</property>
-		<property name="packagesToScan">
+		<property name="annotatedClasses">
 			<list>
-				<value>org.papyrus.domain.model</value>
-				<value>org.papyrus.domain.model.action</value>
+				<value>org.papyrus.domain.model.User</value>
+				<value> org.papyrus.domain.model.Attachment</value>
+				<value> org.papyrus.domain.model.BusinessRule</value>
+				<value> org.papyrus.domain.model.Category</value>
+				<value> org.papyrus.domain.model.Company</value>
+				<value> org.papyrus.domain.model.Detail</value>
+				<value> org.papyrus.domain.model.Impact</value>
+				<value> org.papyrus.domain.model.Incident</value>
+				<value> org.papyrus.domain.model.MailNotification</value>
+				<value> org.papyrus.domain.model.Priority</value>
+				<value> org.papyrus.domain.model.Task</value>
+				<value> org.papyrus.domain.model.Urgency</value>
+				<value> org.papyrus.domain.model.User</value>
+				<value> org.papyrus.domain.model.action.Action</value>
+				<value> org.papyrus.domain.model.action.NotifyUserAction</value>
+				<value> org.papyrus.domain.model.action.StatusAction</value>
+				<value> org.papyrus.domain.model.businessRule.TemplateUser</value>
+				<value> org.papyrus.domain.model.condition.Condition</value>
+				<value> org.papyrus.domain.model.condition.RequesterCondition</value>
+				<value> org.papyrus.domain.model.condition.StatusCondition</value>
 			</list>
 		</property>
 		<!-- Configuracoes do Hibernate -->

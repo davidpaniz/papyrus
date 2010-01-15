@@ -1,5 +1,6 @@
 package org.papyrus.model.action
 {
+	import org.papyrus.model.businessRule.TemplateUser;
 	import org.papyrus.screen.businessRules.action.NotifyUserActionSubForm;
 	import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
 
@@ -8,7 +9,7 @@ package org.papyrus.model.action
 	public class NotifyUserAction extends Action
 	{
 		
-		public var userAction:UserAction;
+		public var templateUser:TemplateUser;
 		public var subject:String;
 		public var body:String;
 		

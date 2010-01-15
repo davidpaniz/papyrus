@@ -1,4 +1,4 @@
-package org.papyrus.domain.model.businessRules;
+package org.papyrus.domain.model.businessRule;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;

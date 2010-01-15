@@ -1,4 +1,4 @@
-package org.papyrus.domain.model.businessRules;
+package org.papyrus.domain.model.businessRule;
 
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;

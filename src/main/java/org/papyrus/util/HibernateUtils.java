@@ -22,7 +22,7 @@ import org.papyrus.domain.model.User;
 import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.action.NotifyUserAction;
 import org.papyrus.domain.model.action.StatusAction;
-import org.papyrus.domain.model.businessRules.TemplateUser;
+import org.papyrus.domain.model.businessRule.TemplateUser;
 import org.papyrus.domain.model.condition.Condition;
 import org.papyrus.domain.model.condition.RequesterCondition;
 import org.papyrus.domain.model.condition.StatusCondition;

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.papyrus.domain.model.ConditionComparisonOperator;
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;
-import org.papyrus.domain.model.businessRules.TemplateUser;
+import org.papyrus.domain.model.businessRule.TemplateUser;
 
 public class RequesterConditionTestCase {
 	@Test

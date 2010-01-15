@@ -4,7 +4,7 @@ import javax.persistence.Embedded;
 
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.User;
-import org.papyrus.domain.model.businessRules.TemplateUser;
+import org.papyrus.domain.model.businessRule.TemplateUser;
 
 public class RequesterCondition extends Condition {
 	@Embedded

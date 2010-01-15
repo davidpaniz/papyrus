@@ -5,7 +5,8 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			
-			import org.papyrus.model.Condition;
+			import org.papyrus.model.condition.Condition;
+			
 			private function addCondition():void
 			{
 				container.addChild(new ConditionForm());	

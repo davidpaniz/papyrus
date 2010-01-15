@@ -8,8 +8,7 @@
 			import mx.events.ListEvent;
 			
 			import org.papyrus.model.User;
-			import org.papyrus.model.action.UserAction;
-			import org.papyrus.model.action.UserActionValues;
+			import org.papyrus.model.businessRule.TemplateUser;
 			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
 			import org.papyrus.screen.businessRules.action.StatusSubForm;
 			import org.papyrus.services.UserService;
@@ -19,14 +18,11 @@
 			}
 			
 			private function setValues(users:ArrayCollection):void {
-				var currentUser:UserActionValues = new UserActionValues();
-				currentUser.template = "CURRENT_USER";
+				var currentUser:TemplateUser = TemplateUser.createByEnum("CURRENT_USER");
 				
-				var requester:UserActionValues = new UserActionValues();
-				requester.template = "REQUESTER";
+				var requester:TemplateUser = TemplateUser.createByEnum("REQUESTER");
 				
-				var responsable:UserActionValues = new UserActionValues();
-				responsable.template = "RESPONSABLE";
+				var responsable:TemplateUser = TemplateUser.createByEnum("RESPONSABLE");
 				
 				
 				dataProvider = new ArrayCollection();			
@@ -35,7 +31,7 @@
 				dataProvider.addItem(responsable);
 				
 				for each (var user:User in users) {
-					dataProvider.addItem(user);
+					dataProvider.addItem(TemplateUser.createByUser(user));
 				}
 				
 				selectedItem = currentUser;
@@ -46,7 +42,7 @@
 			}
 			
 			public function showI18NLabel(item:Object):String {
-				return UserAction(item).name;
+				return TemplateUser(item).getName(resourceManager);
 			}
 			
 			override public function set selectedItem( param:Object ):void

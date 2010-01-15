@@ -5,19 +5,19 @@
 		<![CDATA[
 			import org.papyrus.model.action.Action;
 			import org.papyrus.model.action.NotifyUserAction;
-			import org.papyrus.model.action.UserAction;
+			import org.papyrus.model.businessRule.TemplateUser;
 
 			public override function get action():Action {
 				var action:NotifyUserAction = new NotifyUserAction();
 				action.body = txtBody.text;
 				action.subject = txtSubject.text;
-				action.userAction = UserAction(cbUser.selectedItem);
+				action.templateUser = TemplateUser(cbUser.selectedItem);
 				return action;
 			}
 			
 			public override function set action(action:Action):void {
 				var notifyUserAction:NotifyUserAction = NotifyUserAction(action); 
-				cbUser.selectedItem = notifyUserAction.userAction;
+				cbUser.selectedItem = notifyUserAction.templateUser;
 				txtSubject.text = notifyUserAction.subject;
 				txtBody.text = notifyUserAction.body;
 			}

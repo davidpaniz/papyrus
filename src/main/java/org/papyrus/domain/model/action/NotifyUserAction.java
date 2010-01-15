@@ -9,7 +9,7 @@ import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.MailNotification;
 import org.papyrus.domain.model.Task;
 import org.papyrus.domain.model.User;
-import org.papyrus.domain.model.businessRules.TemplateUser;
+import org.papyrus.domain.model.businessRule.TemplateUser;
 import org.papyrus.domain.service.MailService;
 
 @Entity
