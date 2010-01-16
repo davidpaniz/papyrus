@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpecificActionSubForm 
-	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*" xmlns:businessRule="org.papyrus.components.combobox.businessRule.*">
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*" xmlns:businessRule="org.papyrus.components.combobox.businessRule.*"
+	creationPolicy="all"
+	>
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.action.Action;
@@ -17,9 +19,9 @@
 			
 			public override function set action(action:Action):void {
 				var notifyUserAction:NotifyUserAction = NotifyUserAction(action); 
-				cbUser.selectedItem = notifyUserAction.templateUser;
 				txtSubject.text = notifyUserAction.subject;
 				txtBody.text = notifyUserAction.body;
+				cbUser.selectedItem = notifyUserAction.templateUser;
 			}
 		]]>
 	</mx:Script>

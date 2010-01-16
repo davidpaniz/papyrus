@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:action="org.papyrus.components.combobox.action.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:action="org.papyrus.components.combobox.action.*" xmlns:action1="org.papyrus.screen.businessRules.action.*">
 	 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -25,11 +25,12 @@
 			public function set action(action:Action):void
 			{
 				this._action = action;
-				cbAction.selectedItem = action;
-//				setTimeout(function ():void {
-					SpecificActionSubForm(subFormContainer.getChildAt(0)).action = action;
-//				}, 500);
-				
+				this.cbAction.selectedItem = _action;
+				setTimeout(updateSubFormAction, 500, _action);
+			}
+			
+			private function updateSubFormAction(action:Action):void {
+				SpecificActionSubForm(subFormContainer.getChildAt(0)).action = action;
 			}
 			
 			private function remove():void
@@ -54,7 +55,7 @@
 			<action:ActionComboBox id="cbAction" change="changeActionType(event)" />
 			<mx:Spacer />
 			<mx:VBox id="subFormContainer">
-				
+				<action1:StatusActionSubForm />
 			</mx:VBox>
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />

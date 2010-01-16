@@ -28,8 +28,8 @@
 				for each(var a:Action in actions)
 				{
 					var actionForm:ActionForm = new ActionForm();
-					actionForm.action = a;
 					container.addChild(actionForm);
+					actionForm.action = a;
 				}
 			}
 			

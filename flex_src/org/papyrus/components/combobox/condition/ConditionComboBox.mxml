@@ -13,12 +13,12 @@
 			import org.papyrus.screen.businessRules.condition.StatusConditionSubForm;
 			
 			protected function init():void {
-				var defaultCondition:Condition = new StatusCondition()
-				
-				dataProvider = new ArrayCollection();			
-				dataProvider.addItem(defaultCondition);
-				
-				selectedItem = defaultCondition;
+				if(dataProvider.length <= 0){
+					var defaultCondition:Condition = new StatusCondition()
+					
+					dataProvider = new ArrayCollection();			
+					dataProvider.addItem(defaultCondition);
+				}
 			}
 			
 			public function getSubForm():SpecificConditionSubForm {
@@ -31,15 +31,15 @@
 			
 			override public function set selectedItem( param:Object ):void
 			{
+				init();
+				
 				super.selectedItem = 1;
 				var count:int = 0;
 				for each( var obj:Object in collection )
 				{
 					if( Condition(obj).getClass() == Condition(param).getClass() )
 					{
-						selectedIndex = count;
-						super.selectedItem = obj;
-						dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
+						setTimeout(updateSelectedItem, 500, obj, count);
 						return;
 					}
 					count++;
@@ -49,6 +49,11 @@
 				super.selectedIndex = 0;
 			}
 			
+			private function updateSelectedItem(obj:Object, count:Number):void {
+				selectedIndex = count;
+				super.selectedItem = obj;
+				dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
+			}			
 		]]>
 	</mx:Script>
 </AutoCompleteCombo>

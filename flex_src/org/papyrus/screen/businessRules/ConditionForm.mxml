@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:condition="org.papyrus.components.combobox.condition.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:condition="org.papyrus.components.combobox.condition.*" xmlns:condition1="org.papyrus.screen.businessRules.condition.*">
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.condition.Condition;
-			import org.papyrus.model.condition.StatusCondition;
 			import org.papyrus.screen.businessRules.condition.SpecificConditionSubForm;
 			[Bindable]
 			private var _condition:Condition;
@@ -22,6 +21,8 @@
 			public function set condition(condition:Condition):void
 			{
 				this._condition = condition;
+				this.cbCondition.selectedItem = _condition;
+				setTimeout(updateSubFormCondition, 500, _condition);
 			}
 			
 			private function remove():void
@@ -33,6 +34,10 @@
 				subFormContainer.removeAllChildren();
 				var subForm:SpecificConditionSubForm = Condition(cbCondition.selectedItem).subForm;
 				subFormContainer.addChild(subForm);
+			}
+			
+			private function updateSubFormCondition(condition:Condition):void {
+				SpecificConditionSubForm(subFormContainer.getChildAt(0)).condition = condition;
 			}
 			
 
@@ -47,15 +52,8 @@
 
 			<mx:Spacer />
 			<mx:VBox id="subFormContainer">
-				
+				<condition1:StatusConditionSubForm />
 			</mx:VBox>
-			
-			<!--mx:Label text="{resourceManager.getString('businessRule', 'expression')}:" />
-			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="200" />
-			<mx:Spacer />
-			<enum:ComparisonOperatorComboBox id="cbComparison" comparisonOperator="{_condition.comparisonOperator}" width="100"/>
-			<mx:Spacer />
-			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="200" /-->
 			<mx:Spacer />
 			<condition:LogicalOperatorComboBox id="cbLogical" logicalOperator="{_condition.logicalOperator}" width="100"/>
 			<mx:Spacer />

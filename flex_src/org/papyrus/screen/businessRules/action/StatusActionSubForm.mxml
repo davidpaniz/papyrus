@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpecificActionSubForm 
 	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*"	xmlns:businessRules="org.papyrus.screen.businessRules.*"
-	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*"
+	creationPolicy="all"
+	>
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.action.Action;

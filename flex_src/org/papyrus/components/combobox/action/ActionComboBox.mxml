@@ -14,13 +14,14 @@
 			import org.papyrus.screen.businessRules.action.StatusActionSubForm;
 			
 			protected function init():void {
-				var defaultAction:Action = new StatusAction()
-				
-				dataProvider = new ArrayCollection();			
-				dataProvider.addItem(defaultAction);
-				dataProvider.addItem(new NotifyUserAction());
-				
-				selectedItem = defaultAction;
+				if(dataProvider.length <= 0){
+					
+					var defaultAction:Action = new StatusAction()
+					
+					dataProvider = new ArrayCollection();			
+					dataProvider.addItem(defaultAction);
+					dataProvider.addItem(new NotifyUserAction());
+				}
 			}
 			
 			public function getSubForm():SpecificActionSubForm {
@@ -33,15 +34,15 @@
 			
 			override public function set selectedItem( param:Object ):void
 			{
+				init();
+				
 				super.selectedItem = 1;
 				var count:int = 0;
 				for each( var obj:Object in collection )
 				{
 					if( Action(obj).getClass() == Action(param).getClass() )
 					{
-						selectedIndex = count;
-						super.selectedItem = obj;
-						dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
+						setTimeout(updateSelectedItem, 500, obj, count);
 						return;
 					}
 					count++;
@@ -49,6 +50,12 @@
 				
 				// It was not found
 				super.selectedIndex = 0;
+			}
+			
+			private function updateSelectedItem(obj:Object, count:Number):void {
+				selectedIndex = count;
+				super.selectedItem = obj;
+				dispatchEvent( new ListEvent( ListEvent.CHANGE ) );
 			}
 			
 		]]>
