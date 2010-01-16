@@ -37,11 +37,11 @@ public class TaskDao implements TaskRepository {
 		template.update(task);
 	}
 
-	public List<Task> tasksOf(Incident conditionComparable) {
+	public List<Task> tasksOf(Incident incident) {
 		Criteria criteria = template.getSessionFactory()
 				.getCurrentSession()
 				.createCriteria(Task.class);
-		criteria.add(Restrictions.eq("detail", conditionComparable));
+		criteria.add(Restrictions.eq("incident", incident));
 		return criteria.list();
 	}
 }

@@ -35,12 +35,17 @@ public class NotifyUserAction extends Action {
 
 	@Override
 	public void execute(Incident incident, MailService mailService, Task task) {
+		MailNotification notification = prepareMail(incident, task);
+		mailService.sendMail(notification);
+	}
+
+	public MailNotification prepareMail(Incident incident, Task task) {
 		MailNotification notification = new MailNotification();
 		notification.setAddress(this.getUser(incident, task)
 				.getEmail());
 		notification.setBody(this.body);
 		notification.setSubject(this.subject);
-		mailService.sendMail(notification);
+		return notification;
 	}
 
 	public User getUser(Incident incident, Task task) {
