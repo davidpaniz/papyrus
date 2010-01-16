@@ -8,7 +8,6 @@ package org.papyrus.model.action
 	public class Action
 	{
 		public var id:Number;
-		
 		public var businessRule:BusinessRule;
 		
 		public function get name():String{
@@ -19,7 +18,7 @@ package org.papyrus.model.action
 			return Action;
 		}
 		
-		public function get subForm():SpecificActionSubForm{
+		public function get subForm():SpecificActionSubForm {
 			return new SpecificActionSubForm();
 		}
 		

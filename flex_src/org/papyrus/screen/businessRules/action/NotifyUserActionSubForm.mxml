@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SpecificActionSubForm 
-	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*" xmlns:action="org.papyrus.components.combobox.action.*">
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.action.*" xmlns:businessRule="org.papyrus.components.combobox.businessRule.*">
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.action.Action;
@@ -23,7 +23,7 @@
 			}
 		]]>
 	</mx:Script>
-	<action:UserActionComboBox id="cbUser" />
+	<businessRule:BusinessRuleUserComboBox id="cbUser" />
 	<mx:TextInput id="txtSubject" />
 	<mx:TextArea id="txtBody" />
 </SpecificActionSubForm>

@@ -2,8 +2,6 @@ package org.papyrus.domain.model.action;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.MailNotification;
@@ -13,7 +11,6 @@ import org.papyrus.domain.model.businessRule.TemplateUser;
 import org.papyrus.domain.service.MailService;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class NotifyUserAction extends Action {
 	@Embedded
 	private TemplateUser templateUser;

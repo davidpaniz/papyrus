@@ -19,5 +19,25 @@
 		
 		<mapping package="org.papyrus.domain.model" />
 		<mapping package="org.papyrus.domain.model.action" />
+		<mapping package="org.papyrus.domain.model.action.Action" />
+		<mapping package="org.papyrus.domain.model.action.NotifyUserAction" />
+		<mapping package="org.papyrus.domain.model.action.StatusAction" />
+		<mapping package="org.papyrus.domain.model.businessRule.TemplateUser" />
+		<mapping package="org.papyrus.domain.model.condition.Condition" />
+		<mapping package="org.papyrus.domain.model.condition.RequesterCondition" />
+		<mapping package="org.papyrus.domain.model.condition.StatusCondition" />
+		<mapping package="org.papyrus.domain.model.Attachment" />
+		<mapping package="org.papyrus.domain.model.BusinessRule" />
+		<mapping package="org.papyrus.domain.model.Category" />
+		<mapping package="org.papyrus.domain.model.Company" />
+		<mapping package="org.papyrus.domain.model.Detail" />
+		<mapping package="org.papyrus.domain.model.Impact" />
+		<mapping package="org.papyrus.domain.model.Incident" />
+		<mapping package="org.papyrus.domain.model.MailNotification" />
+		<mapping package="org.papyrus.domain.model.Priority" />
+		<mapping package="org.papyrus.domain.model.Task" />
+		<mapping package="org.papyrus.domain.model.Urgency" />
+		<mapping package="org.papyrus.domain.model.User" />
+		
 	</session-factory>
 </hibernate-configuration>

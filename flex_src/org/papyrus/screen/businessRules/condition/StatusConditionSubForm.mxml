@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpecificConditionSubForm 
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="org.papyrus.screen.businessRules.condition.*"	xmlns:businessRules="org.papyrus.screen.businessRules.*"
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:condition="org.papyrus.components.combobox.condition.*">
+	 	<mx:Script>
+		<![CDATA[
+			import org.papyrus.model.action.StatusAction;
+			import org.papyrus.model.condition.Condition;
+			import org.papyrus.model.condition.StatusCondition;
+
+			public override function get condition():Condition {
+				var condition:StatusCondition = new StatusCondition();
+				condition.status = String(cbStatus.selectedItem);
+				condition.comparisonOperator = String(cbComparison.selectedItem);
+				return condition;
+			}
+
+			public override function set condition(condition:Condition):void {
+				cbStatus.selectedItem = StatusAction(condition).status;
+			}
+			
+		]]>
+	</mx:Script>
+	<condition:ComparisonOperatorComboBox id="cbComparison" width="100" />
+	
+	<mx:Spacer />
+	<enum:IncidentStatusComboBox id="cbStatus" />
+</SpecificConditionSubForm>

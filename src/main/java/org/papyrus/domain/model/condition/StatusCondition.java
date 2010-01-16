@@ -1,9 +1,12 @@
 package org.papyrus.domain.model.condition;
 
+import javax.persistence.Entity;
+
 import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.IncidentStatus;
 import org.papyrus.domain.model.User;
 
+@Entity
 public class StatusCondition extends Condition {
 	IncidentStatus status;
 

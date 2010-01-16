@@ -30,5 +30,4 @@ public interface UserService {
 	List<Incident> listMyIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
 
 	List<Incident> listIncidentsAssignedToMe(IncidentStatus incidentStatus, Date inicialDate, Date endDate);
-	// List<Incident> listAllIncidents(IncidentStatus incidentStatus, Date inicialDate, Date endDate) throws Exception;
 }

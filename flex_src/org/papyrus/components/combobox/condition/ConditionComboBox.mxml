@@ -7,28 +7,26 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.ListEvent;
 			
-			import org.papyrus.model.action.Action;
-			import org.papyrus.model.action.NotifyUserAction;
-			import org.papyrus.model.action.StatusAction;
-			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
-			import org.papyrus.screen.businessRules.action.StatusActionSubForm;
+			import org.papyrus.model.condition.Condition;
+			import org.papyrus.model.condition.StatusCondition;
+			import org.papyrus.screen.businessRules.condition.SpecificConditionSubForm;
+			import org.papyrus.screen.businessRules.condition.StatusConditionSubForm;
 			
 			protected function init():void {
-				var defaultAction:Action = new StatusAction()
+				var defaultCondition:Condition = new StatusCondition()
 				
 				dataProvider = new ArrayCollection();			
-				dataProvider.addItem(defaultAction);
-				dataProvider.addItem(new NotifyUserAction());
+				dataProvider.addItem(defaultCondition);
 				
-				selectedItem = defaultAction;
+				selectedItem = defaultCondition;
 			}
 			
-			public function getSubForm():SpecificActionSubForm {
-				return new StatusActionSubForm();
+			public function getSubForm():SpecificConditionSubForm {
+				return new StatusConditionSubForm();
 			}
 			
 			public function showI18NLabel(item:Object):String {
-				return resourceManager.getString('businessRule', Action(item).name);
+				return resourceManager.getString('businessRule', Condition(item).name);
 			}
 			
 			override public function set selectedItem( param:Object ):void
@@ -37,7 +35,7 @@
 				var count:int = 0;
 				for each( var obj:Object in collection )
 				{
-					if( Action(obj).getClass() == Action(param).getClass() )
+					if( Condition(obj).getClass() == Condition(param).getClass() )
 					{
 						selectedIndex = count;
 						super.selectedItem = obj;

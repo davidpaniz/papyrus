@@ -1,7 +1,7 @@
 package org.papyrus.model.action
 {
 	import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
-	import org.papyrus.screen.businessRules.action.StatusSubForm;
+	import org.papyrus.screen.businessRules.action.StatusActionSubForm;
 
 	[RemoteClass(alias="org.papyrus.domain.model.action.StatusAction")]
 	[Bindable]
@@ -14,7 +14,7 @@ package org.papyrus.model.action
 		}
 		
 		public override function get subForm():SpecificActionSubForm{
-			return new StatusSubForm();
+			return new StatusActionSubForm();
 		}
 		
 		public override function getClass():Class{

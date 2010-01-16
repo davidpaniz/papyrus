@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:enum="org.papyrus.components.combobox.enum.*">
+	xmlns:enum="org.papyrus.components.combobox.enum.*" xmlns:condition="org.papyrus.components.combobox.condition.*">
 	 	<mx:Script>
 		<![CDATA[
 			import org.papyrus.model.condition.Condition;
+			import org.papyrus.model.condition.StatusCondition;
+			import org.papyrus.screen.businessRules.condition.SpecificConditionSubForm;
 			[Bindable]
 			private var _condition:Condition;
 			
 			public function get condition():Condition
 			{
-				var cond:Condition = new Condition();
-//				cond.expression1 = txtExpression1.text;
-//				cond.expression2 = txtExpression2.text;
-				cond.comparisonOperator = (cbComparison.selectedItem as String);
+				var subForm:SpecificConditionSubForm = SpecificConditionSubForm(subFormContainer.getChildAt(0));
+				var cond:Condition = subForm.condition;
+				
 				cond.logicalOperator = cbLogical.selectedItem as String;
 				
 				return cond;
@@ -28,20 +29,35 @@
 				this.parent.removeChild(this);
 			}
 			
+			private function changeConditionType(event:Event):void {
+				subFormContainer.removeAllChildren();
+				var subForm:SpecificConditionSubForm = Condition(cbCondition.selectedItem).subForm;
+				subFormContainer.addChild(subForm);
+			}
+			
+
+			
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" >
 			<mx:Label text="ID:" width="127" visible="false" includeInLayout="false"></mx:Label>
 			<mx:TextInput id="txtId" text="{_condition.id}" editable="false" enabled="false" visible="false" includeInLayout="false" />
+		
+			<condition:ConditionComboBox id="cbCondition" change="changeConditionType(event)" />
+
+			<mx:Spacer />
+			<mx:VBox id="subFormContainer">
+				
+			</mx:VBox>
 			
-			<mx:Label text="{resourceManager.getString('businessRule', 'expression')}:" />
-			<!--mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="200" /-->
+			<!--mx:Label text="{resourceManager.getString('businessRule', 'expression')}:" />
+			<mx:TextInput id="txtExpression1" text="{_condition.expression1}" width="200" />
 			<mx:Spacer />
 			<enum:ComparisonOperatorComboBox id="cbComparison" comparisonOperator="{_condition.comparisonOperator}" width="100"/>
 			<mx:Spacer />
-			<!--mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="200" /-->
+			<mx:TextInput id="txtExpression2" text="{_condition.expression2}" width="200" /-->
 			<mx:Spacer />
-			<enum:LogicalOperatorComboBox id="cbLogical" logicalOperator="{_condition.logicalOperator}" width="100"/>
+			<condition:LogicalOperatorComboBox id="cbLogical" logicalOperator="{_condition.logicalOperator}" width="100"/>
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>

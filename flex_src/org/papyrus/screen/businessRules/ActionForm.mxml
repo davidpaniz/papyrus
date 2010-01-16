@@ -56,7 +56,6 @@
 			<mx:VBox id="subFormContainer">
 				
 			</mx:VBox>
-			<!--mx:Button label="{resourceManager.getString('businessRule', 'details')}" click="openDetails()" /-->
 			<mx:Spacer />
 			<mx:Button label="{resourceManager.getString('general', 'remove')}" click="remove()" />
 	</mx:HBox>

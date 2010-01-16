@@ -115,6 +115,10 @@ public class BusinessRule {
 	 */
 	public boolean shouldExecute(Incident incident, User loggedUser) {
 		Condition before = null;
+		if (conditions.isEmpty()) {
+			return true;
+		}
+
 		// keep the result of execution of the first condition
 		boolean result = conditions.get(0)
 				.test(incident, loggedUser);

@@ -10,7 +10,7 @@
 			import org.papyrus.model.User;
 			import org.papyrus.model.businessRule.TemplateUser;
 			import org.papyrus.screen.businessRules.action.SpecificActionSubForm;
-			import org.papyrus.screen.businessRules.action.StatusSubForm;
+			import org.papyrus.screen.businessRules.action.StatusActionSubForm;
 			import org.papyrus.services.UserService;
 			
 			protected function init():void {
@@ -38,7 +38,7 @@
 			}
 			
 			public function getSubForm():SpecificActionSubForm {
-				return new StatusSubForm();
+				return new StatusActionSubForm();
 			}
 			
 			public function showI18NLabel(item:Object):String {
