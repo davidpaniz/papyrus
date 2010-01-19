@@ -56,13 +56,11 @@ public class IncidentDao implements IncidentRepository {
 		List<Incident> list = template.findByCriteria(criteria);
 
 		for (Incident incident : list) {
-			// incident.setWorkOrders(null);
 			incident.setAttachments(null);
 			incident.setDetails(null);
 		}
 
 		return list;
-
 	}
 
 	public Incident delete(Incident incident) {

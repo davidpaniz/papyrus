@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.papyrus.domain.service;
 
 import java.util.Date;

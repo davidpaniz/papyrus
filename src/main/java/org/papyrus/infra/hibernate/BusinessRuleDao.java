@@ -1,12 +1,10 @@
 package org.papyrus.infra.hibernate;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.Incident;
 import org.papyrus.domain.model.action.Action;
 import org.papyrus.domain.model.condition.Condition;
 import org.papyrus.domain.repository.BusinessRuleRepository;
@@ -39,7 +37,6 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 			businessRule.setActions(null);
 		}
 		return list;
-
 	}
 
 	private Session getSession() {
@@ -67,17 +64,8 @@ public class BusinessRuleDao implements BusinessRuleRepository {
 	private List<BusinessRule> findRule(String field) {
 		return getSession().createCriteria(BusinessRule.class)
 				.add(Restrictions.eq("enabled", true))
-				// .add(Restrictions.eq("type", type))
 				.add(Restrictions.eq(field, true))
 				.list();
-	}
-
-	public <T> T load(Class<T> type, Serializable id) {
-		return (T) template.get(type, id);
-	}
-
-	public void unlock(Incident conditionComparable) {
-		template.evict(conditionComparable);
 	}
 
 	public BusinessRule load(Long id) {

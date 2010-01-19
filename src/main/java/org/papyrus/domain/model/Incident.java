@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 import org.joda.time.DateTime;
 
 /**
- * Entity that represents an Impact
+ * Entity that represents an Incident
  * 
  * @author davidpaniz
  */
@@ -63,8 +63,6 @@ public class Incident {
 
 	@ManyToOne
 	private Category category;
-
-	private boolean template = false;
 
 	public IncidentStatus getStatus() {
 		return status;
@@ -114,22 +112,6 @@ public class Incident {
 		return id;
 	}
 
-	public void activeTemplate() {
-		this.template = false;
-	}
-
-	public void asTemplate() {
-		this.template = true;
-	}
-
-	public boolean isTemplate() {
-		return template;
-	}
-
-	public void setTemplate(boolean template) {
-		this.template = template;
-	}
-
 	public void setDetails(List<Detail> details) {
 		this.details = details;
 	}
@@ -162,20 +144,6 @@ public class Incident {
 		this.priority = priority;
 	}
 
-	public void calculateDueDate() {
-		this.dueDate = this.priority == null ? null : new DateTime(this.openedDate).plusSeconds(
-				this.priority.getDuration())
-				.toDate();
-
-	}
-
-	public void fillIncidentDataOnCreate() {
-		this.setOpenedDate(new Date());
-		this.setUpdatedAt(new Date());
-		this.setPriority(this.requester.getPriority());
-		this.calculateDueDate();
-	}
-
 	public User getRequester() {
 		return requester;
 	}
@@ -198,5 +166,19 @@ public class Incident {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public void calculateDueDate() {
+		this.dueDate = this.priority == null ? null : new DateTime(this.openedDate).plusSeconds(
+				this.priority.getDuration())
+				.toDate();
+
+	}
+
+	public void fillIncidentDataOnCreate() {
+		this.setOpenedDate(new Date());
+		this.setUpdatedAt(new Date());
+		this.setPriority(this.requester.getPriority());
+		this.calculateDueDate();
 	}
 }

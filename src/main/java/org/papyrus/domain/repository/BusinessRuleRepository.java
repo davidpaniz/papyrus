@@ -1,10 +1,8 @@
 package org.papyrus.domain.repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.papyrus.domain.model.BusinessRule;
-import org.papyrus.domain.model.Incident;
 
 /**
  * @author David Paniz
@@ -34,10 +32,6 @@ public interface BusinessRuleRepository {
 	List<BusinessRule> findUpdateRules();
 
 	List<BusinessRule> findDeleteRules();
-
-	<T> T load(Class<T> type, Serializable id);
-
-	void unlock(Incident conditionComparable);
 
 	BusinessRule load(Long id);
 

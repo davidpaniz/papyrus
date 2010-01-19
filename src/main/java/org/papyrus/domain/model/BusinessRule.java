@@ -115,6 +115,7 @@ public class BusinessRule {
 	 */
 	public boolean shouldExecute(Incident incident, User loggedUser) {
 		Condition before = null;
+		// if there is no conditions it should execute
 		if (conditions.isEmpty()) {
 			return true;
 		}

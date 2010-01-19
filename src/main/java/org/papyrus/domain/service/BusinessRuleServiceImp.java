@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.papyrus.domain.service;
 
 import java.util.Calendar;
@@ -29,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "businessRuleService")
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class BusinessRuleServiceImp implements BusinessRuleService {
-	// TODO change to incidentRepository
 	private final BusinessRuleRepository repository;
 	private final ConditionRepository conditionRepository;
 	private final ActionRepository actionRepository;
@@ -52,14 +48,14 @@ public class BusinessRuleServiceImp implements BusinessRuleService {
 
 	}
 
-	public void executeUpdateCondition(Incident conditionComparable) {
+	public void executeUpdateCondition(Incident incident) {
 		List<BusinessRule> rules = repository.findUpdateRules();
-		execute(conditionComparable, rules);
+		execute(incident, rules);
 	}
 
-	public void executeDeleteCondition(Incident conditionComparable) {
+	public void executeDeleteCondition(Incident incident) {
 		List<BusinessRule> rules = repository.findDeleteRules();
-		execute(conditionComparable, rules);
+		execute(incident, rules);
 	}
 
 	private void execute(Incident incident, List<BusinessRule> rules) {
